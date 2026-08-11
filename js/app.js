@@ -316,60 +316,62 @@ function initS3() {
 }
 
 function initS4() {
-    const container = document.getElementById('s4-game');
-    container.innerHTML = '';
-    let answered = 0;
-    s4Data.forEach((item, index) => {
-        const div = document.createElement('div');
-        div.className = 'flex flex-col md:flex-row md:items-center justify-between gap-4 p-5 rounded-2xl bg-[#36291e]/80 backdrop-blur-md border border-[#d5a85b]/20 transition-all hover:border-[#d5a85b]/40 shadow-sm fade-in';
-        div.style.animationDelay = `${index * 100}ms`;
-        div.innerHTML = `
-            <div class="flex items-start gap-3">
-                <span class="text-sm font-medium text-slate-200 leading-relaxed">${item.statement}</span>
-            </div>
-            <div class="flex gap-3 shrink-0 s4-actions">
-                <button class="flex items-center justify-center gap-1.5 px-5 py-2.5 rounded-xl bg-emerald-950/40 text-emerald-400 border border-emerald-900/50 hover:bg-emerald-900/60 hover:border-emerald-500/50 transition-all font-semibold text-sm w-28 shadow-sm" data-val="true">
-                    Evet
-                </button>
-                <button class="flex items-center justify-center gap-1.5 px-5 py-2.5 rounded-xl bg-red-950/40 text-red-400 border border-red-900/50 hover:bg-red-900/60 hover:border-red-500/50 transition-all font-semibold text-sm w-28 shadow-sm" data-val="false">
-                    Hayır
-                </button>
-            </div>
-            <div class="s4-feedback hidden items-center justify-center px-4 py-2 rounded-xl font-bold text-sm w-full md:w-auto text-center shrink-0"></div>
-        `;
-        div.addEventListener('click', e => {
-            const btn = e.target.closest('[data-val]');
-            if (!btn || div.dataset.done) return;
-            div.dataset.done = 'true';
+    const layer = document.getElementById('s4-hotspots-layer');
+    const counter = document.getElementById('s4-counter');
+    const modal = document.getElementById('s4-info-modal');
+    const modalEmoji = document.getElementById('s4-modal-emoji');
+    const modalTitle = document.getElementById('s4-modal-title');
+    const modalDetail = document.getElementById('s4-modal-detail');
+    const modalClose = document.getElementById('s4-modal-close');
+    
+    if (!layer) return;
+    layer.innerHTML = '';
+    let discoveredCount = 0;
+    counter.textContent = `0 / ${s4Data.length}`;
+    modal.classList.add('hidden');
+
+    s4Data.forEach((item) => {
+        const hotspot = document.createElement('button');
+        hotspot.type = 'button';
+        hotspot.className = 'hotspot-target absolute w-10 h-10 rounded-full border-2 border-amber-400 bg-amber-950/90 text-amber-200 font-bold text-base flex items-center justify-center shadow-xl focus:outline-none focus:ring-2 focus:ring-amber-300';
+        hotspot.style.top = `${item.top}%`;
+        hotspot.style.left = `${item.left}%`;
+        hotspot.setAttribute('title', item.hint);
+        hotspot.innerHTML = `<span>${item.emoji}</span>`;
+
+        hotspot.addEventListener('click', (e) => {
+            e.stopPropagation();
             
-            const actionsDiv = div.querySelector('.s4-actions');
-            actionsDiv.classList.add('hidden');
-            
-            const feedbackDiv = div.querySelector('.s4-feedback');
-            feedbackDiv.classList.remove('hidden');
-            feedbackDiv.classList.add('flex');
-            
-            const isCorrect = (btn.dataset.val === 'true') === item.correct;
-            
-            if (isCorrect) {
-                div.classList.add('border-emerald-500/40', 'bg-emerald-950/20');
-                div.classList.remove('border-[#d5a85b]/20', 'bg-[#36291e]/80');
-                feedbackDiv.innerHTML = `<i data-lucide="check-circle-2" class="w-5 h-5 mr-1.5"></i> Dönemle Uyumlu`;
-                feedbackDiv.className += ' text-emerald-400 bg-emerald-950/50 border border-emerald-900/50';
-            } else {
-                div.classList.add('border-amber-500/40', 'bg-amber-950/20');
-                div.classList.remove('border-[#d5a85b]/20', 'bg-[#36291e]/80');
-                feedbackDiv.innerHTML = `<i data-lucide="info" class="w-5 h-5 mr-1.5"></i> Gözden Geçirilmeli`;
-                feedbackDiv.className += ' text-amber-400 bg-amber-950/50 border border-amber-900/50';
+            // Show modal info
+            modalEmoji.textContent = item.emoji;
+            modalTitle.textContent = `${item.name} (${item.title})`;
+            modalDetail.textContent = item.detail;
+            modal.classList.remove('hidden');
+            modal.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+            if (!hotspot.classList.contains('discovered')) {
+                hotspot.classList.add('discovered');
+                hotspot.innerHTML = `<span class="text-emerald-300 text-sm font-black">✓</span>`;
+                discoveredCount++;
+                counter.textContent = `${discoveredCount} / ${s4Data.length}`;
+
+                if (discoveredCount === s4Data.length) {
+                    setTimeout(() => {
+                        modalEmoji.textContent = "🎉";
+                        modalTitle.textContent = "Tüm Objeler Keşfedildi!";
+                        modalDetail.textContent = "Tebrikler! Konargöçer Türk çadırındaki tüm dönemsel yaşam koşullarını ve unsurlarını başarıyla öğrendiniz. Sonraki aşamaya geçiliyor...";
+                        setTimeout(showNext, 2500);
+                    }, 800);
+                }
             }
-            
-            lucide.createIcons({ root: div });
-            answered++;
-            if (answered === s4Data.length) setTimeout(showNext, 600);
         });
-        container.appendChild(div);
+
+        layer.appendChild(hotspot);
     });
-    lucide.createIcons({ root: container });
+
+    modalClose.onclick = () => {
+        modal.classList.add('hidden');
+    };
 }
 
 function initS5() {

@@ -50,12 +50,66 @@ const s3Data = [
 ];
 
 const s4Data = [
-    { statement: "Türklerde toplumun en küçük birimi Oguş (aile) birleşerek sırasıyla Urug (sülale), Boy, Budun ve İl'i (devlet) oluşturur.", correct: true },
-    { statement: "Konargöçer Türkler yazın aşırı sıcaklardan korunmak için serin yaylaklara, kışın ise dondurucu soğuklardan korunmak için daha sıcak kışlaklara göç etmişlerdir.", correct: true },
-    { statement: "Türkler işledikleri demir kılıç ve eşyaları satarak karşılığında komşularından pirinç, hububat ve ipek kumaş almışlardır.", correct: true },
-    { statement: "Konargöçer Türklerde toplumsal sınıflar belirgindir ve alt sınıfların asker olması yasaktır.", correct: false },
-    { statement: "Türk Kağanları halkın refahını sağlamayı, açları doyurup çıplakları giydirmeyi temel görev saymışlardır.", correct: true },
-    { statement: "Romalılar keten gömlekleri ilk kez Avrupa Hunlarında görmüşlerdir.", correct: true }
+    {
+        id: "ocak",
+        name: "Merkez Ateşi (Korluk)",
+        emoji: "🔥",
+        hint: "Çadırın ortasında yanan ocak ve kışlak ısınma yöntemi",
+        top: 58,
+        left: 48,
+        title: "Yaylak, Kışlak ve Isınma",
+        detail: "Konargöçer Türkler dondurucu kış soğuklarında korunaklı kışlaklara çekilir, çadırın ortasındaki ocakta (korluk) ısınırlardı. Yazın ise hayvanlarını otlatmak için yüksek ve serin yaylaklara göç ederlerdi."
+    },
+    {
+        id: "silah",
+        name: "Demir Kılıç & Zırhlar",
+        emoji: "⚔️",
+        hint: "Demircilik zanaatı ve Ordu-Millet yapısı",
+        top: 48,
+        left: 20,
+        title: "Demircilik ve Ordu-Millet",
+        detail: "Türkler işledikleri demir kılıç ve eşyaları satarak komşu devletlerden pirinç ve ipek kumaş almışlardır. Ayrıca bozkır koşulları nedeniyle eli silah tutan herkes (kadın-erkek) asker sayılmıştır."
+    },
+    {
+        id: "sandik",
+        name: "Ahşap Sandık & İpekler",
+        emoji: "📦",
+        hint: "Ticaret malları ve sosyal refah",
+        top: 66,
+        left: 82,
+        title: "Ticaret ve Sosyal Dayanışma",
+        detail: "Türkler ürettikleri et, deri, keçe ve demir eşyalar karşılığında ipek kumaşlar ve hububat temin ederlerdi. Türk Kağanları halkı giydirmeyi ve doyurmayı temel sorumluluk sayarlardı."
+    },
+    {
+        id: "besin",
+        name: "Kımız & Saklama Kabı",
+        emoji: "🥩",
+        hint: "Temel besin maddeleri ve pastırma üretimi",
+        top: 74,
+        left: 36,
+        title: "Beslenme ve Gıda Saklama",
+        detail: "Savaş ve seferlerde etin bozulmaması için et at eğeri altında tuzlanıp sıkıştırılarak Pastırma yapılırdı. Kısrak sütünden Kımız ve besleyici Tutmaç çorbası temel besinler arasındaydı."
+    },
+    {
+        id: "giyim",
+        name: "Giyim, Börk & Çizmeler",
+        emoji: "👘",
+        hint: "Geleneksel Türk kıyafetleri ve çizmeler",
+        top: 38,
+        left: 70,
+        title: "Giyim Kültürü ve Dünya Etkisi",
+        detail: "Türklerin giydiği Ton (elbise), Börk (başlık) ve rahat hareket sağlayan deri çizmeler at binmeyi kolaylaştırırdı. Romalılar keten gömlekleri ilk kez Avrupa Hunlarında görmüş ve etkilenmişlerdir."
+    },
+    {
+        id: "cadir",
+        name: "Keçe Çadır & Aile Düzeni",
+        emoji: "🏕️",
+        hint: "Çadır mimarisi ve toplumsal örgütlenme",
+        top: 25,
+        left: 33,
+        title: "Toplumsal Yapı (Oguş ve Urug)",
+        detail: "Toplumun en küçük birimi Oguş (aile) birleşerek Urug (sülale), Boy, Budun ve İl'i (devlet) oluştururdu. Çadır içindeki tüm yaşam yazısız hukuk kuralı olan Töre'ye göre düzenlenirdi."
+    }
 ];
 
 const s5Data = [
