@@ -15,27 +15,16 @@
     
     <!-- Stage Navigation Bar (Responsive Grid, No Scrollbar) -->
     <div id="stage-nav" class="mb-6 no-scrollbar">
-      <div class="grid grid-cols-4 sm:grid-cols-8 gap-1.5 w-full">
-        <button type="button" class="nav-tab-btn px-1.5 py-2.5 rounded-xl text-[11px] font-bold transition-all border border-slate-700 bg-slate-800/80 text-slate-300 hover:border-amber-500/50 text-center truncate" data-nav-stage="0">0. Giriş</button>
+      <div class="grid grid-cols-3 sm:grid-cols-6 gap-1.5 w-full">
         <button type="button" class="nav-tab-btn px-1.5 py-2.5 rounded-xl text-[11px] font-bold transition-all border border-slate-700 bg-slate-800/80 text-slate-300 hover:border-amber-500/50 text-center truncate" data-nav-stage="1">1. Kaynaklar</button>
         <button type="button" class="nav-tab-btn px-1.5 py-2.5 rounded-xl text-[11px] font-bold transition-all border border-slate-700 bg-slate-800/80 text-slate-300 hover:border-amber-500/50 text-center truncate" data-nav-stage="2">2. Özellikler</button>
         <button type="button" class="nav-tab-btn px-1.5 py-2.5 rounded-xl text-[11px] font-bold transition-all border border-slate-700 bg-slate-800/80 text-slate-300 hover:border-amber-500/50 text-center truncate" data-nav-stage="3">3. Neden-Sonuç</button>
         <button type="button" class="nav-tab-btn px-1.5 py-2.5 rounded-xl text-[11px] font-bold transition-all border border-slate-700 bg-slate-800/80 text-slate-300 hover:border-amber-500/50 text-center truncate" data-nav-stage="4">4. Dönem</button>
         <button type="button" class="nav-tab-btn px-1.5 py-2.5 rounded-xl text-[11px] font-bold transition-all border border-slate-700 bg-slate-800/80 text-slate-300 hover:border-amber-500/50 text-center truncate" data-nav-stage="5">5. Karşılaştırma</button>
         <button type="button" class="nav-tab-btn px-1.5 py-2.5 rounded-xl text-[11px] font-bold transition-all border border-slate-700 bg-slate-800/80 text-slate-300 hover:border-amber-500/50 text-center truncate" data-nav-stage="6">6. Değerler</button>
-        <button type="button" class="nav-tab-btn px-1.5 py-2.5 rounded-xl text-[11px] font-bold transition-all border border-slate-700 bg-slate-800/80 text-slate-300 hover:border-amber-500/50 text-center truncate" data-nav-stage="final">Tamamlama</button>
       </div>
     </div>
 
-    <!-- Progress Bar -->
-    <div id="progress-container" class="hidden mb-6">
-      <div class="flex items-center justify-between mb-2">
-        <span id="stage-label" class="text-xs font-semibold uppercase tracking-widest text-amber-400">Aşama 1/6</span>
-      </div>
-      <div class="w-full h-1.5 bg-slate-700 rounded-full overflow-hidden">
-        <div id="progress-bar" class="progress-fill h-full bg-gradient-to-r from-[#a76532] to-[#d5a85b] rounded-full" style="width:0%"></div>
-      </div>
-    </div>
 
     <!-- Stage 0: Welcome -->
     <div id="stage-0" class="stage active fade-in py-2">
@@ -68,7 +57,7 @@
         <h3 class="text-xs uppercase tracking-widest font-extrabold text-slate-300 mb-4 flex items-center gap-2">
           <span>🗺️</span> Etkinlik Aşamaları Rehberi
         </h3>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
           <div class="p-3 rounded-xl bg-slate-900/40 border border-slate-700/50 flex items-start gap-2.5">
             <span class="w-6 h-6 rounded-lg bg-amber-500/20 text-amber-300 font-bold flex items-center justify-center shrink-0">1</span>
             <div>
@@ -226,7 +215,7 @@
           <span>✍️</span> Kişisel Bakış Açınız & Yorumunuz
         </label>
         <p class="text-xs text-slate-300 mb-3 leading-relaxed">
-          Türklerde konargöçer yaşam tarzının tarihi ve kültürel önemi hakkındaki kendi düşüncenizi 1-2 cümleyle ifade edin:
+          Türklerde konargöçer yaşam tarzının tarihi ve kültürel önemi hakkındaki düşüncenizi ifade edin:
         </p>
         <textarea id="user-opinion" rows="3" class="w-full p-3.5 rounded-xl bg-slate-900/90 border border-slate-700 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-amber-400 leading-relaxed" placeholder="Örn: Konargöçer yaşam Türklerin bağımsızlık tutkusunu, dayanışma ruhunu ve doğayla uyum içinde yaşama becerisini biçimlendirmiştir..."></textarea>
       </div>

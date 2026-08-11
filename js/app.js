@@ -1,18 +1,5 @@
 lucide.createIcons();
 
-function updateProgress() {
-    const isNumericStage = typeof state.stage === 'number' && state.stage > 0;
-    const currentNum = isNumericStage ? state.stage : (state.stage === 'final' ? state.maxStage : 0);
-    const pct = (currentNum / state.maxStage) * 100;
-    document.getElementById('progress-bar').style.width = pct + '%';
-    
-    if (state.stage === 'final') {
-        document.getElementById('stage-label').textContent = 'Tamamlama Özeti';
-    } else {
-        document.getElementById('stage-label').textContent = `Aşama ${state.stage}/${state.maxStage}`;
-    }
-}
-
 function updateNavTabs() {
     document.querySelectorAll('.nav-tab-btn').forEach(btn => {
         const target = btn.dataset.navStage;
@@ -35,17 +22,10 @@ function showStage(n) {
 
     updateNavTabs();
 
-    if (stageVal === 0) {
-        document.getElementById('progress-container').classList.add('hidden');
+    if (stageVal === 0 || stageVal === 'final') {
         document.getElementById('next-container').classList.add('hidden');
-    } else if (stageVal === 'final') {
-        document.getElementById('progress-container').classList.remove('hidden');
-        document.getElementById('next-container').classList.add('hidden');
-        updateProgress();
     } else {
-        document.getElementById('progress-container').classList.remove('hidden');
         document.getElementById('next-container').classList.remove('hidden');
-        updateProgress();
     }
 }
 
