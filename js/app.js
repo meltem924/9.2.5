@@ -611,3 +611,33 @@ if (closeBtn) {
         `;
     });
 }
+
+// Fullscreen Toggle Logic
+const fsBtn = document.getElementById('fullscreen-btn');
+if (fsBtn) {
+    fsBtn.addEventListener('click', () => {
+        if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+            if (document.documentElement.requestFullscreen) {
+                document.documentElement.requestFullscreen().catch(err => console.log(err));
+            } else if (document.documentElement.webkitRequestFullscreen) {
+                document.documentElement.webkitRequestFullscreen();
+            }
+        } else {
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            } else if (document.webkitExitFullscreen) {
+                document.webkitExitFullscreen();
+            }
+        }
+    });
+
+    const updateFsBtnState = () => {
+        const isFs = !!(document.fullscreenElement || document.webkitFullscreenElement);
+        fsBtn.setAttribute('title', isFs ? 'Tam Ekrandan Çık' : 'Tam Ekran');
+        const iconSpan = fsBtn.querySelector('.fs-icon');
+        if (iconSpan) iconSpan.textContent = isFs ? '✕' : '⛶';
+    };
+
+    document.addEventListener('fullscreenchange', updateFsBtnState);
+    document.addEventListener('webkitfullscreenchange', updateFsBtnState);
+}
