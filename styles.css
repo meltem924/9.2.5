@@ -115,6 +115,15 @@ h1, h2, .heading-font {
     box-shadow: 0 0 10px rgba(213, 168, 91, 0.2);
 }
 
+/* Hide scrollbars for Stage Nav */
+#stage-nav, .no-scrollbar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+#stage-nav::-webkit-scrollbar, .no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
 /* Stage 5 - Frayer Model Diagram Styles */
 .frayer-grid {
     display: grid;

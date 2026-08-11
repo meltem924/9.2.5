@@ -69,9 +69,12 @@ function initStageContent(n) {
 function initS1() {
     let answered = 0;
     const name = document.getElementById('s1-source-name');
-    const counter = document.getElementById('s1-counter');
     const primary = document.getElementById('s1-primary-btn');
     const secondary = document.getElementById('s1-secondary-btn');
+    const feedbackContainer = document.getElementById('s1-feedback-container');
+    const feedbackEl = document.getElementById('s1-feedback');
+    const nextBtn = document.getElementById('s1-next-btn');
+    const nextBtnText = document.getElementById('s1-next-btn-text');
     
     function showSource() {
         const item = s1Data[answered];
@@ -79,28 +82,85 @@ function initS1() {
             img.classList.toggle('hidden', img.dataset.templateId !== item.image)
         );
         name.textContent = item.text;
-        counter.textContent = `Kaynak ${answered + 1} / ${s1Data.length}`;
+        
         primary.disabled = false; 
         secondary.disabled = false;
-        primary.classList.remove('correct', 'incorrect'); 
-        secondary.classList.remove('correct', 'incorrect');
+        
+        primary.style.background = 'rgb(6, 78, 59)';
+        primary.style.borderColor = 'rgb(4, 120, 87)';
+        primary.style.color = 'rgb(110, 231, 183)';
+        primary.style.boxShadow = 'none';
+
+        secondary.style.background = 'rgb(30, 58, 95)';
+        secondary.style.borderColor = 'rgb(29, 78, 216)';
+        secondary.style.color = 'rgb(147, 197, 253)';
+        secondary.style.boxShadow = 'none';
+
+        if (feedbackContainer) feedbackContainer.classList.add('hidden');
     }
     
     function choose(choice) {
         if (answered >= s1Data.length || primary.disabled) return;
         const item = s1Data[answered];
-        const button = choice === 'primary' ? primary : secondary;
-        button.classList.add(choice === item.answer ? 'correct' : 'incorrect');
-        if (choice !== item.answer) {
-            (item.answer === 'primary' ? primary : secondary).classList.add('correct');
-        }
+        const isCorrect = choice === item.answer;
+        const clickedBtn = choice === 'primary' ? primary : secondary;
+        const correctBtn = item.answer === 'primary' ? primary : secondary;
+
         primary.disabled = true; 
         secondary.disabled = true;
-        answered++;
-        if (answered === s1Data.length) setTimeout(showNext, 700);
-        else setTimeout(showSource, 700);
+
+        if (feedbackContainer) feedbackContainer.classList.remove('hidden');
+
+        if (isCorrect) {
+            clickedBtn.style.background = '#059669';
+            clickedBtn.style.borderColor = '#34d399';
+            clickedBtn.style.color = '#ffffff';
+            clickedBtn.style.boxShadow = '0 0 16px rgba(16, 185, 129, 0.7)';
+
+            const label = item.answer === 'primary' ? 'Birinci El' : 'İkinci El';
+            if (feedbackEl) {
+                feedbackEl.innerHTML = `
+                    <div class="text-sm font-extrabold mb-1">💡 İnceleme Notu</div>
+                    <div class="font-normal opacity-95">${item.explanation || `"${item.text}" ${label} kaynak örneğidir.`}</div>
+                `;
+                feedbackEl.className = 'text-xs font-bold p-3.5 rounded-xl text-left leading-relaxed bg-emerald-950/90 border border-emerald-500/60 text-emerald-200 shadow-xl fade-in';
+            }
+        } else {
+            clickedBtn.style.background = '#d97706';
+            clickedBtn.style.borderColor = '#fbbf24';
+            clickedBtn.style.color = '#ffffff';
+            clickedBtn.style.boxShadow = '0 0 16px rgba(217, 119, 6, 0.7)';
+
+            correctBtn.style.background = '#059669';
+            correctBtn.style.borderColor = '#34d399';
+            correctBtn.style.color = '#ffffff';
+
+            const correctLabel = item.answer === 'primary' ? 'Birinci El' : 'İkinci El';
+            if (feedbackEl) {
+                feedbackEl.innerHTML = `
+                    <div class="text-sm font-extrabold mb-1">💡 Değerlendirme & Bilgi Notu</div>
+                    <div class="font-normal opacity-95">${item.explanation || `"${item.text}" aslında ${correctLabel} kaynak örneğidir.`}</div>
+                `;
+                feedbackEl.className = 'text-xs font-bold p-3.5 rounded-xl text-left leading-relaxed bg-amber-950/90 border border-amber-500/60 text-amber-200 shadow-xl fade-in';
+            }
+        }
+
+        if (nextBtnText) {
+            nextBtnText.textContent = (answered + 1 >= s1Data.length) ? 'Sonraki Aşamaya Geç' : 'Sonraki Kaynağa Geç';
+        }
     }
     
+    if (nextBtn) {
+        nextBtn.onclick = () => {
+            answered++;
+            if (answered >= s1Data.length) {
+                showNext();
+            } else {
+                showSource();
+            }
+        };
+    }
+
     primary.onclick = () => choose('primary');
     secondary.onclick = () => choose('secondary');
     showSource();
@@ -281,13 +341,13 @@ function initS4() {
             if (isCorrect) {
                 div.classList.add('border-emerald-500/40', 'bg-emerald-950/20');
                 div.classList.remove('border-[#d5a85b]/20', 'bg-[#36291e]/80');
-                feedbackDiv.innerHTML = `<i data-lucide="check-circle-2" class="w-5 h-5 mr-1.5"></i> Doğru`;
+                feedbackDiv.innerHTML = `<i data-lucide="check-circle-2" class="w-5 h-5 mr-1.5"></i> Dönemle Uyumlu`;
                 feedbackDiv.className += ' text-emerald-400 bg-emerald-950/50 border border-emerald-900/50';
             } else {
-                div.classList.add('border-red-500/40', 'bg-red-950/20');
+                div.classList.add('border-amber-500/40', 'bg-amber-950/20');
                 div.classList.remove('border-[#d5a85b]/20', 'bg-[#36291e]/80');
-                feedbackDiv.innerHTML = `<i data-lucide="x-circle" class="w-5 h-5 mr-1.5"></i> Yanlış`;
-                feedbackDiv.className += ' text-red-400 bg-red-950/50 border border-red-900/50';
+                feedbackDiv.innerHTML = `<i data-lucide="info" class="w-5 h-5 mr-1.5"></i> Gözden Geçirilmeli`;
+                feedbackDiv.className += ' text-amber-400 bg-amber-950/50 border border-amber-900/50';
             }
             
             lucide.createIcons({ root: div });
@@ -308,8 +368,7 @@ function initS5() {
     container.innerHTML = `
         <!-- Active Question / Draggable Card Panel -->
         <div id="frayer-active-panel" class="card-surface p-5 rounded-2xl border border-amber-500/40 shadow-xl mb-6 fade-in">
-            <div class="flex items-center justify-between gap-2 mb-2">
-                <span class="text-xs uppercase tracking-widest font-bold text-amber-400">Sürükle & Bırak</span>
+            <div class="flex items-center justify-end gap-2 mb-2">
                 <span id="frayer-step-counter" class="text-xs font-semibold text-slate-400">1 / ${s5Data.length}</span>
             </div>
             
@@ -330,15 +389,13 @@ function initS5() {
 
         <!-- 2x2 Frayer Model Grid with Drop Zones -->
         <div class="frayer-grid">
-            <!-- Quadrant 1: Tanım & Özellikler (Static) -->
-            <div class="frayer-quadrant border-amber-500/30">
-                <div class="frayer-quadrant-header text-amber-400">
+            <!-- Quadrant 1: Tanım & Özellikler (Drop Zone) -->
+            <div class="frayer-quadrant frayer-drop-zone border-amber-500/30" data-drop-cat="definition">
+                <div class="frayer-quadrant-header text-amber-400 pointer-events-none">
                     <i data-lucide="book-open" class="w-4 h-4"></i>
-                    <span>Tanım & Özellikler</span>
+                    <span>📖 Tanım & Özellikler</span>
                 </div>
-                <p class="text-xs text-slate-300 leading-relaxed italic">
-                    Bozkır iklimine uyumlu, hayvancılığa ve mevsimsel göçlere dayalı, töre ve dayanışma odaklı yaşam biçimi.
-                </p>
+                <div id="frayer-definition-list" class="space-y-2 flex-1 pointer-events-none"></div>
             </div>
 
             <!-- Quadrant 2: Geçmişe Ait (Drop Zone) -->
@@ -383,8 +440,7 @@ function initS5() {
             activePanelEl.innerHTML = `
                 <div class="text-center py-3">
                     <span class="text-2xl mb-1 block">🎉</span>
-                    <h3 class="font-bold text-emerald-400 text-sm mb-1">Diyagram Tamamlandı!</h3>
-                    <p class="text-xs text-slate-300">Tüm ögeler sürüklenerek doğru kategorilerine yerleştirildi.</p>
+                    <h3 class="font-bold text-emerald-400 text-sm">Tamamlandı!</h3>
                 </div>
             `;
             setTimeout(showNext, 800);
@@ -397,30 +453,47 @@ function initS5() {
         feedbackEl.classList.add('hidden');
     }
 
+    function showMinimalWrongPopup() {
+        const existing = document.getElementById('minimal-wrong-popup');
+        if (existing) existing.remove();
+
+        const popup = document.createElement('div');
+        popup.id = 'minimal-wrong-popup';
+        popup.className = 'fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 px-5 py-3 rounded-2xl bg-red-950/90 border border-red-500/50 text-red-200 text-sm font-bold shadow-2xl backdrop-blur-md flex items-center gap-2 fade-in';
+        popup.innerHTML = `<span class="text-base">✕</span> <span>Yanlış kutu! Tekrar deneyin.</span>`;
+        document.body.appendChild(popup);
+
+        setTimeout(() => {
+            popup.classList.add('opacity-0', 'transition-opacity', 'duration-300');
+            setTimeout(() => popup.remove(), 300);
+        }, 1200);
+    }
+
     function processChoice(choice) {
         if (currentStep >= s5Data.length) return;
 
         const item = s5Data[currentStep];
         const isCorrect = choice === item.category;
 
-        feedbackEl.classList.remove('hidden');
         if (isCorrect) {
-            feedbackEl.textContent = '✓ Doğru! Öge diyagrama bırakıldı.';
+            feedbackEl.classList.remove('hidden');
+            feedbackEl.textContent = '✓ Doğru! Öge kutusuna yerleştirildi.';
             feedbackEl.className = 'text-xs font-semibold mt-3 p-2.5 rounded-lg leading-relaxed bg-emerald-950/80 text-emerald-300 border border-emerald-600/50';
+
+            const targetList = document.getElementById(`frayer-${item.category}-list`);
+            const badge = document.createElement('div');
+            badge.className = 'frayer-item-badge bg-emerald-950/70 border border-emerald-500/40 text-emerald-200';
+            badge.innerHTML = `<span class="shrink-0 text-xs font-bold">✓</span> <span>${item.item}</span>`;
+            targetList.appendChild(badge);
+
+            currentStep++;
+            setTimeout(renderStep, 700);
         } else {
-            const catLabels = { past: 'Geçmiş', present: 'Günümüz', both: 'Her ikisi de' };
-            feedbackEl.textContent = `✕ Yanlış. Bu öge '${catLabels[item.category]}' kutusuna aittir.`;
-            feedbackEl.className = 'text-xs font-semibold mt-3 p-2.5 rounded-lg leading-relaxed bg-red-950/80 text-red-300 border border-red-600/50';
+            dragCardEl.classList.add('incorrect');
+            setTimeout(() => dragCardEl.classList.remove('incorrect'), 400);
+
+            showMinimalWrongPopup();
         }
-
-        const targetList = document.getElementById(`frayer-${item.category}-list`);
-        const badge = document.createElement('div');
-        badge.className = `frayer-item-badge ${isCorrect ? 'bg-emerald-950/70 border border-emerald-500/40 text-emerald-200' : 'bg-amber-950/70 border border-amber-500/40 text-amber-200'}`;
-        badge.innerHTML = `<span class="shrink-0 text-xs font-bold">${isCorrect ? '✓' : '•'}</span> <span>${item.item}</span>`;
-        targetList.appendChild(badge);
-
-        currentStep++;
-        setTimeout(renderStep, 700);
     }
 
     // Drag events on Draggable Card
@@ -433,7 +506,7 @@ function initS5() {
         dragCardEl.classList.remove('is-dragging');
     });
 
-    // Drop zone events on Frayer Quadrants
+    // Drop zone events on Frayer Quadrants (Drag & Drop Only)
     document.querySelectorAll('.frayer-drop-zone').forEach(zone => {
         zone.addEventListener('dragover', (e) => {
             e.preventDefault();
@@ -450,11 +523,6 @@ function initS5() {
             const dropCat = zone.dataset.dropCat;
             processChoice(dropCat);
         });
-
-        zone.addEventListener('click', () => {
-            const dropCat = zone.dataset.dropCat;
-            if (dropCat) processChoice(dropCat);
-        });
     });
 
     renderStep();
@@ -464,6 +532,8 @@ function initS6() {
     const container = document.getElementById('s6-badges');
     container.innerHTML = '';
     let selected = 0;
+    state.selectedValues = [];
+    
     s6Badges.forEach(badge => {
         const div = document.createElement('button');
         div.className = 'option-btn flex flex-col items-center gap-2 p-5 rounded-xl card-surface border border-slate-600 hover:border-amber-500 transition-all';
@@ -473,8 +543,13 @@ function initS6() {
             div.classList.add('chosen');
             div.style.borderColor = '#d97706';
             div.style.background = 'rgba(217,119,6,0.15)';
+            state.selectedValues.push(badge);
             selected++;
-            if (selected >= 3) setTimeout(showNext, 400);
+            if (selected >= 3) {
+                const opinionBox = document.getElementById('s6-perspective-box');
+                if (opinionBox) opinionBox.scrollIntoView({ behavior: 'smooth' });
+                setTimeout(showNext, 600);
+            }
         });
         container.appendChild(div);
     });
@@ -482,6 +557,35 @@ function initS6() {
 
 function showFinal() {
     showStage('final');
+    
+    // Display selected values
+    const valuesContainer = document.getElementById('final-selected-values');
+    if (valuesContainer) {
+        valuesContainer.innerHTML = '';
+        if (state.selectedValues && state.selectedValues.length > 0) {
+            state.selectedValues.forEach(v => {
+                const tag = document.createElement('span');
+                tag.className = 'px-3 py-1 rounded-lg bg-amber-500/20 border border-amber-500/40 text-amber-200 text-xs font-bold flex items-center gap-1.5';
+                tag.innerHTML = `<span>${v.emoji}</span> <span>${v.label}</span>`;
+                valuesContainer.appendChild(tag);
+            });
+        }
+    }
+
+    // Display user personal perspective (Kazanım f)
+    const opinionTextarea = document.getElementById('user-opinion');
+    const perspectiveContainer = document.getElementById('final-perspective-container');
+    const perspectiveDisplay = document.getElementById('final-perspective-display');
+    
+    if (opinionTextarea && perspectiveContainer && perspectiveDisplay) {
+        const val = opinionTextarea.value.trim();
+        if (val) {
+            perspectiveDisplay.textContent = `"${val}"`;
+            perspectiveContainer.classList.remove('hidden');
+        } else {
+            perspectiveContainer.classList.add('hidden');
+        }
+    }
 }
 
 // Stage navigation tabs event setup
