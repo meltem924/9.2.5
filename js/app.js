@@ -319,7 +319,6 @@ function initS4() {
     const layer = document.getElementById('s4-hotspots-layer');
     const counter = document.getElementById('s4-counter');
     const modal = document.getElementById('s4-info-modal');
-    const modalEmoji = document.getElementById('s4-modal-emoji');
     const modalTitle = document.getElementById('s4-modal-title');
     const modalDetail = document.getElementById('s4-modal-detail');
     const modalClose = document.getElementById('s4-modal-close');
@@ -333,17 +332,16 @@ function initS4() {
     s4Data.forEach((item) => {
         const hotspot = document.createElement('button');
         hotspot.type = 'button';
-        hotspot.className = 'hotspot-target absolute w-10 h-10 rounded-full border-2 border-amber-400 bg-amber-950/90 text-amber-200 font-bold text-base flex items-center justify-center shadow-xl focus:outline-none focus:ring-2 focus:ring-amber-300';
+        hotspot.className = 'hotspot-target absolute w-7 h-7 rounded-full border-2 border-amber-400 bg-amber-950/90 text-amber-200 font-bold flex items-center justify-center shadow-xl focus:outline-none focus:ring-2 focus:ring-amber-300';
         hotspot.style.top = `${item.top}%`;
         hotspot.style.left = `${item.left}%`;
         hotspot.setAttribute('title', item.hint);
-        hotspot.innerHTML = `<span>${item.emoji}</span>`;
+        hotspot.innerHTML = `<span class="text-amber-300 font-extrabold text-xs">?</span>`;
 
         hotspot.addEventListener('click', (e) => {
             e.stopPropagation();
             
             // Show modal info
-            modalEmoji.textContent = item.emoji;
             modalTitle.textContent = `${item.name} (${item.title})`;
             modalDetail.textContent = item.detail;
             modal.classList.remove('hidden');
@@ -351,17 +349,12 @@ function initS4() {
 
             if (!hotspot.classList.contains('discovered')) {
                 hotspot.classList.add('discovered');
-                hotspot.innerHTML = `<span class="text-emerald-300 text-sm font-black">✓</span>`;
+                hotspot.innerHTML = `<span class="text-emerald-300 text-[11px] font-black">✓</span>`;
                 discoveredCount++;
                 counter.textContent = `${discoveredCount} / ${s4Data.length}`;
 
                 if (discoveredCount === s4Data.length) {
-                    setTimeout(() => {
-                        modalEmoji.textContent = "🎉";
-                        modalTitle.textContent = "Tüm Objeler Keşfedildi!";
-                        modalDetail.textContent = "Tebrikler! Konargöçer Türk çadırındaki tüm dönemsel yaşam koşullarını ve unsurlarını başarıyla öğrendiniz. Sonraki aşamaya geçiliyor...";
-                        setTimeout(showNext, 2500);
-                    }, 800);
+                    setTimeout(showNext, 1200);
                 }
             }
         });
