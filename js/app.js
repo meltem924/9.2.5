@@ -22,6 +22,15 @@ function showStage(n) {
 
     updateNavTabs();
 
+    const stageNav = document.getElementById('stage-nav');
+    if (stageNav) {
+        if (stageVal === 0) {
+            stageNav.classList.add('hidden');
+        } else {
+            stageNav.classList.remove('hidden');
+        }
+    }
+
     if (stageVal === 0 || stageVal === 'final') {
         document.getElementById('next-container').classList.add('hidden');
     } else {
@@ -243,13 +252,11 @@ function initS3() {
         ];
 
         card.innerHTML = `
-            <div class="s3-cause-box p-4 rounded-xl mb-4">
-                <p class="text-base font-bold text-slate-100 leading-snug">${item.cause}</p>
+            <div class="s3-cause-box p-4 rounded-xl mb-3 bg-slate-900/90 border border-amber-500/30 shadow-md">
+                <p class="text-base font-bold text-amber-100 leading-relaxed">
+                    "${item.cause}" durumu hangi tarihsel sonuca yol açmıştır?
+                </p>
             </div>
-
-            <p class="text-xs font-semibold text-slate-300 mb-2.5 flex items-center gap-1.5">
-                <span>🎯</span> Bu durum hangi tarihi sonuca yol açmıştır?
-            </p>
 
             <div class="grid gap-2.5">
                 ${options.map(opt => `
