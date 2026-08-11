@@ -152,8 +152,17 @@
     <!-- Stage 2 -->
     <div id="stage-2" class="stage fade-in">
       <h2 data-template-id="s2-title" class="canva-text heading-font text-2xl mb-1" style="color: rgb(248, 250, 252); font-weight: 700; font-style: normal; font-size: 24px;">Özellik Eşleştirme</h2>
-      <p data-template-id="s2-desc" class="canva-text text-sm mb-5" style="color: rgb(148, 163, 184); font-weight: 400; font-style: normal; font-size: 16px;">Konargöçer yaşamın temel özelliklerini açıklamalarıyla eşleştirin.</p>
-      <div id="s2-cards" class="grid grid-cols-2 gap-3"></div>
+      <p data-template-id="s2-desc" class="canva-text text-sm mb-5" style="color: rgb(148, 163, 184); font-weight: 400; font-style: normal; font-size: 16px;">Sol taraftaki kavramı seçin, ardından sağ taraftaki uygun açıklamayı seçerek eşleştirin.</p>
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <p class="text-xs font-bold uppercase tracking-widest text-amber-400 mb-3 text-center">🏷️ Kavramlar</p>
+          <div id="s2-features" class="flex flex-col gap-2.5"></div>
+        </div>
+        <div>
+          <p class="text-xs font-bold uppercase tracking-widest text-sky-400 mb-3 text-center">📋 Açıklamalar</p>
+          <div id="s2-meanings" class="flex flex-col gap-2.5"></div>
+        </div>
+      </div>
     </div>
 
     <!-- Stage 3 -->
@@ -166,7 +175,7 @@
     <!-- Stage 4 -->
     <div id="stage-4" class="stage fade-in">
       <h2 data-template-id="s4-title" class="canva-text heading-font text-2xl mb-1" style="color: rgb(248, 250, 252); font-weight: 700; font-style: normal; font-size: 24px;">Dönem Koşulları</h2>
-      <p data-template-id="s4-desc" class="canva-text text-sm mb-5" style="color: rgb(148, 163, 184); font-weight: 400; font-style: normal; font-size: 16px;">Bu özellikler konargöçer Türklere uygun mu? Dönemin koşullarını değerlendirin.</p>
+      <p data-template-id="s4-desc" class="canva-text text-sm mb-5" style="color: rgb(148, 163, 184); font-weight: 400; font-style: normal; font-size: 16px;">Aşağıdaki ifadeleri okuyun. Konargöçer Türk yaşamına uygunsa "Evet", uygun değilse "Hayır" seçeneğini işaretleyin.</p>
       <img data-template-id="s4-img" class="canva-image w-full h-48 object-cover rounded-xl mb-5 shadow-lg" loading="lazy" src="img/yurt_interior.png" alt="Türkistan Konargöçer Çadır İçi ve Yaşam Düzeni">
       <div id="s4-game" class="space-y-3"></div>
     </div>

@@ -167,51 +167,75 @@ function initS1() {
 }
 
 function initS2() {
-    const container = document.getElementById('s2-cards');
-    container.innerHTML = '';
+    const featuresCol = document.getElementById('s2-features');
+    const meaningsCol = document.getElementById('s2-meanings');
+    featuresCol.innerHTML = '';
+    meaningsCol.innerHTML = '';
     let selected = null, matched = 0;
-    const pairs = s2Data.flatMap((card, i) => [
-        { id: `f-${i}`, pair: i, label: card.front, kind: 'feature' },
-        { id: `m-${i}`, pair: i, label: card.back, kind: 'meaning' }
-    ]).sort(() => Math.random() - 0.5);
     
-    pairs.forEach(card => {
+    const features = s2Data.map((card, i) => ({ pair: i, label: card.front, kind: 'feature' })).sort(() => Math.random() - 0.5);
+    const meanings = s2Data.map((card, i) => ({ pair: i, label: card.back, kind: 'meaning' })).sort(() => Math.random() - 0.5);
+    
+    function createBtn(card) {
         const btn = document.createElement('button');
         btn.type = 'button';
         btn.dataset.pair = card.pair;
         btn.dataset.kind = card.kind;
-        btn.className = 'option-btn min-h-24 p-3 rounded-xl card-surface text-sm font-semibold text-slate-200 border border-slate-600 focus:outline-none focus:ring-2 focus:ring-amber-500';
+        
+        if (card.kind === 'feature') {
+            btn.className = 'option-btn w-full p-3.5 rounded-xl text-sm font-bold border-2 border-amber-500/50 bg-gradient-to-br from-amber-950/80 to-amber-900/40 text-amber-200 shadow-md hover:border-amber-400 hover:shadow-amber-500/20 hover:shadow-lg transition-all focus:outline-none focus:ring-2 focus:ring-amber-400';
+        } else {
+            btn.className = 'option-btn w-full p-3.5 rounded-xl text-sm font-semibold border-2 border-sky-500/40 bg-gradient-to-br from-sky-950/70 to-slate-800/60 text-sky-200 shadow-md hover:border-sky-400 hover:shadow-sky-500/20 hover:shadow-lg transition-all focus:outline-none focus:ring-2 focus:ring-sky-400';
+        }
         btn.textContent = card.label;
+        
         btn.addEventListener('click', () => {
             if (btn.disabled || btn.classList.contains('matched')) return;
             if (!selected) { 
                 selected = btn; 
-                btn.classList.add('border-amber-400', 'bg-slate-700'); 
+                btn.style.transform = 'scale(1.04)';
+                btn.style.boxShadow = '0 0 20px rgba(217, 119, 6, 0.5)';
+                btn.style.borderColor = '#fbbf24';
                 return; 
             }
             if (selected === btn) return;
             if (selected.dataset.pair === btn.dataset.pair && selected.dataset.kind !== btn.dataset.kind) {
-                selected.classList.remove('border-amber-400', 'bg-slate-700');
-                selected.classList.add('matched', 'correct'); 
-                btn.classList.add('matched', 'correct');
-                selected.disabled = true; 
-                btn.disabled = true;
+                selected.style.transform = '';
+                selected.style.boxShadow = '';
+                
+                [selected, btn].forEach(b => {
+                    b.classList.add('matched');
+                    b.disabled = true;
+                    b.style.background = 'linear-gradient(135deg, rgba(5, 150, 105, 0.3), rgba(6, 78, 59, 0.5))';
+                    b.style.borderColor = '#34d399';
+                    b.style.color = '#a7f3d0';
+                    b.style.boxShadow = '0 0 12px rgba(52, 211, 153, 0.3)';
+                    b.style.transform = '';
+                    b.style.opacity = '0.85';
+                });
+                
                 matched++; 
                 selected = null;
                 if (matched === s2Data.length) setTimeout(showNext, 700);
             } else {
-                btn.classList.add('incorrect'); 
-                selected.classList.add('incorrect');
+                btn.style.borderColor = '#f59e0b';
+                btn.style.boxShadow = '0 0 12px rgba(245, 158, 11, 0.4)';
                 const prev = selected; 
                 selected = null;
                 setTimeout(() => { 
-                    btn.classList.remove('incorrect'); 
-                    prev.classList.remove('incorrect', 'border-amber-400', 'bg-slate-700'); 
+                    btn.style.borderColor = '';
+                    btn.style.boxShadow = '';
+                    prev.style.borderColor = '';
+                    prev.style.boxShadow = '';
+                    prev.style.transform = '';
                 }, 500);
             }
         });
-        container.appendChild(btn);
-    });
+        return btn;
+    }
+    
+    features.forEach(card => featuresCol.appendChild(createBtn(card)));
+    meanings.forEach(card => meaningsCol.appendChild(createBtn(card)));
 }
 
 function initS3() {
@@ -239,15 +263,7 @@ function initS3() {
         ];
 
         card.innerHTML = `
-            <div class="flex items-center justify-between gap-2 mb-3">
-                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/15 border border-amber-500/30 text-amber-300 text-xs font-bold uppercase tracking-wider">
-                    ⚡ Neden #${index + 1}
-                </span>
-                <span class="text-xs text-slate-400 font-medium">${index + 1} / ${s3Data.length}</span>
-            </div>
-
             <div class="s3-cause-box p-4 rounded-xl mb-4">
-                <p class="text-xs text-amber-400/90 uppercase tracking-widest font-semibold mb-1">Tarihi Koşul / Durum</p>
                 <p class="text-base font-bold text-slate-100 leading-snug">${item.cause}</p>
             </div>
 
@@ -258,7 +274,7 @@ function initS3() {
             <div class="grid gap-2.5">
                 ${options.map(opt => `
                     <button type="button" class="s3-option-btn option-btn text-left p-3.5 rounded-xl text-sm text-slate-200 flex items-start gap-3 w-full" data-choice="${opt.type}">
-                        <span class="shrink-0 w-6 h-6 rounded-lg bg-slate-800/80 border border-slate-600 text-slate-300 font-bold text-xs flex items-center justify-center">${opt.label}</span>
+                        <span class="shrink-0 w-6 h-6 rounded-lg bg-slate-800/80 border border-slate-600 text-slate-300 font-bold text-xs flex items-center justify-center">▸</span>
                         <span class="leading-snug pt-0.5">${opt.text}</span>
                     </button>
                 `).join('')}
@@ -309,9 +325,6 @@ function initS4() {
         div.style.animationDelay = `${index * 100}ms`;
         div.innerHTML = `
             <div class="flex items-start gap-3">
-                <span class="mt-1 text-amber-500/70 shrink-0">
-                    <i data-lucide="help-circle" class="w-5 h-5"></i>
-                </span>
                 <span class="text-sm font-medium text-slate-200 leading-relaxed">${item.statement}</span>
             </div>
             <div class="flex gap-3 shrink-0 s4-actions">
