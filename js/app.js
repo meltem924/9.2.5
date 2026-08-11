@@ -567,13 +567,32 @@ document.getElementById('next-btn').addEventListener('click', () => {
     initStageContent(nextStage);
 });
 
+// SCORM Servis İlklendirmesi
+window.addEventListener('DOMContentLoaded', () => {
+    if (window.SCORM && typeof window.SCORM.initialize === 'function') {
+        window.SCORM.initialize();
+    }
+});
+
+window.addEventListener('beforeunload', () => {
+    if (window.SCORM && typeof window.SCORM.terminate === 'function') {
+        window.SCORM.terminate();
+    }
+});
+
 document.getElementById('restart-btn').addEventListener('click', () => {
+    if (window.SCORM && typeof window.SCORM.sendCompletion === 'function') {
+        window.SCORM.sendCompletion(true);
+    }
     initStageContent(0);
 });
 
 const closeBtn = document.getElementById('close-btn');
 if (closeBtn) {
     closeBtn.addEventListener('click', () => {
+        if (window.SCORM && typeof window.SCORM.sendCompletion === 'function') {
+            window.SCORM.sendCompletion(true);
+        }
         try {
             window.close();
         } catch (e) {}

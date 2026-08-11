@@ -118,8 +118,17 @@
             }
 
             // LMS dışındayken konsol simülasyonu
-            logScorm(`[Sandbox/Çevrimdışı] Skor simüle edildi: ${score}/${maxScore}`, "warning");
+            logScorm(`[Sandbox/Çevrimdışı] Skor/Tamamlanma simüle edildi: ${score}/${targetMax} (Tamamlandı: ${passed})`, "warning");
             return false;
+        },
+
+        /**
+         * MEBİS platformuna sadece tamamlandı/tamamlanmadı bilgisini iletir.
+         * @param {boolean} passed - Tamamlanma/Başarı durumu (varsayılan: true)
+         */
+        sendCompletion: function (passed = true) {
+            logScorm(`sendCompletion çağrıldı. Tamamlandı Bilgisi: ${passed ? 'Tamamlandı (Success)' : 'Tamamlanmadı'}`, "info");
+            return this.sendScore(100, 100, passed);
         }
     };
 

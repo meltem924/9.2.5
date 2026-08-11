@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest identifier="com.meb.tar.9.2.5.konargocer" version="1.2"
+          xmlns="http://www.imsproject.org/xsd/imscp_rootv1p1p2"
+          xmlns:adlcp="http://www.adlnet.org/xsd/adlcp_rootv1p2"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://www.imsproject.org/xsd/imscp_rootv1p1p2 imscp_rootv1p1p2.xsd
+                              http://www.adlnet.org/xsd/adlcp_rootv1p2 adlcp_rootv1p2.xsd">
+  <metadata>
+    <schema>ADL SCORM</schema>
+    <schemaversion>1.2</schemaversion>
+  </metadata>
+  <organizations default="konargocer_org">
+    <organization identifier="konargocer_org">
+      <title>Türklerde Konargöçer Yaşam Etkileşimli Keşif Etkinliği</title>
+      <item identifier="item_konargocer" identifierref="resource_konargocer">
+        <title>Türklerde Konargöçer Yaşam Etkinliği</title>
+        <adlcp:masteryscore>100</adlcp:masteryscore>
+      </item>
+    </organization>
+  </organizations>
+  <resources>
+    <resource identifier="resource_konargocer" type="webcontent" adlcp:scormtype="sco" href="index.html">
+      <file href="index.html"/>
+      <file href="scorm-api-wrapper.js"/>
+      <file href="styles.css"/>
+      <file href="js/app.js"/>
+      <file href="js/data.js"/>
+    </resource>
+  </resources>
+</manifest>
