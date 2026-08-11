@@ -634,8 +634,6 @@ if (fsBtn) {
     const updateFsBtnState = () => {
         const isFs = !!(document.fullscreenElement || document.webkitFullscreenElement);
         fsBtn.setAttribute('title', isFs ? 'Tam Ekrandan Çık' : 'Tam Ekran');
-        const iconSpan = fsBtn.querySelector('.fs-icon');
-        if (iconSpan) iconSpan.textContent = isFs ? '✕' : '⛶';
     };
 
     document.addEventListener('fullscreenchange', updateFsBtnState);
