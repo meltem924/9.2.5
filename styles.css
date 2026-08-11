@@ -102,7 +102,6 @@ h1, h2, h3, .heading-font, .canva-text.heading-font {
   border-color: var(--gold-accent) !important;
   color: var(--gold-bright) !important;
   background: rgba(65, 47, 33, 0.7);
-  transform: translateY(-1px);
 }
 
 .nav-tab-btn.active-tab {
@@ -119,8 +118,8 @@ h1, h2, h3, .heading-font, .canva-text.heading-font {
 }
 
 .option-btn:hover:not(:disabled) {
-  transform: translateY(-2px);
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+  filter: brightness(1.1);
 }
 
 .option-btn.correct {
@@ -196,7 +195,6 @@ h1, h2, h3, .heading-font, .canva-text.heading-font {
 .s3-option-btn:hover:not(:disabled) {
   border-color: var(--gold-bright);
   background: rgba(100, 65, 35, 0.4);
-  transform: translateY(-1.5px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
@@ -291,7 +289,6 @@ h1, h2, h3, .heading-font, .canva-text.heading-font {
 }
 
 .frayer-drag-card:hover {
-  transform: translateY(-2px);
   border-color: var(--gold-accent);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
 }
@@ -354,8 +351,7 @@ h1, h2, h3, .heading-font, .canva-text.heading-font {
 }
 
 .canva-button:hover {
-  transform: translateY(-2px);
-  filter: brightness(1.1);
+  filter: brightness(1.15);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
 }
 
