@@ -159,43 +159,46 @@ h1, h2, h3, .heading-font, .canva-text.heading-font {
 
 /* Stage 3 - Neden Sonuç Cards */
 .s3-card {
-  background: rgba(35, 25, 18, 0.88);
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(213, 168, 91, 0.28);
+  background: linear-gradient(145deg, rgba(45, 32, 22, 0.94), rgba(28, 19, 13, 0.96));
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(213, 168, 91, 0.35);
   border-radius: 1.25rem;
-  padding: 1.25rem;
-  transition: all 0.3s ease;
+  padding: 1.35rem;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
 
 .s3-card:hover {
-  border-color: rgba(245, 200, 117, 0.5);
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.4);
+  border-color: var(--gold-bright);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5), 0 0 20px rgba(213, 168, 91, 0.15);
 }
 
 .s3-card.is-done {
   border-color: rgba(16, 185, 129, 0.5);
-  background: rgba(20, 38, 28, 0.85);
+  background: linear-gradient(145deg, rgba(22, 42, 30, 0.94), rgba(14, 28, 20, 0.96));
 }
 
 .s3-cause-box {
-  background: linear-gradient(135deg, rgba(65, 47, 33, 0.7), rgba(40, 28, 19, 0.9));
-  border: 1px solid rgba(213, 168, 91, 0.35);
-  border-radius: 0.875rem;
-  padding: 1rem;
+  background: linear-gradient(135deg, rgba(88, 48, 22, 0.85), rgba(52, 28, 13, 0.95));
+  border: 1px solid rgba(245, 200, 117, 0.4);
+  border-radius: 1rem;
+  padding: 1.15rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
 .s3-option-btn {
-  transition: all 0.2s ease;
-  background: rgba(20, 14, 10, 0.7);
-  border: 1px solid rgba(213, 168, 91, 0.2);
-  border-radius: 0.75rem;
+  transition: all 0.25s ease;
+  background: rgba(50, 36, 25, 0.75);
+  border: 1px solid rgba(213, 168, 91, 0.28);
+  border-radius: 0.875rem;
   color: var(--text-parchment);
 }
 
 .s3-option-btn:hover:not(:disabled) {
-  border-color: var(--gold-bright);
-  background: rgba(100, 65, 35, 0.4);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  border-color: var(--gold-bright) !important;
+  background: linear-gradient(135deg, rgba(120, 75, 35, 0.65), rgba(70, 42, 20, 0.8)) !important;
+  box-shadow: 0 0 16px rgba(245, 200, 117, 0.25);
+  color: #fff8e8 !important;
 }
 
 /* Hide scrollbars for Stage Nav */

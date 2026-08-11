@@ -252,16 +252,19 @@ function initS3() {
         ];
 
         card.innerHTML = `
-            <div class="s3-cause-box p-4 rounded-xl mb-3 bg-slate-900/90 border border-amber-500/30 shadow-md">
-                <p class="text-base font-bold text-amber-100 leading-relaxed">
+            <div class="s3-cause-box mb-4">
+                <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-amber-500/20 border border-amber-500/40 text-amber-300 text-[11px] font-bold mb-2">
+                    <span>📜</span> TARİHSEL NEDEN
+                </div>
+                <p class="text-base font-bold text-[#f5c875] leading-relaxed">
                     "${item.cause}" durumu hangi tarihsel sonuca yol açmıştır?
                 </p>
             </div>
 
-            <div class="grid gap-2.5">
+            <div class="grid gap-3">
                 ${options.map(opt => `
-                    <button type="button" class="s3-option-btn option-btn text-left p-3.5 rounded-xl text-sm text-slate-200 flex items-start gap-3 w-full" data-choice="${opt.type}">
-                        <span class="shrink-0 w-6 h-6 rounded-lg bg-slate-800/80 border border-slate-600 text-slate-300 font-bold text-xs flex items-center justify-center">▸</span>
+                    <button type="button" class="s3-option-btn option-btn text-left p-3.5 rounded-xl text-sm text-amber-100/90 flex items-start gap-3 w-full" data-choice="${opt.type}">
+                        <span class="shrink-0 w-6 h-6 rounded-lg bg-amber-500/20 border border-amber-500/40 text-amber-300 font-extrabold text-xs flex items-center justify-center">${opt.label}</span>
                         <span class="leading-snug pt-0.5">${opt.text}</span>
                     </button>
                 `).join('')}
