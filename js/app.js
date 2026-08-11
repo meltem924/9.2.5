@@ -302,32 +302,162 @@ function initS4() {
 function initS5() {
     const container = document.getElementById('s5-game');
     container.innerHTML = '';
-    let answered = 0;
-    s5Data.forEach(item => {
-        const div = document.createElement('div');
-        div.className = 'flex items-center justify-between card-surface p-3 rounded-lg';
-        div.innerHTML = `<span class="text-sm font-medium text-slate-200">${item.item}</span>
-            <div class="flex gap-1 shrink-0">
-                <button class="option-btn px-2 py-1 text-xs rounded-full bg-slate-700 border border-slate-500 text-slate-300 font-semibold" data-val="past">Geçmiş</button>
-                <button class="option-btn px-2 py-1 text-xs rounded-full bg-slate-700 border border-slate-500 text-slate-300 font-semibold" data-val="present">Günümüz</button>
-                <button class="option-btn px-2 py-1 text-xs rounded-full bg-slate-700 border border-slate-500 text-slate-300 font-semibold" data-val="both">İkisi de</button>
-            </div>`;
-        div.addEventListener('click', e => {
-            const btn = e.target.closest('[data-val]');
-            if (!btn || div.dataset.done) return;
-            div.dataset.done = 'true';
-            div.querySelectorAll('[data-val]').forEach(b => b.classList.add('selected'));
-            if (btn.dataset.val === item.category) { 
-                btn.classList.add('correct'); 
-            } else { 
-                btn.classList.add('incorrect'); 
-                div.querySelector(`[data-val="${item.category}"]`).classList.add('correct'); 
-            }
-            answered++;
-            if (answered === s5Data.length) setTimeout(showNext, 600);
-        });
-        container.appendChild(div);
+    let currentStep = 0;
+
+    // Outer layout: Active Drag Card on top, Frayer Diagram Grid below with Drop Zones
+    container.innerHTML = `
+        <!-- Active Question / Draggable Card Panel -->
+        <div id="frayer-active-panel" class="card-surface p-5 rounded-2xl border border-amber-500/40 shadow-xl mb-6 fade-in">
+            <div class="flex items-center justify-between gap-2 mb-2">
+                <span class="text-xs uppercase tracking-widest font-bold text-amber-400">Sürükle & Bırak</span>
+                <span id="frayer-step-counter" class="text-xs font-semibold text-slate-400">1 / ${s5Data.length}</span>
+            </div>
+            
+            <!-- Draggable Item Card -->
+            <div id="frayer-drag-item" draggable="true" class="frayer-drag-card p-4 rounded-xl bg-slate-900/90 border-2 border-amber-400/80 text-base font-bold text-slate-100 leading-snug shadow-lg">
+                <span id="frayer-active-item"></span>
+            </div>
+
+            <p id="frayer-feedback" class="hidden text-xs font-semibold mt-3 p-2.5 rounded-lg leading-relaxed"></p>
+        </div>
+
+        <!-- Central Hub Header -->
+        <div class="text-center mb-3">
+            <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-amber-600/90 to-amber-700/90 text-slate-900 font-extrabold text-xs uppercase tracking-wider shadow-lg border border-amber-300/50">
+                ⛺ KONARGÖÇER KÜLTÜR
+            </span>
+        </div>
+
+        <!-- 2x2 Frayer Model Grid with Drop Zones -->
+        <div class="frayer-grid">
+            <!-- Quadrant 1: Tanım & Özellikler (Static) -->
+            <div class="frayer-quadrant border-amber-500/30">
+                <div class="frayer-quadrant-header text-amber-400">
+                    <i data-lucide="book-open" class="w-4 h-4"></i>
+                    <span>Tanım & Özellikler</span>
+                </div>
+                <p class="text-xs text-slate-300 leading-relaxed italic">
+                    Bozkır iklimine uyumlu, hayvancılığa ve mevsimsel göçlere dayalı, töre ve dayanışma odaklı yaşam biçimi.
+                </p>
+            </div>
+
+            <!-- Quadrant 2: Geçmişe Ait (Drop Zone) -->
+            <div class="frayer-quadrant frayer-drop-zone border-amber-500/30" data-drop-cat="past">
+                <div class="frayer-quadrant-header text-amber-400 pointer-events-none">
+                    <i data-lucide="history" class="w-4 h-4"></i>
+                    <span>📜 Sadece Geçmiş</span>
+                </div>
+                <div id="frayer-past-list" class="space-y-2 flex-1 pointer-events-none"></div>
+            </div>
+
+            <!-- Quadrant 3: Günümüze Ait (Drop Zone) -->
+            <div class="frayer-quadrant frayer-drop-zone border-amber-500/30" data-drop-cat="present">
+                <div class="frayer-quadrant-header text-amber-400 pointer-events-none">
+                    <i data-lucide="smartphone" class="w-4 h-4"></i>
+                    <span>📱 Sadece Günümüz</span>
+                </div>
+                <div id="frayer-present-list" class="space-y-2 flex-1 pointer-events-none"></div>
+            </div>
+
+            <!-- Quadrant 4: Her İki Dönem (Drop Zone) -->
+            <div class="frayer-quadrant frayer-drop-zone border-amber-500/30" data-drop-cat="both">
+                <div class="frayer-quadrant-header text-amber-400 pointer-events-none">
+                    <i data-lucide="repeat" class="w-4 h-4"></i>
+                    <span>🔄 Her İki Dönem</span>
+                </div>
+                <div id="frayer-both-list" class="space-y-2 flex-1 pointer-events-none"></div>
+            </div>
+        </div>
+    `;
+
+    lucide.createIcons({ root: container });
+
+    const activeItemEl = document.getElementById('frayer-active-item');
+    const dragCardEl = document.getElementById('frayer-drag-item');
+    const stepCounterEl = document.getElementById('frayer-step-counter');
+    const feedbackEl = document.getElementById('frayer-feedback');
+    const activePanelEl = document.getElementById('frayer-active-panel');
+
+    function renderStep() {
+        if (currentStep >= s5Data.length) {
+            activePanelEl.innerHTML = `
+                <div class="text-center py-3">
+                    <span class="text-2xl mb-1 block">🎉</span>
+                    <h3 class="font-bold text-emerald-400 text-sm mb-1">Diyagram Tamamlandı!</h3>
+                    <p class="text-xs text-slate-300">Tüm ögeler sürüklenerek doğru kategorilerine yerleştirildi.</p>
+                </div>
+            `;
+            setTimeout(showNext, 800);
+            return;
+        }
+
+        const item = s5Data[currentStep];
+        activeItemEl.textContent = item.item;
+        stepCounterEl.textContent = `${currentStep + 1} / ${s5Data.length}`;
+        feedbackEl.classList.add('hidden');
+    }
+
+    function processChoice(choice) {
+        if (currentStep >= s5Data.length) return;
+
+        const item = s5Data[currentStep];
+        const isCorrect = choice === item.category;
+
+        feedbackEl.classList.remove('hidden');
+        if (isCorrect) {
+            feedbackEl.textContent = '✓ Doğru! Öge diyagrama bırakıldı.';
+            feedbackEl.className = 'text-xs font-semibold mt-3 p-2.5 rounded-lg leading-relaxed bg-emerald-950/80 text-emerald-300 border border-emerald-600/50';
+        } else {
+            const catLabels = { past: 'Geçmiş', present: 'Günümüz', both: 'Her ikisi de' };
+            feedbackEl.textContent = `✕ Yanlış. Bu öge '${catLabels[item.category]}' kutusuna aittir.`;
+            feedbackEl.className = 'text-xs font-semibold mt-3 p-2.5 rounded-lg leading-relaxed bg-red-950/80 text-red-300 border border-red-600/50';
+        }
+
+        const targetList = document.getElementById(`frayer-${item.category}-list`);
+        const badge = document.createElement('div');
+        badge.className = `frayer-item-badge ${isCorrect ? 'bg-emerald-950/70 border border-emerald-500/40 text-emerald-200' : 'bg-amber-950/70 border border-amber-500/40 text-amber-200'}`;
+        badge.innerHTML = `<span class="shrink-0 text-xs font-bold">${isCorrect ? '✓' : '•'}</span> <span>${item.item}</span>`;
+        targetList.appendChild(badge);
+
+        currentStep++;
+        setTimeout(renderStep, 700);
+    }
+
+    // Drag events on Draggable Card
+    dragCardEl.addEventListener('dragstart', (e) => {
+        e.dataTransfer.setData('text/plain', s5Data[currentStep].category);
+        dragCardEl.classList.add('is-dragging');
     });
+
+    dragCardEl.addEventListener('dragend', () => {
+        dragCardEl.classList.remove('is-dragging');
+    });
+
+    // Drop zone events on Frayer Quadrants
+    document.querySelectorAll('.frayer-drop-zone').forEach(zone => {
+        zone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            zone.classList.add('drag-over');
+        });
+
+        zone.addEventListener('dragleave', () => {
+            zone.classList.remove('drag-over');
+        });
+
+        zone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            zone.classList.remove('drag-over');
+            const dropCat = zone.dataset.dropCat;
+            processChoice(dropCat);
+        });
+
+        zone.addEventListener('click', () => {
+            const dropCat = zone.dataset.dropCat;
+            if (dropCat) processChoice(dropCat);
+        });
+    });
+
+    renderStep();
 }
 
 function initS6() {
