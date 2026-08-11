@@ -209,7 +209,7 @@
     <!-- Stage 5 -->
     <div id="stage-5" class="stage fade-in">
       <h2 data-template-id="s5-title" class="canva-text heading-font text-2xl mb-1" style="color: rgb(248, 250, 252); font-weight: 700; font-style: normal; font-size: 24px;">Geçmiş ve Günümüz</h2>
-      <p data-template-id="s5-desc" class="canva-text text-sm mb-5" style="color: rgb(148, 163, 184); font-weight: 400; font-style: normal; font-size: 16px;">Kültürel öge kartını basılı tutarak aşağıdaki ilgili alana sürükleyip bırakın.</p>
+      <p data-template-id="s5-desc" class="canva-text text-sm mb-5" style="color: rgb(148, 163, 184); font-weight: 400; font-style: normal; font-size: 16px;">Kültürel öge kartını basılı tutarak ait olduğu zaman sütununa (Sadece Geçmiş, Sadece Günümüz veya Her İki Dönem) sürükleyip bırakın.</p>
       <div id="s5-game" class="space-y-4"></div>
     </div>
 
@@ -237,11 +237,9 @@
       <div class="w-20 h-20 rounded-full bg-gradient-to-br from-amber-500/20 to-amber-700/40 border-2 border-amber-400/60 flex items-center justify-center mx-auto mb-6 text-4xl shadow-xl">
         🎉
       </div>
-      <h2 data-template-id="final-title" class="canva-text heading-font text-3xl mb-3" style="color: rgb(248, 250, 252); font-weight: 900; font-style: normal; font-size: 28px;">Keşfinizi Tamamladınız!</h2>
-      <p data-template-id="final-desc" class="canva-text mb-8 max-w-lg mx-auto" style="color: rgb(203, 213, 225); font-weight: 400; font-style: normal; font-size: 16px;">Konargöçer Türk yaşamının tarihi, kültürel ve sosyal boyutlarını içeren tüm aşamaları başarıyla incelediniz.</p>
+      <h2 data-template-id="final-title" class="canva-text heading-font text-3xl mb-6" style="color: rgb(248, 250, 252); font-weight: 900; font-style: normal; font-size: 28px;">Keşfinizi Tamamladınız!</h2>
       
       <div class="card-surface max-w-xl mx-auto mb-8 rounded-2xl p-6 text-left border border-amber-500/30 space-y-4">
-        <h3 class="text-xs uppercase tracking-widest text-amber-400 font-bold">Öğrenme Özeti & Bakış Açınız</h3>
         <p id="final-feedback" class="text-sm text-slate-200 leading-relaxed">Harika bir öğrenme yolculuğu gerçekleştirdiniz! İlettiğiniz cevaplarla Tariat Kitabesi'nden Sarıkeçili Yörüklerine uzanan konargöçer kültürün temel öğelerini pekiştirdiniz.</p>
         
         <div>
@@ -255,7 +253,10 @@
         </div>
       </div>
 
-      <button id="restart-btn" data-template-id="restart-button" class="canva-button px-8 py-3 rounded-lg font-bold shadow-lg hover:shadow-xl transition-all uppercase tracking-wide" style="background: linear-gradient(135deg, rgb(6, 95, 70), rgb(4, 120, 87)); color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 16px;">Etkinliği Baştan İncele</button>
+      <div class="flex flex-wrap items-center justify-center gap-3">
+        <button id="restart-btn" data-template-id="restart-button" class="canva-button px-8 py-3 rounded-lg font-bold shadow-lg hover:shadow-xl transition-all uppercase tracking-wide" style="background: linear-gradient(135deg, rgb(6, 95, 70), rgb(4, 120, 87)); color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 16px;">Etkinliği Baştan İncele</button>
+        <button id="close-btn" type="button" class="px-8 py-3 rounded-lg font-bold shadow-lg hover:shadow-xl transition-all uppercase tracking-wide bg-red-950/80 hover:bg-red-900 border border-red-500/50 text-red-200">Etkinliği Bitir</button>
+      </div>
     </div>
 
     <!-- Next button -->

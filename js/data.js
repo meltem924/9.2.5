@@ -113,14 +113,46 @@ const s4Data = [
 ];
 
 const s5Data = [
-    { item: "Mevsimsel otlak göçlerine dayalı, hayvancılık odaklı yaşam biçimi", category: "definition" },
-    { item: "Töre kurallarına ve toplumsal dayanışmaya dayalı sosyal yapı", category: "definition" },
-    { item: "Kara çadır ve konak adı verilen evlerin kullanılması", category: "both" },
-    { item: "Kımız (kısrak sütü) ve tutmaç yemeğinin tüketilmesi", category: "past" },
-    { item: "Tarhana, erişte, gözleme ve keşkek gibi yöresel yemeklerin tüketilmesi", category: "present" },
-    { item: "Kök Börü ve Çevgen atlı oyunlarının oynanması", category: "past" },
-    { item: "Sebze yetiştiriciliği, ev yapımı ürünler ve turizmden geçim sağlanması", category: "present" },
-    { item: "At eğeri altında pastırma imal edilmesi", category: "past" }
+    { 
+        item: "Kımız (kısrak sütü) ve tutmaç yemeğinin tüketilmesi", 
+        category: "past",
+        hint: "Kısrak sütünden elde edilen kımız ve besleyici tutmaç çorbası Eski Türk bozkır kültürüne ait geleneksel gıdalardır."
+    },
+    { 
+        item: "At eğeri altında pastırma imal edilmesi", 
+        category: "past",
+        hint: "Savaşa giden Türk süvarilerinin eti at eğeri altında tuzlayıp sıkıştırarak kurutması eski bozkır savaşçılık geleneğidir."
+    },
+    { 
+        item: "Kök Börü ve Çevgen atlı oyunlarının oynanması", 
+        category: "past",
+        hint: "Kök börü ve çevgen (cirit benzeri) atlı oyunları eski Türklerin çeviklik ve savaş hazırlığı antrenmanı oyunlarıdır."
+    },
+    { 
+        item: "Tarhana, erişte, gözleme ve keşkek gibi yöresel yemeklerin tüketilmesi", 
+        category: "present",
+        hint: "Tarhana, keşkek ve erişte yerleşik hayata geçişle birlikte Anadolu kültürümüzde günümüzde yaygınlaşan yemeklerimizdir."
+    },
+    { 
+        item: "Sebze yetiştiriciliği, ev yapımı ürünler ve turizmden geçim sağlanması", 
+        category: "present",
+        hint: "Tarım, turizm ve ev yapımı ürün üretimi modern zamanlarda ve günümüzde önemli geçim kaynaklarımızdandır."
+    },
+    { 
+        item: "Kara çadır ve konak adı verilen evlerin kullanılması", 
+        category: "both",
+        hint: "Keçe/kara çadırlar ilk Türklerden beri kullanılmış olup günümüzde Toroslarda Yörükler tarafından hâlâ kullanılmaktadır."
+    },
+    { 
+        item: "Mevsimsel otlak göçlerine dayalı hayvancılık yaşam biçimi", 
+        category: "both",
+        hint: "Yaylacılık ve mevsimlik hayvancılık göçleri hem İlk Türklerde hem de günümüz Türkiye'sinde (Yörüklerde) varlığını korumaktadır."
+    },
+    { 
+        item: "Töre kurallarına ve toplumsal dayanışmaya dayalı sosyal yapı", 
+        category: "both",
+        hint: "Yardımlaşma, imece ve töre anlayışı geçmişten günümüze Türk toplum yapısının en temel değeridir."
+    }
 ];
 
 const s6Badges = [

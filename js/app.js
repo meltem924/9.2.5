@@ -372,164 +372,125 @@ function initS5() {
     container.innerHTML = '';
     let currentStep = 0;
 
-    // Outer layout: Active Drag Card on top, Frayer Diagram Grid below with Drop Zones
+    // Soruları her başlangıçta rastgele karıştır
+    const s5Items = [...s5Data].sort(() => Math.random() - 0.5);
+
     container.innerHTML = `
-        <!-- Active Question / Draggable Card Panel -->
-        <div id="frayer-active-panel" class="card-surface p-5 rounded-2xl border border-amber-500/40 shadow-xl mb-6 fade-in">
-            <div class="flex items-center justify-end gap-2 mb-2">
-                <span id="frayer-step-counter" class="text-xs font-semibold text-slate-400">1 / ${s5Data.length}</span>
-            </div>
-            
+        <!-- Active Draggable Item Panel (Above) -->
+        <div id="s5-active-panel" class="card-surface p-5 rounded-2xl border border-amber-500/40 shadow-xl mb-6 fade-in">
             <!-- Draggable Item Card -->
-            <div id="frayer-drag-item" draggable="true" class="frayer-drag-card p-4 rounded-xl bg-slate-900/90 border-2 border-amber-400/80 text-base font-bold text-slate-100 leading-snug shadow-lg">
-                <span id="frayer-active-item"></span>
+            <div id="s5-drag-card" draggable="true" class="p-4 rounded-xl bg-slate-900/90 border-2 border-amber-400/80 text-base font-bold text-amber-100 leading-snug shadow-lg text-center cursor-grab active:cursor-grabbing hover:border-amber-300 transition-all select-none">
+                <span id="s5-active-item"></span>
             </div>
 
-            <p id="frayer-feedback" class="hidden text-xs font-semibold mt-3 p-2.5 rounded-lg leading-relaxed"></p>
+            <p id="s5-feedback" class="hidden text-xs font-semibold mt-3 p-2.5 rounded-lg leading-relaxed text-center transition-all"></p>
         </div>
 
-        <!-- Central Hub Header -->
-        <div class="text-center mb-3">
-            <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-amber-600/90 to-amber-700/90 text-slate-900 font-extrabold text-xs uppercase tracking-wider shadow-lg border border-amber-300/50">
-                ⛺ KONARGÖÇER KÜLTÜR
-            </span>
-        </div>
-
-        <!-- 2x2 Frayer Model Grid with Drop Zones -->
-        <div class="frayer-grid">
-            <!-- Quadrant 1: Tanım & Özellikler (Drop Zone) -->
-            <div class="frayer-quadrant frayer-drop-zone border-amber-500/30" data-drop-cat="definition">
-                <div class="frayer-quadrant-header text-amber-400 pointer-events-none">
-                    <i data-lucide="book-open" class="w-4 h-4"></i>
-                    <span>📖 Tanım & Özellikler</span>
+        <!-- 3 Columns Drop Zones (Below) -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <!-- Sütun 1: Sadece Geçmiş -->
+            <div class="s5-drop-zone p-4 rounded-2xl bg-slate-900/70 border-2 border-amber-500/30 flex flex-col min-h-[220px] transition-all" data-cat="past">
+                <div class="text-amber-300 font-extrabold text-sm mb-3 flex items-center justify-center gap-2 border-b border-amber-500/20 pb-2.5 pointer-events-none">
+                    <span class="text-base">📜</span> <span>Sadece Geçmiş</span>
                 </div>
-                <div id="frayer-definition-list" class="space-y-2 flex-1 pointer-events-none"></div>
+                <div id="s5-past-list" class="space-y-2 flex-1 pointer-events-none"></div>
             </div>
 
-            <!-- Quadrant 2: Geçmişe Ait (Drop Zone) -->
-            <div class="frayer-quadrant frayer-drop-zone border-amber-500/30" data-drop-cat="past">
-                <div class="frayer-quadrant-header text-amber-400 pointer-events-none">
-                    <i data-lucide="history" class="w-4 h-4"></i>
-                    <span>📜 Sadece Geçmiş</span>
+            <!-- Sütun 2: Sadece Günümüz -->
+            <div class="s5-drop-zone p-4 rounded-2xl bg-slate-900/70 border-2 border-amber-500/30 flex flex-col min-h-[220px] transition-all" data-cat="present">
+                <div class="text-amber-300 font-extrabold text-sm mb-3 flex items-center justify-center gap-2 border-b border-amber-500/20 pb-2.5 pointer-events-none">
+                    <span class="text-base">📱</span> <span>Sadece Günümüz</span>
                 </div>
-                <div id="frayer-past-list" class="space-y-2 flex-1 pointer-events-none"></div>
+                <div id="s5-present-list" class="space-y-2 flex-1 pointer-events-none"></div>
             </div>
 
-            <!-- Quadrant 3: Günümüze Ait (Drop Zone) -->
-            <div class="frayer-quadrant frayer-drop-zone border-amber-500/30" data-drop-cat="present">
-                <div class="frayer-quadrant-header text-amber-400 pointer-events-none">
-                    <i data-lucide="smartphone" class="w-4 h-4"></i>
-                    <span>📱 Sadece Günümüz</span>
+            <!-- Sütun 3: Her İki Dönem -->
+            <div class="s5-drop-zone p-4 rounded-2xl bg-slate-900/70 border-2 border-amber-500/30 flex flex-col min-h-[220px] transition-all" data-cat="both">
+                <div class="text-amber-300 font-extrabold text-sm mb-3 flex items-center justify-center gap-2 border-b border-amber-500/20 pb-2.5 pointer-events-none">
+                    <span class="text-base">🔄</span> <span>Her İki Dönem</span>
                 </div>
-                <div id="frayer-present-list" class="space-y-2 flex-1 pointer-events-none"></div>
-            </div>
-
-            <!-- Quadrant 4: Her İki Dönem (Drop Zone) -->
-            <div class="frayer-quadrant frayer-drop-zone border-amber-500/30" data-drop-cat="both">
-                <div class="frayer-quadrant-header text-amber-400 pointer-events-none">
-                    <i data-lucide="repeat" class="w-4 h-4"></i>
-                    <span>🔄 Her İki Dönem</span>
-                </div>
-                <div id="frayer-both-list" class="space-y-2 flex-1 pointer-events-none"></div>
+                <div id="s5-both-list" class="space-y-2 flex-1 pointer-events-none"></div>
             </div>
         </div>
     `;
 
-    lucide.createIcons({ root: container });
-
-    const activeItemEl = document.getElementById('frayer-active-item');
-    const dragCardEl = document.getElementById('frayer-drag-item');
-    const stepCounterEl = document.getElementById('frayer-step-counter');
-    const feedbackEl = document.getElementById('frayer-feedback');
-    const activePanelEl = document.getElementById('frayer-active-panel');
+    const activeItemEl = document.getElementById('s5-active-item');
+    const dragCardEl = document.getElementById('s5-drag-card');
+    const feedbackEl = document.getElementById('s5-feedback');
+    const activePanelEl = document.getElementById('s5-active-panel');
 
     function renderStep() {
-        if (currentStep >= s5Data.length) {
+        if (currentStep >= s5Items.length) {
             activePanelEl.innerHTML = `
-                <div class="text-center py-3">
-                    <span class="text-2xl mb-1 block">🎉</span>
-                    <h3 class="font-bold text-emerald-400 text-sm">Tamamlandı!</h3>
+                <div class="text-center py-4">
+                    <span class="text-3xl mb-2 block">🎉</span>
+                    <h3 class="font-bold text-emerald-400 text-base mb-1">Tebrikler!</h3>
+                    <p class="text-xs text-slate-300">Tüm kültürel ögeleri doğru sütunlara yerleştirdiniz.</p>
                 </div>
             `;
-            setTimeout(showNext, 800);
+            setTimeout(showNext, 1200);
             return;
         }
 
-        const item = s5Data[currentStep];
+        const item = s5Items[currentStep];
         activeItemEl.textContent = item.item;
-        stepCounterEl.textContent = `${currentStep + 1} / ${s5Data.length}`;
         feedbackEl.classList.add('hidden');
+        dragCardEl.className = 'p-4 rounded-xl bg-slate-900/90 border-2 border-amber-400/80 text-base font-bold text-amber-100 leading-snug shadow-lg text-center cursor-grab active:cursor-grabbing hover:border-amber-300 transition-all select-none';
     }
 
-    function showMinimalWrongPopup() {
-        const existing = document.getElementById('minimal-wrong-popup');
-        if (existing) existing.remove();
+    function processDrop(chosenCat) {
+        if (currentStep >= s5Items.length) return;
 
-        const popup = document.createElement('div');
-        popup.id = 'minimal-wrong-popup';
-        popup.className = 'fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 px-5 py-3 rounded-2xl bg-red-950/90 border border-red-500/50 text-red-200 text-sm font-bold shadow-2xl backdrop-blur-md flex items-center gap-2 fade-in';
-        popup.innerHTML = `<span class="text-base">✕</span> <span>Yanlış kutu! Tekrar deneyin.</span>`;
-        document.body.appendChild(popup);
+        const item = s5Items[currentStep];
 
-        setTimeout(() => {
-            popup.classList.add('opacity-0', 'transition-opacity', 'duration-300');
-            setTimeout(() => popup.remove(), 300);
-        }, 1200);
-    }
-
-    function processChoice(choice) {
-        if (currentStep >= s5Data.length) return;
-
-        const item = s5Data[currentStep];
-        const isCorrect = choice === item.category;
-
-        if (isCorrect) {
+        if (chosenCat === item.category) {
             feedbackEl.classList.remove('hidden');
-            feedbackEl.textContent = '✓ Doğru! Öge kutusuna yerleştirildi.';
-            feedbackEl.className = 'text-xs font-semibold mt-3 p-2.5 rounded-lg leading-relaxed bg-emerald-950/80 text-emerald-300 border border-emerald-600/50';
+            feedbackEl.textContent = `✨ Harika Tespit! ${item.hint}`;
+            feedbackEl.className = 'text-xs font-semibold mt-3 p-3 rounded-xl leading-relaxed text-left bg-emerald-950/90 text-emerald-200 border border-emerald-500/60 shadow-lg fade-in';
 
-            const targetList = document.getElementById(`frayer-${item.category}-list`);
+            const targetList = document.getElementById(`s5-${item.category}-list`);
             const badge = document.createElement('div');
-            badge.className = 'frayer-item-badge bg-emerald-950/70 border border-emerald-500/40 text-emerald-200';
-            badge.innerHTML = `<span class="shrink-0 text-xs font-bold">✓</span> <span>${item.item}</span>`;
+            badge.className = 'p-2.5 rounded-xl bg-emerald-950/80 border border-emerald-500/50 text-emerald-200 font-semibold text-xs flex items-center gap-2 fade-in shadow-md';
+            badge.innerHTML = `<span class="shrink-0 text-emerald-400 font-bold">✓</span> <span>${item.item}</span>`;
             targetList.appendChild(badge);
 
             currentStep++;
-            setTimeout(renderStep, 700);
+            setTimeout(renderStep, 4000);
         } else {
-            dragCardEl.classList.add('incorrect');
-            setTimeout(() => dragCardEl.classList.remove('incorrect'), 400);
-
-            showMinimalWrongPopup();
+            dragCardEl.className = 'p-4 rounded-xl bg-amber-950/90 border-2 border-amber-500 text-base font-bold text-amber-100 leading-snug shadow-lg text-center cursor-grab active:cursor-grabbing transition-all select-none';
+            
+            feedbackEl.classList.remove('hidden');
+            feedbackEl.textContent = `💡 İpucu: ${item.hint}`;
+            feedbackEl.className = 'text-xs font-semibold mt-3 p-3 rounded-xl leading-relaxed text-left bg-amber-950/90 text-amber-200 border border-amber-500/60 shadow-lg fade-in';
         }
     }
 
-    // Drag events on Draggable Card
+    // Drag events (Desktop)
     dragCardEl.addEventListener('dragstart', (e) => {
-        e.dataTransfer.setData('text/plain', s5Data[currentStep].category);
-        dragCardEl.classList.add('is-dragging');
+        e.dataTransfer.setData('text/plain', s5Items[currentStep].category);
+        dragCardEl.classList.add('opacity-50');
     });
 
     dragCardEl.addEventListener('dragend', () => {
-        dragCardEl.classList.remove('is-dragging');
+        dragCardEl.classList.remove('opacity-50');
     });
 
-    // Drop zone events on Frayer Quadrants (Drag & Drop Only)
-    document.querySelectorAll('.frayer-drop-zone').forEach(zone => {
+    // Drop Zone events
+    document.querySelectorAll('.s5-drop-zone').forEach(zone => {
         zone.addEventListener('dragover', (e) => {
             e.preventDefault();
-            zone.classList.add('drag-over');
+            zone.classList.add('border-amber-400', 'bg-amber-500/20', 'scale-[1.02]');
         });
 
         zone.addEventListener('dragleave', () => {
-            zone.classList.remove('drag-over');
+            zone.classList.remove('border-amber-400', 'bg-amber-500/20', 'scale-[1.02]');
         });
 
         zone.addEventListener('drop', (e) => {
             e.preventDefault();
-            zone.classList.remove('drag-over');
-            const dropCat = zone.dataset.dropCat;
-            processChoice(dropCat);
+            zone.classList.remove('border-amber-400', 'bg-amber-500/20', 'scale-[1.02]');
+            const chosenCat = zone.dataset.cat;
+            processDrop(chosenCat);
         });
     });
 
@@ -622,3 +583,22 @@ document.getElementById('next-btn').addEventListener('click', () => {
 document.getElementById('restart-btn').addEventListener('click', () => {
     initStageContent(0);
 });
+
+const closeBtn = document.getElementById('close-btn');
+if (closeBtn) {
+    closeBtn.addEventListener('click', () => {
+        try {
+            window.close();
+        } catch (e) {}
+        
+        document.body.innerHTML = `
+            <div class="min-h-screen bg-slate-950 text-slate-100 flex flex-col items-center justify-center p-6 text-center fade-in">
+                <div class="w-20 h-20 rounded-full bg-emerald-500/20 border-2 border-emerald-500/50 text-emerald-400 flex items-center justify-center text-4xl mb-4 shadow-2xl">
+                    ✓
+                </div>
+                <h2 class="text-2xl font-black mb-2 text-slate-100">Etkinlik Başarıyla Sonlandırıldı</h2>
+                <p class="text-sm text-slate-400 max-w-md">Katılımınız için teşekkür ederiz. Bu sekmeyi veya pencereyi kapatabilirsiniz.</p>
+            </div>
+        `;
+    });
+}
