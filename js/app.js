@@ -1,13 +1,40 @@
 lucide.createIcons();
 
+function getStageNum(stage) {
+    if (stage === 'final') return 7;
+    return parseInt(stage, 10) || 0;
+}
+
+function unlockStage(target) {
+    const targetVal = getStageNum(target);
+    const currentUnlocked = getStageNum(state.unlockedStage);
+    if (targetVal > currentUnlocked) {
+        state.unlockedStage = target === 'final' ? 'final' : targetVal;
+    }
+    updateNavTabs();
+}
+
 function updateNavTabs() {
+    const unlockedVal = getStageNum(state.unlockedStage);
+
     document.querySelectorAll('.nav-tab-btn').forEach(btn => {
         const target = btn.dataset.navStage;
-        const targetVal = target === 'final' ? 'final' : parseInt(target, 10);
-        if (targetVal === state.stage) {
+        const targetVal = getStageNum(target);
+        const isCurrent = (target === 'final' && state.stage === 'final') || (parseInt(target, 10) === state.stage);
+
+        if (isCurrent) {
             btn.classList.add('active-tab');
         } else {
             btn.classList.remove('active-tab');
+        }
+
+        if (targetVal > unlockedVal) {
+            btn.disabled = true;
+            btn.classList.add('opacity-40', 'cursor-not-allowed', 'pointer-events-none');
+            btn.classList.remove('hover:border-amber-400');
+        } else {
+            btn.disabled = false;
+            btn.classList.remove('opacity-40', 'cursor-not-allowed', 'pointer-events-none');
         }
     });
 }
@@ -31,21 +58,46 @@ function showStage(n) {
         }
     }
 
-    if (stageVal === 0 || stageVal === 'final') {
-        document.getElementById('next-container').classList.add('hidden');
-    } else {
-        document.getElementById('next-container').classList.remove('hidden');
+    const nextContainer = document.getElementById('next-container');
+    if (nextContainer) {
+        const unlockedVal = getStageNum(state.unlockedStage);
+        const currentStageVal = getStageNum(stageVal);
+        
+        // Etkinlik tamamlanmadan "Sonraki Aşama" butonunu gizle
+        if (stageVal === 0 || stageVal === 'final' || unlockedVal <= currentStageVal) {
+            nextContainer.classList.add('hidden');
+        } else {
+            nextContainer.classList.remove('hidden');
+        }
     }
 }
 
 function showNext() { 
-    document.getElementById('next-container').classList.remove('hidden'); 
+    const nextContainer = document.getElementById('next-container');
+    if (nextContainer) {
+        nextContainer.classList.remove('hidden');
+    }
+    let nextStage;
+    if (typeof state.stage === 'number') {
+        nextStage = state.stage + 1;
+        if (nextStage > state.maxStage) nextStage = 'final';
+    } else {
+        nextStage = 'final';
+    }
+    unlockStage(nextStage);
 }
 
 function initStageContent(n) {
     const target = n === 'final' ? 'final' : parseInt(n, 10);
+    const targetVal = getStageNum(target);
+    const unlockedVal = getStageNum(state.unlockedStage);
+
+    if (targetVal > 0 && targetVal > unlockedVal) {
+        return;
+    }
+
     showStage(target);
-    
+
     if (target === 1) initS1();
     else if (target === 2) initS2();
     else if (target === 3) initS3();
@@ -109,7 +161,7 @@ function initS1() {
             const label = item.answer === 'primary' ? 'Birinci El' : 'İkinci El';
             if (feedbackEl) {
                 feedbackEl.innerHTML = `
-                    <div class="text-sm font-extrabold mb-1">💡 İnceleme Notu</div>
+                    <div class="text-sm font-extrabold mb-1">İnceleme Notu</div>
                     <div class="font-normal opacity-95">${item.explanation || `"${item.text}" ${label} kaynak örneğidir.`}</div>
                 `;
                 feedbackEl.className = 'text-xs font-bold p-3.5 rounded-xl text-left leading-relaxed bg-emerald-950/90 border border-emerald-500/60 text-emerald-200 shadow-xl fade-in';
@@ -127,24 +179,27 @@ function initS1() {
             const correctLabel = item.answer === 'primary' ? 'Birinci El' : 'İkinci El';
             if (feedbackEl) {
                 feedbackEl.innerHTML = `
-                    <div class="text-sm font-extrabold mb-1">💡 Değerlendirme & Bilgi Notu</div>
+                    <div class="text-sm font-extrabold mb-1">Değerlendirme & Bilgi Notu</div>
                     <div class="font-normal opacity-95">${item.explanation || `"${item.text}" aslında ${correctLabel} kaynak örneğidir.`}</div>
                 `;
                 feedbackEl.className = 'text-xs font-bold p-3.5 rounded-xl text-left leading-relaxed bg-amber-950/90 border border-amber-500/60 text-amber-200 shadow-xl fade-in';
             }
         }
 
-        if (nextBtnText) {
-            nextBtnText.textContent = (answered + 1 >= s1Data.length) ? 'Sonraki Aşamaya Geç' : 'Sonraki Kaynağa Geç';
+        const isLastItem = (answered + 1 >= s1Data.length);
+        if (isLastItem) {
+            if (nextBtn) nextBtn.classList.add('hidden');
+            showNext();
+        } else {
+            if (nextBtn) nextBtn.classList.remove('hidden');
+            if (nextBtnText) nextBtnText.textContent = 'Sonraki Kaynağa Geç';
         }
     }
     
     if (nextBtn) {
         nextBtn.onclick = () => {
             answered++;
-            if (answered >= s1Data.length) {
-                showNext();
-            } else {
+            if (answered < s1Data.length) {
                 showSource();
             }
         };
@@ -358,9 +413,11 @@ function initS4() {
         layer.appendChild(hotspot);
     });
 
-    modalClose.onclick = () => {
-        modal.classList.add('hidden');
-    };
+    if (modalClose) {
+        modalClose.onclick = () => {
+            modal.classList.add('hidden');
+        };
+    }
 }
 
 function initS5() {
@@ -387,7 +444,7 @@ function initS5() {
             <!-- Sütun 1: Sadece Geçmiş -->
             <div class="s5-drop-zone p-4 rounded-2xl bg-slate-900/70 border-2 border-amber-500/30 flex flex-col min-h-[220px] transition-all" data-cat="past">
                 <div class="text-amber-300 font-extrabold text-sm mb-3 flex items-center justify-center gap-2 border-b border-amber-500/20 pb-2.5 pointer-events-none">
-                    <span class="text-base">📜</span> <span>Sadece Geçmiş</span>
+                    <span>Sadece Geçmiş</span>
                 </div>
                 <div id="s5-past-list" class="space-y-2 flex-1 pointer-events-none"></div>
             </div>
@@ -395,7 +452,7 @@ function initS5() {
             <!-- Sütun 2: Sadece Günümüz -->
             <div class="s5-drop-zone p-4 rounded-2xl bg-slate-900/70 border-2 border-amber-500/30 flex flex-col min-h-[220px] transition-all" data-cat="present">
                 <div class="text-amber-300 font-extrabold text-sm mb-3 flex items-center justify-center gap-2 border-b border-amber-500/20 pb-2.5 pointer-events-none">
-                    <span class="text-base">📱</span> <span>Sadece Günümüz</span>
+                    <span>Sadece Günümüz</span>
                 </div>
                 <div id="s5-present-list" class="space-y-2 flex-1 pointer-events-none"></div>
             </div>
@@ -403,7 +460,7 @@ function initS5() {
             <!-- Sütun 3: Her İki Dönem -->
             <div class="s5-drop-zone p-4 rounded-2xl bg-slate-900/70 border-2 border-amber-500/30 flex flex-col min-h-[220px] transition-all" data-cat="both">
                 <div class="text-amber-300 font-extrabold text-sm mb-3 flex items-center justify-center gap-2 border-b border-amber-500/20 pb-2.5 pointer-events-none">
-                    <span class="text-base">🔄</span> <span>Her İki Dönem</span>
+                    <span>Her İki Dönem</span>
                 </div>
                 <div id="s5-both-list" class="space-y-2 flex-1 pointer-events-none"></div>
             </div>
@@ -419,7 +476,6 @@ function initS5() {
         if (currentStep >= s5Items.length) {
             activePanelEl.innerHTML = `
                 <div class="text-center py-4">
-                    <span class="text-3xl mb-2 block">🎉</span>
                     <h3 class="font-bold text-emerald-400 text-base mb-1">Tebrikler!</h3>
                     <p class="text-xs text-slate-300">Tüm kültürel ögeleri doğru sütunlara yerleştirdiniz.</p>
                 </div>
@@ -441,7 +497,7 @@ function initS5() {
 
         if (chosenCat === item.category) {
             feedbackEl.classList.remove('hidden');
-            feedbackEl.textContent = `✨ Harika Tespit! ${item.hint}`;
+            feedbackEl.textContent = `Harika Tespit! ${item.hint}`;
             feedbackEl.className = 'text-xs font-semibold mt-3 p-3 rounded-xl leading-relaxed text-left bg-emerald-950/90 text-emerald-200 border border-emerald-500/60 shadow-lg fade-in';
 
             const targetList = document.getElementById(`s5-${item.category}-list`);
@@ -456,7 +512,7 @@ function initS5() {
             dragCardEl.className = 'p-4 rounded-xl bg-amber-950/90 border-2 border-amber-500 text-base font-bold text-amber-100 leading-snug shadow-lg text-center cursor-grab active:cursor-grabbing transition-all select-none';
             
             feedbackEl.classList.remove('hidden');
-            feedbackEl.textContent = `💡 İpucu: ${item.hint}`;
+            feedbackEl.textContent = `İpucu: ${item.hint}`;
             feedbackEl.className = 'text-xs font-semibold mt-3 p-3 rounded-xl leading-relaxed text-left bg-amber-950/90 text-amber-200 border border-amber-500/60 shadow-lg fade-in';
         }
     }
@@ -501,13 +557,13 @@ function initS6() {
     
     s6Badges.forEach(badge => {
         const div = document.createElement('button');
-        div.className = 'option-btn flex flex-col items-center gap-2 p-5 rounded-xl card-surface border border-slate-600 hover:border-amber-500 transition-all';
-        div.innerHTML = `<span class="text-3xl">${badge.emoji}</span><span class="text-xs font-semibold text-slate-300 uppercase tracking-wide">${badge.label}</span>`;
+        div.className = 'option-btn p-2.5 rounded-lg border border-slate-600/80 hover:border-amber-400 bg-slate-900/80 text-xs font-bold text-slate-200 tracking-wide text-center transition-all shadow-sm';
+        div.innerHTML = `<span>${badge.label}</span>`;
         div.addEventListener('click', () => {
             if (div.classList.contains('chosen')) return;
             div.classList.add('chosen');
             div.style.borderColor = '#d97706';
-            div.style.background = 'rgba(217,119,6,0.15)';
+            div.style.background = 'rgba(217,119,6,0.25)';
             state.selectedValues.push(badge);
             selected++;
             if (selected >= 3) {
@@ -531,7 +587,7 @@ function showFinal() {
             state.selectedValues.forEach(v => {
                 const tag = document.createElement('span');
                 tag.className = 'px-3 py-1 rounded-lg bg-amber-500/20 border border-amber-500/40 text-amber-200 text-xs font-bold flex items-center gap-1.5';
-                tag.innerHTML = `<span>${v.emoji}</span> <span>${v.label}</span>`;
+                tag.innerHTML = `<span>${v.label}</span>`;
                 valuesContainer.appendChild(tag);
             });
         }
@@ -557,11 +613,17 @@ function showFinal() {
 document.querySelectorAll('.nav-tab-btn').forEach(btn => {
     btn.addEventListener('click', () => {
         const target = btn.dataset.navStage;
-        initStageContent(target);
+        const targetVal = getStageNum(target);
+        const unlockedVal = getStageNum(state.unlockedStage);
+
+        if (targetVal <= unlockedVal) {
+            initStageContent(target);
+        }
     });
 });
 
 document.getElementById('start-btn').addEventListener('click', () => { 
+    unlockStage(1);
     initStageContent(1); 
 });
 
@@ -573,7 +635,12 @@ document.getElementById('next-btn').addEventListener('click', () => {
     } else {
         nextStage = 'final';
     }
-    initStageContent(nextStage);
+    const nextVal = getStageNum(nextStage);
+    const unlockedVal = getStageNum(state.unlockedStage);
+
+    if (nextVal <= unlockedVal) {
+        initStageContent(nextStage);
+    }
 });
 
 // SCORM Servis İlklendirmesi
@@ -593,6 +660,7 @@ document.getElementById('restart-btn').addEventListener('click', () => {
     if (window.SCORM && typeof window.SCORM.sendCompletion === 'function') {
         window.SCORM.sendCompletion(true);
     }
+    state.unlockedStage = 1;
     initStageContent(0);
 });
 

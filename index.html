@@ -38,7 +38,7 @@
           data-nav-stage="3">3. Neden-Sonuç</button>
         <button type="button"
           class="nav-tab-btn px-1.5 py-2.5 rounded-xl text-[11px] font-bold transition-all border border-slate-700 bg-slate-800/80 text-slate-300 hover:border-amber-500/50 text-center truncate"
-          data-nav-stage="4">4. Dönem</button>
+          data-nav-stage="4">4. Dönem Koşulları</button>
         <button type="button"
           class="nav-tab-btn px-1.5 py-2.5 rounded-xl text-[11px] font-bold transition-all border border-slate-700 bg-slate-800/80 text-slate-300 hover:border-amber-500/50 text-center truncate"
           data-nav-stage="5">5. Karşılaştırma</button>
@@ -59,7 +59,7 @@
         <div class="absolute inset-0 bg-gradient-to-t from-[#120d0a] via-[#120d0a]/75 to-transparent"></div>
         <div class="absolute bottom-0 left-0 right-0 p-6 sm:p-8 text-left">
           <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-500/20 border border-amber-500/40 text-amber-300 text-xs sm:text-sm font-bold mb-3 backdrop-blur-sm">
-            <span>🏹</span> BOZKIR KÜLTÜR MİRASI
+            BOZKIR KÜLTÜR MİRASI
           </div>
           <h1 data-template-id="main-title" class="canva-text heading-font text-3xl sm:text-5xl mb-2 text-[#f5c875] font-black tracking-wide">
             Türklerde Konargöçer Yaşam</h1>
@@ -74,8 +74,7 @@
         <div class="card-surface p-6 rounded-2xl border border-amber-500/30 text-left flex flex-col justify-between">
           <div>
             <div class="flex items-center gap-2 mb-3">
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-400 animate-pulse"></span>
-              <h3 class="text-xs sm:text-sm uppercase tracking-widest font-extrabold text-amber-400">Öğrenme Çıktısı ve Süreç</h3>
+              <h3 class="text-xs sm:text-sm uppercase tracking-widest font-extrabold text-amber-400">Öğrenme Çıktısı</h3>
             </div>
             <p class="text-base font-bold text-amber-50 mb-4 leading-snug">
               TAR.9.2.5. Türklerde konargöçer yaşama ilişkin bakış açısı geliştirebilme
@@ -142,7 +141,6 @@
         <button id="start-btn" data-template-id="start-button"
           class="canva-button px-12 py-4 rounded-xl text-lg font-extrabold shadow-2xl hover:shadow-amber-500/20 transition-all tracking-wider uppercase border border-amber-400/40 inline-flex items-center gap-3"
           style="background: linear-gradient(135deg, #8b4513, #d5a85b); color: #fff8e8;">
-          <span>🏹</span>
           <span>Etkinliğe Başla</span>
           <span>&rarr;</span>
         </button>
@@ -157,7 +155,7 @@
       <div class="card-surface p-5 rounded-2xl">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
           <!-- Görsel (Sol taraf) -->
-          <div class="relative w-full h-56 sm:h-64 rounded-xl overflow-hidden bg-black/30 border border-amber-500/20 shadow-md">
+          <div class="relative w-full h-64 sm:h-80 md:h-[310px] rounded-xl overflow-hidden bg-black/30 border border-amber-500/20 shadow-md">
             <img data-template-id="s1-image-1" class="canva-image s1-source-image w-full h-full object-contain p-1"
               loading="lazy" src="img/tariat_stele.png" alt="Tariat (Terhin) Kitabesi - Moğolistan">
             <img data-template-id="s1-image-2"
@@ -263,10 +261,6 @@
           </div>
           <p id="s4-modal-detail" class="text-sm text-slate-200 leading-relaxed mb-3">Obje açıklaması burada görünecek.
           </p>
-          <button id="s4-modal-close" type="button"
-            class="px-4 py-2 rounded-xl bg-amber-600/30 hover:bg-amber-600/50 border border-amber-500/40 text-amber-200 font-bold text-xs transition-all">
-            Keşfe Devam Et
-          </button>
         </div>
       </div>
     </div>
@@ -282,15 +276,15 @@
     <div id="stage-6" class="stage fade-in">
       <h2 data-template-id="s6-title" class="canva-text heading-font text-2xl mb-1 text-[#f5c875]">Değer Seçimi ve Bakış Açısı</h2>
       <p data-template-id="s6-desc" class="canva-text text-sm mb-5 text-amber-100/70">Konargöçer yaşamı en iyi tanımlayan üç değeri seçin ve kendi bakış açınızı ifade edin.</p>
-      <img data-template-id="s6-img" class="canva-image w-full h-48 object-cover rounded-xl mb-5 shadow-lg"
-        loading="lazy" src="img/horse_archer.png" alt="Bozkır Atlı Savaşçısı ve Türk Okçusu">
-      <div id="s6-badges" class="grid grid-cols-2 gap-3 mb-6"></div>
+      <img data-template-id="s6-img" class="canva-image w-full h-56 sm:h-72 object-contain bg-black/40 p-2 rounded-xl mb-4 border border-amber-500/20 shadow-lg"
+        loading="lazy" src="img/deger.png" alt="Konargöçer Türk Göç Kervanı">
+      <div id="s6-badges" class="grid grid-cols-2 sm:grid-cols-3 gap-2.5 mb-4"></div>
 
       <!-- Personal Perspective Expression Box (Kazanım f) -->
       <div id="s6-perspective-box" class="card-surface p-5 rounded-2xl border border-amber-500/30">
         <label for="user-opinion"
           class="block text-xs uppercase tracking-widest text-amber-400 font-bold mb-2 flex items-center gap-1.5">
-          <span>✍️</span> Kişisel Bakış Açınız & Yorumunuz
+          Kişisel Bakış Açınız & Yorumunuz
         </label>
         <p class="text-xs text-slate-300 mb-3 leading-relaxed">
           Türklerde konargöçer yaşam tarzının tarihi ve kültürel önemi hakkındaki düşüncenizi ifade edin:
@@ -303,10 +297,6 @@
 
     <!-- Final -->
     <div id="stage-final" class="stage fade-in text-center py-10">
-      <div
-        class="w-20 h-20 rounded-full bg-gradient-to-br from-amber-500/20 to-amber-700/40 border-2 border-amber-400/60 flex items-center justify-center mx-auto mb-6 text-4xl shadow-xl">
-        🎉
-      </div>
       <h2 data-template-id="final-title" class="canva-text heading-font text-3xl mb-6 text-[#f5c875]">Keşfinizi Tamamladınız!</h2>
 
       <div class="card-surface max-w-xl mx-auto mb-8 rounded-2xl p-6 text-left border border-amber-500/30 space-y-4">
@@ -342,9 +332,9 @@
     <!-- Next button -->
     <div id="next-container" class="hidden mt-8 text-center">
       <button id="next-btn" data-template-id="next-button"
-        class="canva-button px-8 py-3 rounded-lg font-bold shadow-lg hover:shadow-xl transition-all"
+        class="canva-button px-8 py-3 rounded-lg font-bold shadow-lg hover:shadow-xl transition-all uppercase tracking-wide"
         style="background: linear-gradient(135deg, rgb(180, 83, 9), rgb(217, 119, 6)); color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 16px;">Sonraki
-        Aşama →</button>
+        Aşamaya Geç &rarr;</button>
     </div>
   </div>
   <script src="js/data.js"></script>
