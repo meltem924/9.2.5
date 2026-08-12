@@ -165,6 +165,16 @@ function initS2() {
     const features = s2Data.map((card, i) => ({ pair: i, label: card.front, kind: 'feature' })).sort(() => Math.random() - 0.5);
     const meanings = s2Data.map((card, i) => ({ pair: i, label: card.back, kind: 'meaning' })).sort(() => Math.random() - 0.5);
     
+    // Doğru cevapların doğrudan karşılıklı gelmesini önle
+    for (let i = 0; i < features.length; i++) {
+        if (features[i].pair === meanings[i].pair) {
+            const swapIdx = (i + 1) % meanings.length;
+            const temp = meanings[i];
+            meanings[i] = meanings[swapIdx];
+            meanings[swapIdx] = temp;
+        }
+    }
+    
     function createBtn(card) {
         const btn = document.createElement('button');
         btn.type = 'button';
@@ -253,9 +263,6 @@ function initS3() {
 
         card.innerHTML = `
             <div class="s3-cause-box mb-4">
-                <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-amber-500/20 border border-amber-500/40 text-amber-300 text-[11px] font-bold mb-2">
-                    <span>📜</span> TARİHSEL NEDEN
-                </div>
                 <p class="text-base font-bold text-[#f5c875] leading-relaxed">
                     "${item.cause}" durumu hangi tarihsel sonuca yol açmıştır?
                 </p>
