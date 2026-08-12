@@ -251,14 +251,14 @@ function initS3() {
         card.className = 's3-card p-5 rounded-2xl fade-in';
         card.style.animationDelay = `${index * 100}ms`;
         
-        // Randomize option order (A/B)
+        // Randomize option order
         const isCorrectFirst = Math.random() < 0.5;
         const options = isCorrectFirst ? [
-            { type: 'correct', text: item.effect, label: 'A' },
-            { type: 'wrong', text: item.wrong, label: 'B' }
+            { type: 'correct', text: item.effect },
+            { type: 'wrong', text: item.wrong }
         ] : [
-            { type: 'wrong', text: item.wrong, label: 'A' },
-            { type: 'correct', text: item.effect, label: 'B' }
+            { type: 'wrong', text: item.wrong },
+            { type: 'correct', text: item.effect }
         ];
 
         card.innerHTML = `
@@ -271,7 +271,6 @@ function initS3() {
             <div class="grid gap-3">
                 ${options.map(opt => `
                     <button type="button" class="s3-option-btn option-btn text-left p-3.5 rounded-xl text-sm text-amber-100/90 flex items-start gap-3 w-full" data-choice="${opt.type}">
-                        <span class="shrink-0 w-6 h-6 rounded-lg bg-amber-500/20 border border-amber-500/40 text-amber-300 font-extrabold text-xs flex items-center justify-center">${opt.label}</span>
                         <span class="leading-snug pt-0.5">${opt.text}</span>
                     </button>
                 `).join('')}
