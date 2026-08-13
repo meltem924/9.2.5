@@ -876,7 +876,7 @@ if (closeBtn) {
         } catch (e) {}
         
         document.body.innerHTML = `
-            <div class="min-h-screen bg-slate-50 text-slate-800 flex flex-col items-center justify-center p-6 text-center fade-in">
+            <div class="min-h-screen bg-[#e8e2d7] text-slate-800 flex flex-col items-center justify-center p-6 text-center fade-in">
                 <div class="w-16 h-16 bg-emerald-100 border-2 border-emerald-500 text-emerald-700 flex items-center justify-center text-3xl mb-4 shadow-md">
                     ✓
                 </div>

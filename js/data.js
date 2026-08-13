@@ -1,4 +1,4 @@
-const state = { stage: 0, maxStage: 6, unlockedStage: 'final' };
+const state = { stage: 0, maxStage: 6, unlockedStage: 1 };
 
 const s1Data = [
     { text: "Tariat (Terhin) Kitabesi", answer: "primary", image: "s1-image-1", explanation: "Uygur Kağanlığı döneminden (753) kalma doğrudan yazılı anıt olduğu için 1. el kaynaktır." },
