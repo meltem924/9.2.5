@@ -18,8 +18,8 @@
 <body data-template-id="__page-root" class="min-h-screen w-full flex flex-col justify-center items-center">
   <!-- Fixed Top-Right Fullscreen Button -->
   <button id="fullscreen-btn" type="button" title="Tam Ekran"
-    class="fixed top-4 right-4 z-50 w-10 h-10 rounded-xl bg-white/95 border border-amber-300 text-amber-700 hover:text-amber-900 hover:bg-amber-50 hover:border-amber-400 shadow-md transition-all flex items-center justify-center backdrop-blur-md">
-    <span class="fs-icon text-amber-700 text-lg leading-none font-bold">⛶</span>
+    class="fixed top-4 right-4 z-50 w-10 h-10 bg-white border border-amber-400 text-amber-800 hover:text-amber-950 hover:bg-amber-50 shadow-md transition-all flex items-center justify-center">
+    <span class="fs-icon text-amber-800 text-lg leading-none font-bold">⛶</span>
   </button>
 
   <div class="w-full max-w-5xl mx-auto px-4 py-6">
@@ -28,22 +28,22 @@
     <div id="stage-nav" class="hidden mb-6 no-scrollbar">
       <div class="grid grid-cols-3 sm:grid-cols-6 gap-2 w-full">
         <button type="button"
-          class="nav-tab-btn px-2 py-2.5 rounded-xl text-xs sm:text-[12.5px] font-bold transition-all text-center truncate shadow-sm"
+          class="nav-tab-btn px-2 py-2.5 text-xs sm:text-[12.5px] font-bold transition-all text-center truncate shadow-sm"
           data-nav-stage="1">1. Kaynaklar</button>
         <button type="button"
-          class="nav-tab-btn px-2 py-2.5 rounded-xl text-xs sm:text-[12.5px] font-bold transition-all text-center truncate shadow-sm"
+          class="nav-tab-btn px-2 py-2.5 text-xs sm:text-[12.5px] font-bold transition-all text-center truncate shadow-sm"
           data-nav-stage="2">2. Özellikler</button>
         <button type="button"
-          class="nav-tab-btn px-2 py-2.5 rounded-xl text-xs sm:text-[12.5px] font-bold transition-all text-center truncate shadow-sm"
+          class="nav-tab-btn px-2 py-2.5 text-xs sm:text-[12.5px] font-bold transition-all text-center truncate shadow-sm"
           data-nav-stage="3">3. Neden-Sonuç</button>
         <button type="button"
-          class="nav-tab-btn px-2 py-2.5 rounded-xl text-xs sm:text-[12.5px] font-bold transition-all text-center truncate shadow-sm"
+          class="nav-tab-btn px-2 py-2.5 text-xs sm:text-[12.5px] font-bold transition-all text-center truncate shadow-sm"
           data-nav-stage="4">4. Dönem Koşulları</button>
         <button type="button"
-          class="nav-tab-btn px-2 py-2.5 rounded-xl text-xs sm:text-[12.5px] font-bold transition-all text-center truncate shadow-sm"
+          class="nav-tab-btn px-2 py-2.5 text-xs sm:text-[12.5px] font-bold transition-all text-center truncate shadow-sm"
           data-nav-stage="5">5. Karşılaştırma</button>
         <button type="button"
-          class="nav-tab-btn px-2 py-2.5 rounded-xl text-xs sm:text-[12.5px] font-bold transition-all text-center truncate shadow-sm"
+          class="nav-tab-btn px-2 py-2.5 text-xs sm:text-[12.5px] font-bold transition-all text-center truncate shadow-sm"
           data-nav-stage="6">6. Değerler</button>
       </div>
     </div>
@@ -52,13 +52,13 @@
     <!-- Stage 0: Welcome -->
     <div id="stage-0" class="stage active fade-in py-2">
       <!-- Hero Banner -->
-      <div class="relative rounded-2xl overflow-hidden mb-6 shadow-xl border border-amber-200/80 bg-slate-900">
+      <div class="relative overflow-hidden mb-6 shadow-md border border-slate-300 bg-slate-900">
         <img data-template-id="hero-img" class="canva-image w-full h-64 sm:h-72 object-cover" loading="lazy"
           src="https://images.pexels.com/photos/31427424/pexels-photo-31427424.jpeg?auto=compress&cs=tinysrgb&w=1280"
           alt="Konargöçer Türk yaşamı bozkır manzarası">
-        <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/65 to-black/25"></div>
+        <div class="absolute inset-0 bg-black/60"></div>
         <div class="absolute bottom-0 left-0 right-0 p-6 sm:p-8 text-left z-10">
-          <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-500/30 border border-amber-300 text-amber-200 text-xs sm:text-sm font-extrabold mb-2.5 backdrop-blur-md">
+          <div class="inline-flex items-center gap-2 px-3 py-1 bg-amber-500 text-white text-xs sm:text-sm font-extrabold mb-2.5">
             BOZKIR KÜLTÜR MİRASI
           </div>
           <h1 data-template-id="main-title" class="hero-title text-3xl sm:text-5xl mb-2 font-black tracking-wide">
@@ -71,64 +71,64 @@
       <!-- Side-by-Side Content Grid (2 Columns) -->
       <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-8">
         <!-- Left: Öğrenme Çıktısı Kartı -->
-        <div class="card-surface p-6 rounded-2xl border border-amber-200 text-left flex flex-col justify-between">
+        <div class="card-surface p-6 border border-slate-200 text-left flex flex-col justify-between">
           <div>
             <div class="flex items-center gap-2 mb-2">
-              <span class="px-2.5 py-0.5 rounded-md bg-amber-100 text-amber-800 text-xs uppercase tracking-widest font-extrabold">Öğrenme Çıktısı</span>
+              <span class="px-2.5 py-0.5 bg-amber-100 text-amber-900 text-xs uppercase tracking-widest font-extrabold border-l-2 border-amber-600">Öğrenme Çıktısı</span>
             </div>
             <p class="text-base font-bold text-slate-800 mb-4 leading-snug">
               TAR.9.2.5. Türklerde konargöçer yaşama ilişkin bakış açısı geliştirebilme
             </p>
           </div>
-          <div class="p-4 rounded-xl bg-amber-50/80 border border-amber-200/80 text-xs sm:text-sm text-slate-700 leading-relaxed">
+          <div class="p-4 bg-slate-50 border border-slate-200 text-xs sm:text-sm text-slate-700 leading-relaxed">
             <strong class="text-amber-800 block mb-1">Süreç Bileşenleri:</strong>
             Kaynak İnceleme &rarr; Özellik Çözümleme &rarr; Neden-Sonuç &rarr; Dönem Koşulları &rarr; Karşılaştırma &rarr; Değerler
           </div>
         </div>
 
         <!-- Right: Etkinlik Aşamaları Rehberi (2x3 Grid) -->
-        <div class="card-surface p-6 rounded-2xl border border-amber-200 text-left">
+        <div class="card-surface p-6 border border-slate-200 text-left">
           <div class="flex items-center gap-2 mb-4">
-            <span class="px-2.5 py-0.5 rounded-md bg-amber-100 text-amber-800 text-xs uppercase tracking-widest font-extrabold">Etkinlik Rehberi</span>
+            <span class="px-2.5 py-0.5 bg-amber-100 text-amber-900 text-xs uppercase tracking-widest font-extrabold border-l-2 border-amber-600">Etkinlik Rehberi</span>
           </div>
           <div class="grid grid-cols-2 gap-2.5 text-xs">
-            <div class="p-2.5 rounded-xl bg-amber-50/60 border border-amber-200/70 flex items-start gap-2.5">
-              <span class="w-6 h-6 rounded-lg bg-amber-500 text-white font-bold text-xs flex items-center justify-center shrink-0 shadow-sm">1</span>
+            <div class="p-2.5 bg-slate-50 border border-slate-200 flex items-start gap-2.5">
+              <span class="w-6 h-6 bg-amber-600 text-white font-bold text-xs flex items-center justify-center shrink-0">1</span>
               <div>
                 <strong class="text-slate-800 block text-xs sm:text-sm">Kaynaklar</strong>
                 <span class="text-slate-500 text-[11px] sm:text-xs">1. ve 2. el belgeler</span>
               </div>
             </div>
-            <div class="p-2.5 rounded-xl bg-amber-50/60 border border-amber-200/70 flex items-start gap-2.5">
-              <span class="w-6 h-6 rounded-lg bg-amber-500 text-white font-bold text-xs flex items-center justify-center shrink-0 shadow-sm">2</span>
+            <div class="p-2.5 bg-slate-50 border border-slate-200 flex items-start gap-2.5">
+              <span class="w-6 h-6 bg-amber-600 text-white font-bold text-xs flex items-center justify-center shrink-0">2</span>
               <div>
                 <strong class="text-slate-800 block text-xs sm:text-sm">Özellikler</strong>
                 <span class="text-slate-500 text-[11px] sm:text-xs">Kültür & töre</span>
               </div>
             </div>
-            <div class="p-2.5 rounded-xl bg-amber-50/60 border border-amber-200/70 flex items-start gap-2.5">
-              <span class="w-6 h-6 rounded-lg bg-amber-500 text-white font-bold text-xs flex items-center justify-center shrink-0 shadow-sm">3</span>
+            <div class="p-2.5 bg-slate-50 border border-slate-200 flex items-start gap-2.5">
+              <span class="w-6 h-6 bg-amber-600 text-white font-bold text-xs flex items-center justify-center shrink-0">3</span>
               <div>
                 <strong class="text-slate-800 block text-xs sm:text-sm">Neden-Sonuç</strong>
                 <span class="text-slate-500 text-[11px] sm:text-xs">Tarihi etkenler</span>
               </div>
             </div>
-            <div class="p-2.5 rounded-xl bg-amber-50/60 border border-amber-200/70 flex items-start gap-2.5">
-              <span class="w-6 h-6 rounded-lg bg-amber-500 text-white font-bold text-xs flex items-center justify-center shrink-0 shadow-sm">4</span>
+            <div class="p-2.5 bg-slate-50 border border-slate-200 flex items-start gap-2.5">
+              <span class="w-6 h-6 bg-amber-600 text-white font-bold text-xs flex items-center justify-center shrink-0">4</span>
               <div>
                 <strong class="text-slate-800 block text-xs sm:text-sm">Otağ Keşfi</strong>
                 <span class="text-slate-500 text-[11px] sm:text-xs">Dönem koşulları</span>
               </div>
             </div>
-            <div class="p-2.5 rounded-xl bg-amber-50/60 border border-amber-200/70 flex items-start gap-2.5">
-              <span class="w-6 h-6 rounded-lg bg-amber-500 text-white font-bold text-xs flex items-center justify-center shrink-0 shadow-sm">5</span>
+            <div class="p-2.5 bg-slate-50 border border-slate-200 flex items-start gap-2.5">
+              <span class="w-6 h-6 bg-amber-600 text-white font-bold text-xs flex items-center justify-center shrink-0">5</span>
               <div>
                 <strong class="text-slate-800 block text-xs sm:text-sm">Karşılaştırma</strong>
                 <span class="text-slate-500 text-[11px] sm:text-xs">Geçmiş & günümüz</span>
               </div>
             </div>
-            <div class="p-2.5 rounded-xl bg-amber-50/60 border border-amber-200/70 flex items-start gap-2.5">
-              <span class="w-6 h-6 rounded-lg bg-amber-500 text-white font-bold text-xs flex items-center justify-center shrink-0 shadow-sm">6</span>
+            <div class="p-2.5 bg-slate-50 border border-slate-200 flex items-start gap-2.5">
+              <span class="w-6 h-6 bg-amber-600 text-white font-bold text-xs flex items-center justify-center shrink-0">6</span>
               <div>
                 <strong class="text-slate-800 block text-xs sm:text-sm">Değerler</strong>
                 <span class="text-slate-500 text-[11px] sm:text-xs">Kişisel çıkarım</span>
@@ -141,7 +141,7 @@
       <!-- CTA Button -->
       <div class="text-center pt-2">
         <button id="start-btn" data-template-id="start-button"
-          class="canva-button px-12 py-4 rounded-xl text-lg font-extrabold shadow-lg hover:shadow-amber-500/25 transition-all tracking-wider uppercase inline-flex items-center gap-3 bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-500 hover:to-amber-600 text-white border border-amber-400">
+          class="canva-button px-12 py-4 text-lg font-extrabold shadow-md hover:bg-amber-700 transition-all tracking-wider uppercase inline-flex items-center gap-3 bg-amber-600 text-white border border-amber-700">
           <span>Etkinliğe Başla</span>
           <span>&rarr;</span>
         </button>
@@ -153,10 +153,10 @@
       <h2 data-template-id="s1-title" class="canva-text heading-font text-2xl mb-1 text-slate-800 font-bold">Kaynak Sınıflandırma</h2>
       <p data-template-id="s1-desc" class="canva-text text-sm mb-5 text-slate-600">Her kaynağı birinci el veya ikinci el olarak sınıflandırınız.</p>
 
-      <div class="card-surface p-6 rounded-2xl">
+      <div class="card-surface p-6">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
           <!-- Görsel (Sol taraf) -->
-          <div class="relative w-full h-64 sm:h-80 md:h-[310px] rounded-xl overflow-hidden bg-slate-100 border border-amber-200/80 shadow-sm flex items-center justify-center">
+          <div class="relative w-full h-64 sm:h-80 md:h-[310px] overflow-hidden bg-slate-100 border border-slate-300 shadow-sm flex items-center justify-center">
             <img data-template-id="s1-image-1" class="canva-image s1-source-image w-full h-full object-contain p-2"
               loading="lazy" src="img/tariat_stele.png" alt="Tariat (Terhin) Kitabesi - Moğolistan">
             <img data-template-id="s1-image-2"
@@ -184,18 +184,18 @@
             <p id="s1-source-name" class="text-center md:text-left font-bold text-slate-800 mb-4 text-lg sm:text-xl"></p>
             <div class="grid grid-cols-2 gap-3">
               <button id="s1-primary-btn" data-template-id="s1-primary-button" type="button"
-                class="canva-button option-btn px-4 py-3.5 rounded-xl font-bold border-2 transition-all text-base shadow-sm">
+                class="canva-button option-btn px-4 py-3.5 font-bold border-2 transition-all text-base shadow-sm">
                 Birinci El Kaynak
               </button>
               <button id="s1-secondary-btn" data-template-id="s1-secondary-button" type="button"
-                class="canva-button option-btn px-4 py-3.5 rounded-xl font-bold border-2 transition-all text-base shadow-sm">
+                class="canva-button option-btn px-4 py-3.5 font-bold border-2 transition-all text-base shadow-sm">
                 İkinci El Kaynak
               </button>
             </div>
             <div id="s1-feedback-container" class="hidden mt-4 space-y-3">
-              <div id="s1-feedback" class="text-xs font-bold p-4 rounded-xl text-left leading-relaxed"></div>
+              <div id="s1-feedback" class="text-xs font-bold p-4 text-left leading-relaxed"></div>
               <button id="s1-next-btn" type="button"
-                class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-500 hover:to-amber-600 text-white font-extrabold text-sm shadow-md transition-all flex items-center justify-center gap-2 tracking-wide uppercase">
+                class="w-full py-3.5 px-4 bg-amber-600 hover:bg-amber-700 text-white font-extrabold text-sm shadow-md transition-all flex items-center justify-center gap-2 tracking-wide uppercase">
                 <span id="s1-next-btn-text">Sonraki Kaynağa Geç</span>
                 <span>&rarr;</span>
               </button>
@@ -211,11 +211,11 @@
       <p data-template-id="s2-desc" class="canva-text text-sm mb-5 text-slate-600">Sol taraftaki kavramı seçiniz, ardından sağ taraftaki uygun açıklamayı seçerek eşleştiriniz.</p>
       <div class="grid grid-cols-2 gap-4">
         <div>
-          <p class="text-xs font-bold uppercase tracking-widest text-amber-800 mb-3 text-center bg-amber-100/80 py-1.5 rounded-lg border border-amber-200">🏷️ Kavramlar</p>
+          <p class="text-xs font-bold uppercase tracking-widest text-amber-900 mb-3 text-center bg-amber-100 py-1.5 border border-amber-300">🏷️ Kavramlar</p>
           <div id="s2-features" class="flex flex-col gap-2.5"></div>
         </div>
         <div>
-          <p class="text-xs font-bold uppercase tracking-widest text-sky-800 mb-3 text-center bg-sky-100/80 py-1.5 rounded-lg border border-sky-200">📋 Açıklamalar</p>
+          <p class="text-xs font-bold uppercase tracking-widest text-sky-900 mb-3 text-center bg-sky-100 py-1.5 border border-sky-300">📋 Açıklamalar</p>
           <div id="s2-meanings" class="flex flex-col gap-2.5"></div>
         </div>
       </div>
@@ -236,7 +236,7 @@
           <p data-template-id="s4-desc" class="canva-text text-sm text-slate-600">Görseldeki parlayan simgelere tıklayarak konargöçer yaşam koşullarını keşfediniz.</p>
         </div>
         <div
-          class="shrink-0 px-4 py-2 rounded-xl bg-amber-100 border border-amber-300 text-amber-900 text-xs font-bold flex items-center gap-2 shadow-sm">
+          class="shrink-0 px-4 py-2 bg-amber-100 border border-amber-300 text-amber-900 text-xs font-bold flex items-center gap-2 shadow-sm">
           <span>🔍 Keşfedilen:</span>
           <span id="s4-counter" class="text-sm font-extrabold text-amber-700">0 / 6</span>
         </div>
@@ -244,7 +244,7 @@
 
       <!-- Hidden Object Image Container -->
       <div id="s4-canvas-container"
-        class="relative rounded-2xl overflow-hidden shadow-lg border-2 border-amber-200 mb-4 bg-slate-100">
+        class="relative overflow-hidden shadow-md border-2 border-slate-300 mb-4 bg-slate-100">
         <img data-template-id="s4-img" id="s4-discovery-img" class="w-full h-auto max-h-[480px] object-cover block"
           loading="lazy" src="img/nomad_yurt_discovery.png" alt="Türkistan Konargöçer Çadır İçi Keşif">
         <div id="s4-hotspots-layer" class="absolute inset-0"></div>
@@ -252,12 +252,12 @@
 
       <!-- Info Card Modal / Drawer -->
       <div id="s4-info-modal"
-        class="hidden p-5 rounded-2xl bg-white border-2 border-amber-300 shadow-xl transition-all fade-in">
+        class="hidden p-5 bg-white border-2 border-amber-400 shadow-md transition-all fade-in">
         <div>
           <div class="flex items-center justify-between mb-1.5">
             <h3 id="s4-modal-title" class="text-base font-bold text-amber-900">Obje Başlığı</h3>
             <span id="s4-modal-badge"
-              class="px-2.5 py-0.5 rounded-full bg-emerald-100 border border-emerald-300 text-emerald-800 text-[11px] font-bold">✓
+              class="px-2.5 py-0.5 bg-emerald-100 border border-emerald-400 text-emerald-900 text-[11px] font-bold">✓
               Keşfedildi</span>
           </div>
           <p id="s4-modal-detail" class="text-sm text-slate-700 leading-relaxed">Obje açıklaması burada görünecektir.
@@ -277,21 +277,21 @@
     <div id="stage-6" class="stage fade-in">
       <h2 data-template-id="s6-title" class="canva-text heading-font text-2xl mb-1 text-slate-800 font-bold">Değer Seçimi ve Bakış Açısı</h2>
       <p data-template-id="s6-desc" class="canva-text text-sm mb-5 text-slate-600">Konargöçer yaşamı en iyi tanımlayan üç değeri seçiniz ve kendi bakış açınızı ifade ediniz.</p>
-      <img data-template-id="s6-img" class="canva-image w-full h-56 sm:h-72 object-contain bg-slate-100 p-2 rounded-xl mb-4 border border-amber-200 shadow-sm"
+      <img data-template-id="s6-img" class="canva-image w-full h-56 sm:h-72 object-contain bg-slate-100 p-2 mb-4 border border-slate-300 shadow-sm"
         loading="lazy" src="img/deger.png" alt="Konargöçer Türk Göç Kervanı">
       <div id="s6-badges" class="grid grid-cols-2 sm:grid-cols-3 gap-2.5 mb-4"></div>
 
       <!-- Personal Perspective Expression Box (Kazanım f) -->
-      <div id="s6-perspective-box" class="card-surface p-5 rounded-2xl border border-amber-200">
+      <div id="s6-perspective-box" class="card-surface p-5 border border-slate-200">
         <label for="user-opinion"
-          class="block text-xs uppercase tracking-widest text-amber-800 font-bold mb-2 flex items-center gap-1.5">
+          class="block text-xs uppercase tracking-widest text-amber-900 font-bold mb-2 flex items-center gap-1.5">
           Kişisel Bakış Açınız & Yorumunuz
         </label>
         <p class="text-xs text-slate-600 mb-3 leading-relaxed">
           Türklerde konargöçer yaşam tarzının tarihi ve kültürel önemi hakkındaki düşüncenizi ifade ediniz:
         </p>
         <textarea id="user-opinion" rows="3"
-          class="w-full p-3.5 rounded-xl bg-slate-50 border border-slate-300 text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:border-amber-500 focus:bg-white leading-relaxed"
+          class="w-full p-3.5 bg-slate-50 border border-slate-300 text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:border-amber-600 focus:bg-white leading-relaxed"
           placeholder="Örn: Konargöçer yaşam Türklerin bağımsızlık tutkusunu, dayanışma ruhunu ve doğayla uyum içinde yaşama becerisini biçimlendirmiştir..."></textarea>
       </div>
     </div>
@@ -300,32 +300,32 @@
     <div id="stage-final" class="stage fade-in text-center py-8">
       <h2 data-template-id="final-title" class="canva-text heading-font text-3xl mb-4 text-slate-800 font-bold">Keşfinizi Tamamladınız!</h2>
 
-      <div class="card-surface max-w-xl mx-auto mb-8 rounded-2xl p-6 text-left border border-amber-200 space-y-4">
+      <div class="card-surface max-w-xl mx-auto mb-8 p-6 text-left border border-slate-200 space-y-4">
         <p id="final-feedback" class="text-sm text-slate-700 leading-relaxed">Harika bir öğrenme yolculuğu
           gerçekleştirdiniz! İlettiğiniz cevaplarla Tariat Kitabesi'nden Sarıkeçili Yörüklerine uzanan konargöçer
           kültürün temel öğelerini pekiştirdiniz.</p>
 
         <div>
-          <span class="text-xs text-amber-800 font-bold uppercase tracking-wide block mb-2">Öne Çıkardığınız
+          <span class="text-xs text-amber-900 font-bold uppercase tracking-wide block mb-2">Öne Çıkardığınız
             Değerler:</span>
           <div id="final-selected-values" class="flex flex-wrap gap-2"></div>
         </div>
 
         <div id="final-perspective-container" class="hidden">
-          <span class="text-xs text-amber-800 font-bold uppercase tracking-wide block mb-1">Kişisel Bakış Açınız:</span>
+          <span class="text-xs text-amber-900 font-bold uppercase tracking-wide block mb-1">Kişisel Bakış Açınız:</span>
           <p id="final-perspective-display"
-            class="p-3.5 rounded-xl bg-amber-50 border border-amber-200 text-xs text-amber-900 italic leading-relaxed">
+            class="p-3.5 bg-amber-50 border border-amber-300 text-xs text-amber-950 italic leading-relaxed">
           </p>
         </div>
       </div>
 
       <div class="flex flex-wrap items-center justify-center gap-3">
         <button id="restart-btn" data-template-id="restart-button"
-          class="canva-button px-8 py-3.5 rounded-xl font-bold shadow-md hover:shadow-lg transition-all uppercase tracking-wide bg-gradient-to-r from-emerald-600 to-emerald-700 text-white">
+          class="canva-button px-8 py-3.5 font-bold shadow-md hover:bg-emerald-700 transition-all uppercase tracking-wide bg-emerald-600 text-white">
           Etkinliği Baştan İncele
         </button>
         <button id="close-btn" type="button"
-          class="px-8 py-3.5 rounded-xl font-bold shadow-md hover:shadow-lg transition-all uppercase tracking-wide bg-rose-50 hover:bg-rose-100 border border-rose-200 text-rose-700">
+          class="px-8 py-3.5 font-bold shadow-md hover:bg-rose-100 transition-all uppercase tracking-wide bg-rose-50 border border-rose-300 text-rose-800">
           Etkinliği Bitir
         </button>
       </div>
@@ -334,7 +334,7 @@
     <!-- Next button -->
     <div id="next-container" class="hidden mt-8 text-center">
       <button id="next-btn" data-template-id="next-button"
-        class="canva-button px-10 py-3.5 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all uppercase tracking-wide bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-500 hover:to-amber-600 text-white">
+        class="canva-button px-10 py-3.5 font-bold shadow-md hover:bg-amber-700 transition-all uppercase tracking-wide bg-amber-600 text-white">
         Sonraki Aşamaya Geç &rarr;
       </button>
     </div>

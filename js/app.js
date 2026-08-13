@@ -160,7 +160,7 @@ function initS1() {
             clickedBtn.style.background = '#059669';
             clickedBtn.style.borderColor = '#047857';
             clickedBtn.style.color = '#ffffff';
-            clickedBtn.style.boxShadow = '0 0 16px rgba(16, 185, 129, 0.4)';
+            clickedBtn.style.boxShadow = '0 0 10px rgba(16, 185, 129, 0.4)';
 
             const label = item.answer === 'primary' ? 'Birinci El' : 'İkinci El';
             if (feedbackEl) {
@@ -168,13 +168,13 @@ function initS1() {
                     <div class="text-sm font-extrabold mb-1">İnceleme Notu</div>
                     <div class="font-normal opacity-95">${item.explanation || `"${item.text}" ${label} kaynak örneğidir.`}</div>
                 `;
-                feedbackEl.className = 'text-xs font-semibold p-4 rounded-xl text-left leading-relaxed bg-emerald-50 border border-emerald-300 text-emerald-900 shadow-md fade-in';
+                feedbackEl.className = 'text-xs font-semibold p-4 text-left leading-relaxed bg-emerald-50 border border-emerald-300 text-emerald-900 shadow-sm fade-in';
             }
         } else {
             clickedBtn.style.background = '#dc2626';
             clickedBtn.style.borderColor = '#b91c1c';
             clickedBtn.style.color = '#ffffff';
-            clickedBtn.style.boxShadow = '0 0 16px rgba(220, 38, 38, 0.4)';
+            clickedBtn.style.boxShadow = '0 0 10px rgba(220, 38, 38, 0.4)';
 
             correctBtn.style.background = '#059669';
             correctBtn.style.borderColor = '#047857';
@@ -186,7 +186,7 @@ function initS1() {
                     <div class="text-sm font-extrabold mb-1">Değerlendirme & Bilgi Notu</div>
                     <div class="font-normal opacity-95">${item.explanation || `"${item.text}" aslında ${correctLabel} kaynak örneğidir.`}</div>
                 `;
-                feedbackEl.className = 'text-xs font-semibold p-4 rounded-xl text-left leading-relaxed bg-amber-50 border border-amber-300 text-amber-900 shadow-md fade-in';
+                feedbackEl.className = 'text-xs font-semibold p-4 text-left leading-relaxed bg-amber-50 border border-amber-300 text-amber-900 shadow-sm fade-in';
             }
         }
 
@@ -241,9 +241,9 @@ function initS2() {
         btn.dataset.kind = card.kind;
         
         if (card.kind === 'feature') {
-            btn.className = 'option-btn w-full p-3.5 rounded-xl text-sm font-bold border-2 border-amber-300 bg-amber-50/80 text-amber-950 shadow-sm hover:border-amber-500 hover:bg-amber-100 hover:shadow-md transition-all focus:outline-none focus:ring-2 focus:ring-amber-400';
+            btn.className = 'option-btn w-full p-3.5 text-sm font-bold border-2 border-amber-300 bg-amber-50 text-amber-950 shadow-sm hover:border-amber-500 hover:bg-amber-100 transition-all focus:outline-none focus:ring-2 focus:ring-amber-400';
         } else {
-            btn.className = 'option-btn w-full p-3.5 rounded-xl text-sm font-medium border-2 border-sky-300 bg-sky-50/80 text-sky-950 shadow-sm hover:border-sky-500 hover:bg-sky-100 hover:shadow-md transition-all focus:outline-none focus:ring-2 focus:ring-sky-400';
+            btn.className = 'option-btn w-full p-3.5 text-sm font-medium border-2 border-sky-300 bg-sky-50 text-sky-950 shadow-sm hover:border-sky-500 hover:bg-sky-100 transition-all focus:outline-none focus:ring-2 focus:ring-sky-400';
         }
         btn.textContent = card.label;
         
@@ -251,8 +251,8 @@ function initS2() {
             if (btn.disabled || btn.classList.contains('matched')) return;
             if (!selected) { 
                 selected = btn; 
-                btn.style.transform = 'scale(1.03)';
-                btn.style.boxShadow = '0 0 16px rgba(217, 119, 6, 0.35)';
+                btn.style.transform = 'scale(1.02)';
+                btn.style.boxShadow = '0 0 10px rgba(217, 119, 6, 0.35)';
                 btn.style.borderColor = '#d97706';
                 btn.style.background = '#fef3c7';
                 return; 
@@ -268,7 +268,7 @@ function initS2() {
                     b.style.background = '#ecfdf5';
                     b.style.borderColor = '#10b981';
                     b.style.color = '#065f46';
-                    b.style.boxShadow = '0 0 10px rgba(16, 185, 129, 0.2)';
+                    b.style.boxShadow = 'none';
                     b.style.transform = '';
                     b.style.opacity = '0.9';
                 });
@@ -279,7 +279,7 @@ function initS2() {
             } else {
                 btn.style.borderColor = '#ef4444';
                 btn.style.background = '#fef2f2';
-                btn.style.boxShadow = '0 0 12px rgba(239, 68, 68, 0.3)';
+                btn.style.boxShadow = '0 0 8px rgba(239, 68, 68, 0.3)';
                 const prev = selected; 
                 selected = null;
                 setTimeout(() => { 
@@ -311,7 +311,7 @@ function initS3() {
     
     s3Data.forEach((item, index) => {
         const card = document.createElement('div');
-        card.className = 's3-card p-5 rounded-2xl fade-in';
+        card.className = 's3-card p-5 fade-in';
         card.style.animationDelay = `${index * 100}ms`;
         
         // Randomize option order
@@ -333,13 +333,13 @@ function initS3() {
 
             <div class="grid gap-2.5">
                 ${options.map(opt => `
-                    <button type="button" class="s3-option-btn option-btn text-left p-3.5 rounded-xl text-sm text-slate-800 flex items-start gap-3 w-full bg-white border border-slate-200 hover:border-amber-400 hover:bg-amber-50/60 shadow-sm" data-choice="${opt.type}">
+                    <button type="button" class="s3-option-btn option-btn text-left p-3.5 text-sm text-slate-800 flex items-start gap-3 w-full bg-white border border-slate-300 hover:border-amber-500 hover:bg-amber-50 shadow-sm" data-choice="${opt.type}">
                         <span class="leading-snug pt-0.5">${opt.text}</span>
                     </button>
                 `).join('')}
             </div>
 
-            <div class="s3-feedback hidden text-xs font-medium mt-3.5 p-3.5 rounded-xl leading-relaxed"></div>
+            <div class="s3-feedback hidden text-xs font-medium mt-3.5 p-3.5 leading-relaxed"></div>
         `;
         
         gameWrapper.appendChild(card);
@@ -360,13 +360,13 @@ function initS3() {
             if (btn.dataset.choice === 'correct') { 
                 btn.classList.add('correct'); 
                 feedback.textContent = `✓ ${item.correctExplanation}`; 
-                feedback.className = 's3-feedback text-xs font-semibold mt-3.5 p-3.5 rounded-xl bg-emerald-50 border border-emerald-300 text-emerald-900 leading-relaxed shadow-sm'; 
+                feedback.className = 's3-feedback text-xs font-semibold mt-3.5 p-3.5 bg-emerald-50 border border-emerald-300 text-emerald-900 leading-relaxed shadow-sm'; 
             } else { 
                 btn.classList.add('incorrect'); 
                 const correctBtn = card.querySelector('[data-choice="correct"]');
                 if (correctBtn) correctBtn.classList.add('correct');
                 feedback.textContent = `✕ ${item.wrongExplanation}`; 
-                feedback.className = 's3-feedback text-xs font-semibold mt-3.5 p-3.5 rounded-xl bg-red-50 border border-red-300 text-red-900 leading-relaxed shadow-sm'; 
+                feedback.className = 's3-feedback text-xs font-semibold mt-3.5 p-3.5 bg-red-50 border border-red-300 text-red-900 leading-relaxed shadow-sm'; 
             }
             answered++;
             if (answered === s3Data.length) setTimeout(showNext, 800);
@@ -391,7 +391,7 @@ function initS4() {
     s4Data.forEach((item) => {
         const hotspot = document.createElement('button');
         hotspot.type = 'button';
-        hotspot.className = 'hotspot-target absolute w-7 h-7 rounded-full font-bold flex items-center justify-center shadow-lg focus:outline-none focus:ring-2 focus:ring-amber-400';
+        hotspot.className = 'hotspot-target absolute w-7 h-7 font-bold flex items-center justify-center shadow-md focus:outline-none focus:ring-2 focus:ring-amber-400';
         hotspot.style.top = `${item.top}%`;
         hotspot.style.left = `${item.left}%`;
         hotspot.setAttribute('title', item.hint);
@@ -438,36 +438,36 @@ function initS5() {
 
     container.innerHTML = `
         <!-- Active Draggable Item Panel (Above) -->
-        <div id="s5-active-panel" class="card-surface p-5 rounded-2xl border border-amber-200 shadow-md mb-6 fade-in">
+        <div id="s5-active-panel" class="card-surface p-5 border border-slate-300 shadow-sm mb-6 fade-in">
             <!-- Draggable Item Card -->
-            <div id="s5-drag-card" draggable="true" class="p-4 rounded-xl bg-white border-2 border-amber-400 text-base font-bold text-slate-800 leading-snug shadow-sm text-center cursor-grab active:cursor-grabbing hover:border-amber-500 hover:shadow-md transition-all select-none">
+            <div id="s5-drag-card" draggable="true" class="p-4 bg-white border-2 border-amber-500 text-base font-bold text-slate-800 leading-snug shadow-sm text-center cursor-grab active:cursor-grabbing hover:border-amber-600 transition-all select-none">
                 <span id="s5-active-item"></span>
             </div>
 
-            <p id="s5-feedback" class="hidden text-xs font-semibold mt-3 p-3 rounded-xl leading-relaxed text-left transition-all"></p>
+            <p id="s5-feedback" class="hidden text-xs font-semibold mt-3 p-3 leading-relaxed text-left transition-all"></p>
         </div>
 
         <!-- 3 Columns Drop Zones (Below) -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
             <!-- Sütun 1: Sadece Geçmiş -->
-            <div class="s5-drop-zone p-4 rounded-2xl bg-white border-2 border-dashed border-slate-300 flex flex-col min-h-[220px] transition-all" data-cat="past">
-                <div class="text-amber-800 font-extrabold text-sm mb-3 flex items-center justify-center gap-2 border-b border-amber-100 pb-2.5 pointer-events-none">
+            <div class="s5-drop-zone p-4 bg-white border-2 border-dashed border-slate-300 flex flex-col min-h-[220px] transition-all" data-cat="past">
+                <div class="text-amber-900 font-extrabold text-sm mb-3 flex items-center justify-center gap-2 border-b border-amber-200 pb-2.5 pointer-events-none">
                     <span>Sadece Geçmiş</span>
                 </div>
                 <div id="s5-past-list" class="space-y-2 flex-1 pointer-events-none"></div>
             </div>
 
             <!-- Sütun 2: Sadece Günümüz -->
-            <div class="s5-drop-zone p-4 rounded-2xl bg-white border-2 border-dashed border-slate-300 flex flex-col min-h-[220px] transition-all" data-cat="present">
-                <div class="text-amber-800 font-extrabold text-sm mb-3 flex items-center justify-center gap-2 border-b border-amber-100 pb-2.5 pointer-events-none">
+            <div class="s5-drop-zone p-4 bg-white border-2 border-dashed border-slate-300 flex flex-col min-h-[220px] transition-all" data-cat="present">
+                <div class="text-amber-900 font-extrabold text-sm mb-3 flex items-center justify-center gap-2 border-b border-amber-200 pb-2.5 pointer-events-none">
                     <span>Sadece Günümüz</span>
                 </div>
                 <div id="s5-present-list" class="space-y-2 flex-1 pointer-events-none"></div>
             </div>
 
             <!-- Sütun 3: Her İki Dönem -->
-            <div class="s5-drop-zone p-4 rounded-2xl bg-white border-2 border-dashed border-slate-300 flex flex-col min-h-[220px] transition-all" data-cat="both">
-                <div class="text-amber-800 font-extrabold text-sm mb-3 flex items-center justify-center gap-2 border-b border-amber-100 pb-2.5 pointer-events-none">
+            <div class="s5-drop-zone p-4 bg-white border-2 border-dashed border-slate-300 flex flex-col min-h-[220px] transition-all" data-cat="both">
+                <div class="text-amber-900 font-extrabold text-sm mb-3 flex items-center justify-center gap-2 border-b border-amber-200 pb-2.5 pointer-events-none">
                     <span>Her İki Dönem</span>
                 </div>
                 <div id="s5-both-list" class="space-y-2 flex-1 pointer-events-none"></div>
@@ -495,7 +495,7 @@ function initS5() {
         const item = s5Items[currentStep];
         activeItemEl.textContent = item.item;
         feedbackEl.classList.add('hidden');
-        dragCardEl.className = 'p-4 rounded-xl bg-white border-2 border-amber-400 text-base font-bold text-slate-800 leading-snug shadow-sm text-center cursor-grab active:cursor-grabbing hover:border-amber-500 hover:shadow-md transition-all select-none';
+        dragCardEl.className = 'p-4 bg-white border-2 border-amber-500 text-base font-bold text-slate-800 leading-snug shadow-sm text-center cursor-grab active:cursor-grabbing hover:border-amber-600 transition-all select-none';
     }
 
     function processDrop(chosenCat) {
@@ -506,22 +506,22 @@ function initS5() {
         if (chosenCat === item.category) {
             feedbackEl.classList.remove('hidden');
             feedbackEl.textContent = `Harika Tespit! ${item.hint}`;
-            feedbackEl.className = 'text-xs font-semibold mt-3 p-3 rounded-xl leading-relaxed text-left bg-emerald-50 text-emerald-900 border border-emerald-300 shadow-sm fade-in';
+            feedbackEl.className = 'text-xs font-semibold mt-3 p-3 leading-relaxed text-left bg-emerald-50 text-emerald-900 border border-emerald-300 shadow-sm fade-in';
 
             const targetList = document.getElementById(`s5-${item.category}-list`);
             const badge = document.createElement('div');
-            badge.className = 'p-2.5 rounded-xl bg-emerald-50 border border-emerald-300 text-emerald-900 font-semibold text-xs flex items-center gap-2 fade-in shadow-sm';
+            badge.className = 'p-2.5 bg-emerald-50 border border-emerald-300 text-emerald-900 font-semibold text-xs flex items-center gap-2 fade-in shadow-sm';
             badge.innerHTML = `<span class="shrink-0 text-emerald-600 font-bold">✓</span> <span>${item.item}</span>`;
             targetList.appendChild(badge);
 
             currentStep++;
             setTimeout(renderStep, 3500);
         } else {
-            dragCardEl.className = 'p-4 rounded-xl bg-amber-50 border-2 border-amber-500 text-base font-bold text-amber-900 leading-snug shadow-sm text-center cursor-grab active:cursor-grabbing transition-all select-none';
+            dragCardEl.className = 'p-4 bg-amber-50 border-2 border-amber-500 text-base font-bold text-amber-900 leading-snug shadow-sm text-center cursor-grab active:cursor-grabbing transition-all select-none';
             
             feedbackEl.classList.remove('hidden');
             feedbackEl.textContent = `İpucu: ${item.hint}`;
-            feedbackEl.className = 'text-xs font-semibold mt-3 p-3 rounded-xl leading-relaxed text-left bg-amber-50 text-amber-900 border border-amber-300 shadow-sm fade-in';
+            feedbackEl.className = 'text-xs font-semibold mt-3 p-3 leading-relaxed text-left bg-amber-50 text-amber-900 border border-amber-300 shadow-sm fade-in';
         }
     }
 
@@ -539,16 +539,16 @@ function initS5() {
     document.querySelectorAll('.s5-drop-zone').forEach(zone => {
         zone.addEventListener('dragover', (e) => {
             e.preventDefault();
-            zone.classList.add('border-amber-500', 'bg-amber-50', 'scale-[1.01]');
+            zone.classList.add('border-amber-600', 'bg-amber-50');
         });
 
         zone.addEventListener('dragleave', () => {
-            zone.classList.remove('border-amber-500', 'bg-amber-50', 'scale-[1.01]');
+            zone.classList.remove('border-amber-600', 'bg-amber-50');
         });
 
         zone.addEventListener('drop', (e) => {
             e.preventDefault();
-            zone.classList.remove('border-amber-500', 'bg-amber-50', 'scale-[1.01]');
+            zone.classList.remove('border-amber-600', 'bg-amber-50');
             const chosenCat = zone.dataset.cat;
             processDrop(chosenCat);
         });
@@ -565,7 +565,7 @@ function initS6() {
     
     s6Badges.forEach(badge => {
         const div = document.createElement('button');
-        div.className = 'option-btn p-3 rounded-xl border border-slate-200 hover:border-amber-400 hover:bg-amber-50 bg-white text-xs font-bold text-slate-700 tracking-wide text-center transition-all shadow-sm';
+        div.className = 'option-btn p-3 border border-slate-300 hover:border-amber-500 hover:bg-amber-50 bg-white text-xs font-bold text-slate-700 tracking-wide text-center transition-all shadow-sm';
         div.innerHTML = `<span>${badge.label}</span>`;
         div.addEventListener('click', () => {
             if (div.classList.contains('chosen')) return;
@@ -595,7 +595,7 @@ function showFinal() {
         if (state.selectedValues && state.selectedValues.length > 0) {
             state.selectedValues.forEach(v => {
                 const tag = document.createElement('span');
-                tag.className = 'px-3 py-1 rounded-lg bg-amber-100 border border-amber-300 text-amber-900 text-xs font-bold flex items-center gap-1.5 shadow-sm';
+                tag.className = 'px-3 py-1 bg-amber-100 border border-amber-300 text-amber-900 text-xs font-bold flex items-center gap-1.5 shadow-sm';
                 tag.innerHTML = `<span>${v.label}</span>`;
                 valuesContainer.appendChild(tag);
             });
@@ -685,7 +685,7 @@ if (closeBtn) {
         
         document.body.innerHTML = `
             <div class="min-h-screen bg-slate-50 text-slate-800 flex flex-col items-center justify-center p-6 text-center fade-in">
-                <div class="w-20 h-20 rounded-full bg-emerald-100 border-2 border-emerald-400 text-emerald-700 flex items-center justify-center text-4xl mb-4 shadow-lg">
+                <div class="w-16 h-16 bg-emerald-100 border-2 border-emerald-500 text-emerald-700 flex items-center justify-center text-3xl mb-4 shadow-md">
                     ✓
                 </div>
                 <h2 class="text-2xl font-black mb-2 text-slate-800">Etkinlik Başarıyla Sonlandırıldı</h2>
