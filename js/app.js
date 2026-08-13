@@ -629,25 +629,52 @@ function validateUserOpinion(rawText, selectedBadges) {
         };
     }
 
-    // 2. Kural: Konuyla İlgili Anahtar Kelimeler Denetimi
+    // 2. Kural: Zenginleştirilmiş Konu & Tarihsel Kavram Havuzu
     const topicKeywords = [
-        'konar', 'göç', 'yörük', 'türk', 'bozkır', 'otlak', 'yaylak', 'kışlak',
-        'çadır', 'otağ', 'kurgan', 'töre', 'ordu', 'asker', 'at', 'hayvan',
-        'hayvancılık', 'savaş', 'bağımsız', 'özgür', 'hürriyet', 'dayanışma',
-        'birlik', 'kültür', 'tarih', 'miras', 'yaşam', 'hayat', 'doğa', 'iklim',
-        'coğrafya', 'disiplin', 'teşkilat', 'devlet', 'alp', 'cesaret', 'hükümdar',
-        'kağan', 'yazıt', 'kitabe', 'örf', 'adet', 'gelenek', 'toplum',
-        'yardımlaşma', 'kervan', 'sürü', 'orta asya', 'tariat', 'orhun', 'pazırık',
-        'boy', 'oba', 'çadırı', 'göçebe', 'vatan', 'millet', 'dayanıklı', 'güçlü',
-        'mücadele', 'kolay', 'zor', 'zorluk', 'çevre', 'yaşayış', 'yaşantı', 'bakış',
-        'önem', 'birlik', 'beraberlik', 'vatan', 'yurt', 'otlat'
+        // Konargöçer ve Yaşam Biçimi
+        'konar', 'göç', 'göçer', 'göçebe', 'yörük', 'yaylak', 'kışlak', 'otlak', 'mera', 'mevsim', 
+        'çadır', 'otağ', 'yurt', 'oba', 'boy', 'kervan', 'hareket', 'yaşam', 'yaşayış', 'yaşantı', 'hayat',
+        
+        // Tarih, Millet, Coğrafya ve Kültür
+        'türk', 'tarih', 'kültür', 'miras', 'geçmiş', 'bozkır', 'orta asya', 'avrasya', 'anadolu', 'toros',
+        'coğrafya', 'doğa', 'çevre', 'iklim', 'toprak', 'vatan', 'il', 'budun', 'kağan', 'hakan', 'devlet',
+        'gelenek', 'örf', 'adet', 'öge', 'unsur', 'kimlik',
+        
+        // Sosyal Yapı, Hukuk ve Değerler
+        'töre', 'hukuk', 'yasa', 'kural', 'adalet', 'aile', 'oguş', 'urug', 'toplum', 'birlik', 'beraberlik',
+        'dayanışma', 'imece', 'yardımlaşma', 'saygı', 'sevgi', 'bağlılık', 'disiplin', 'özgür', 'özgürlük',
+        'bağımsız', 'bağımsızlık', 'hürriyet', 'istiklal', 'eşitlik', 'kadın', 'barış', 'erdem',
+        
+        // Hayvancılık, Ekonomi ve Beslenme
+        'hayvan', 'hayvancılık', 'sürü', 'at', 'atlı', 'koyun', 'keçi', 'deve', 'et', 'süt', 'kımız',
+        'tutmaç', 'pastırma', 'deri', 'keçe', 'dokuma', 'halı', 'kilim', 'demir', 'demircilik', 'maden',
+        'zanaat', 'ticaret', 'takas', 'ipek',
+        
+        // Askeri Yapı, Mücadele ve Savunma
+        'ordu', 'asker', 'savaş', 'savaşçı', 'ordu-millet', 'savunma', 'mücadele', 'direnç', 'çevik',
+        'çeviklik', 'hız', 'ok', 'yay', 'kılıç', 'alp', 'cesaret', 'kahraman', 'güç', 'dayanıklı', 'dayanıklılık',
+        
+        // Düşünce, Gelişim ve Çıkarım İfadeleri
+        'önem', 'önemli', 'etki', 'etkile', 'geliş', 'geliştir', 'sağla', 'oluş', 'şekillen', 'biçimlen',
+        'katkı', 'rol', 'anlayış', 'özellik', 'beceri', 'kabiliyet', 'uyum', 'zor', 'şart', 'koşul',
+        'bakış', 'çıkarım', 'sonuç', 'fikir', 'düşünce', 'değer', 'kavram',
+        
+        // Tarihsel Kaynaklar ve Anıtlar
+        'orhun', 'kitabe', 'yazıt', 'tariat', 'terhin', 'bilge', 'kül tigin', 'tonyukuk', 'pazırık',
+        'kurgan', 'balbal', 'belge', 'kaynak'
     ];
 
     // Seçilen değerlerin etiketlerini de anahtar kelime havuzuna dahil et
     if (Array.isArray(selectedBadges)) {
         selectedBadges.forEach(b => {
             if (b && b.label) {
-                topicKeywords.push(b.label.toLocaleLowerCase('tr-TR'));
+                const wordsInLabel = b.label.toLocaleLowerCase('tr-TR').split(/\s+/);
+                wordsInLabel.forEach(w => {
+                    const cleanW = w.replace(/[^a-zA-ZçğıöşüÇĞİÖŞÜ]/g, '');
+                    if (cleanW.length >= 3) {
+                        topicKeywords.push(cleanW);
+                    }
+                });
             }
         });
     }
@@ -657,7 +684,7 @@ function validateUserOpinion(rawText, selectedBadges) {
     if (!hasTopicKeyword) {
         return {
             isValid: false,
-            message: 'Lütfen konargöçer yaşam tarzı, bozkır kültürü veya seçtiğiniz değerlerle ilgili anlamlı bir düşünce ifade ediniz (Örn: Bozkır koşulları Türklerin bağımsızlık ve dayanışma duygusunu geliştirmiştir).'
+            message: 'Lütfen konargöçer yaşam tarzı, bozkır kültürü veya seçtiğiniz değerlerle ilgili anlamlı bir düşünce ifade ediniz (Örn: Bozkır koşulları Türklerin bağımsızlık ve dayanışma duygusunu güçlendirmiştir).'
         };
     }
 
@@ -887,3 +914,6 @@ if (fsBtn) {
     document.addEventListener('fullscreenchange', updateFsBtnState);
     document.addEventListener('webkitfullscreenchange', updateFsBtnState);
 }
+
+// Başlangıçta tüm sekmelerin kilit durumunu güncelle
+updateNavTabs();
