@@ -24,17 +24,21 @@ function updateNavTabs() {
 
         if (isCurrent) {
             btn.classList.add('active-tab');
+            btn.classList.remove('tab-locked', 'tab-unlocked');
         } else {
             btn.classList.remove('active-tab');
         }
 
         if (targetVal > unlockedVal) {
             btn.disabled = true;
-            btn.classList.add('opacity-40', 'cursor-not-allowed', 'pointer-events-none');
-            btn.classList.remove('hover:border-amber-400');
+            btn.classList.add('tab-locked', 'pointer-events-none');
+            btn.classList.remove('tab-unlocked');
         } else {
             btn.disabled = false;
-            btn.classList.remove('opacity-40', 'cursor-not-allowed', 'pointer-events-none');
+            btn.classList.remove('tab-locked', 'pointer-events-none');
+            if (!isCurrent) {
+                btn.classList.add('tab-unlocked');
+            }
         }
     });
 }
@@ -127,14 +131,14 @@ function initS1() {
         primary.disabled = false; 
         secondary.disabled = false;
         
-        primary.style.background = 'rgb(6, 78, 59)';
-        primary.style.borderColor = 'rgb(4, 120, 87)';
-        primary.style.color = 'rgb(110, 231, 183)';
+        primary.style.background = '#ecfdf5';
+        primary.style.borderColor = '#10b981';
+        primary.style.color = '#065f46';
         primary.style.boxShadow = 'none';
 
-        secondary.style.background = 'rgb(30, 58, 95)';
-        secondary.style.borderColor = 'rgb(29, 78, 216)';
-        secondary.style.color = 'rgb(147, 197, 253)';
+        secondary.style.background = '#f0f9ff';
+        secondary.style.borderColor = '#0ea5e9';
+        secondary.style.color = '#0369a1';
         secondary.style.boxShadow = 'none';
 
         if (feedbackContainer) feedbackContainer.classList.add('hidden');
@@ -154,9 +158,9 @@ function initS1() {
 
         if (isCorrect) {
             clickedBtn.style.background = '#059669';
-            clickedBtn.style.borderColor = '#34d399';
+            clickedBtn.style.borderColor = '#047857';
             clickedBtn.style.color = '#ffffff';
-            clickedBtn.style.boxShadow = '0 0 16px rgba(16, 185, 129, 0.7)';
+            clickedBtn.style.boxShadow = '0 0 16px rgba(16, 185, 129, 0.4)';
 
             const label = item.answer === 'primary' ? 'Birinci El' : 'İkinci El';
             if (feedbackEl) {
@@ -164,16 +168,16 @@ function initS1() {
                     <div class="text-sm font-extrabold mb-1">İnceleme Notu</div>
                     <div class="font-normal opacity-95">${item.explanation || `"${item.text}" ${label} kaynak örneğidir.`}</div>
                 `;
-                feedbackEl.className = 'text-xs font-bold p-3.5 rounded-xl text-left leading-relaxed bg-emerald-950/90 border border-emerald-500/60 text-emerald-200 shadow-xl fade-in';
+                feedbackEl.className = 'text-xs font-semibold p-4 rounded-xl text-left leading-relaxed bg-emerald-50 border border-emerald-300 text-emerald-900 shadow-md fade-in';
             }
         } else {
-            clickedBtn.style.background = '#d97706';
-            clickedBtn.style.borderColor = '#fbbf24';
+            clickedBtn.style.background = '#dc2626';
+            clickedBtn.style.borderColor = '#b91c1c';
             clickedBtn.style.color = '#ffffff';
-            clickedBtn.style.boxShadow = '0 0 16px rgba(217, 119, 6, 0.7)';
+            clickedBtn.style.boxShadow = '0 0 16px rgba(220, 38, 38, 0.4)';
 
             correctBtn.style.background = '#059669';
-            correctBtn.style.borderColor = '#34d399';
+            correctBtn.style.borderColor = '#047857';
             correctBtn.style.color = '#ffffff';
 
             const correctLabel = item.answer === 'primary' ? 'Birinci El' : 'İkinci El';
@@ -182,7 +186,7 @@ function initS1() {
                     <div class="text-sm font-extrabold mb-1">Değerlendirme & Bilgi Notu</div>
                     <div class="font-normal opacity-95">${item.explanation || `"${item.text}" aslında ${correctLabel} kaynak örneğidir.`}</div>
                 `;
-                feedbackEl.className = 'text-xs font-bold p-3.5 rounded-xl text-left leading-relaxed bg-amber-950/90 border border-amber-500/60 text-amber-200 shadow-xl fade-in';
+                feedbackEl.className = 'text-xs font-semibold p-4 rounded-xl text-left leading-relaxed bg-amber-50 border border-amber-300 text-amber-900 shadow-md fade-in';
             }
         }
 
@@ -237,9 +241,9 @@ function initS2() {
         btn.dataset.kind = card.kind;
         
         if (card.kind === 'feature') {
-            btn.className = 'option-btn w-full p-3.5 rounded-xl text-sm font-bold border-2 border-amber-500/50 bg-gradient-to-br from-amber-950/80 to-amber-900/40 text-amber-200 shadow-md hover:border-amber-400 hover:shadow-amber-500/20 hover:shadow-lg transition-all focus:outline-none focus:ring-2 focus:ring-amber-400';
+            btn.className = 'option-btn w-full p-3.5 rounded-xl text-sm font-bold border-2 border-amber-300 bg-amber-50/80 text-amber-950 shadow-sm hover:border-amber-500 hover:bg-amber-100 hover:shadow-md transition-all focus:outline-none focus:ring-2 focus:ring-amber-400';
         } else {
-            btn.className = 'option-btn w-full p-3.5 rounded-xl text-sm font-semibold border-2 border-sky-500/40 bg-gradient-to-br from-sky-950/70 to-slate-800/60 text-sky-200 shadow-md hover:border-sky-400 hover:shadow-sky-500/20 hover:shadow-lg transition-all focus:outline-none focus:ring-2 focus:ring-sky-400';
+            btn.className = 'option-btn w-full p-3.5 rounded-xl text-sm font-medium border-2 border-sky-300 bg-sky-50/80 text-sky-950 shadow-sm hover:border-sky-500 hover:bg-sky-100 hover:shadow-md transition-all focus:outline-none focus:ring-2 focus:ring-sky-400';
         }
         btn.textContent = card.label;
         
@@ -247,9 +251,10 @@ function initS2() {
             if (btn.disabled || btn.classList.contains('matched')) return;
             if (!selected) { 
                 selected = btn; 
-                btn.style.transform = 'scale(1.04)';
-                btn.style.boxShadow = '0 0 20px rgba(217, 119, 6, 0.5)';
-                btn.style.borderColor = '#fbbf24';
+                btn.style.transform = 'scale(1.03)';
+                btn.style.boxShadow = '0 0 16px rgba(217, 119, 6, 0.35)';
+                btn.style.borderColor = '#d97706';
+                btn.style.background = '#fef3c7';
                 return; 
             }
             if (selected === btn) return;
@@ -260,26 +265,29 @@ function initS2() {
                 [selected, btn].forEach(b => {
                     b.classList.add('matched');
                     b.disabled = true;
-                    b.style.background = 'linear-gradient(135deg, rgba(5, 150, 105, 0.3), rgba(6, 78, 59, 0.5))';
-                    b.style.borderColor = '#34d399';
-                    b.style.color = '#a7f3d0';
-                    b.style.boxShadow = '0 0 12px rgba(52, 211, 153, 0.3)';
+                    b.style.background = '#ecfdf5';
+                    b.style.borderColor = '#10b981';
+                    b.style.color = '#065f46';
+                    b.style.boxShadow = '0 0 10px rgba(16, 185, 129, 0.2)';
                     b.style.transform = '';
-                    b.style.opacity = '0.85';
+                    b.style.opacity = '0.9';
                 });
                 
                 matched++; 
                 selected = null;
                 if (matched === s2Data.length) setTimeout(showNext, 700);
             } else {
-                btn.style.borderColor = '#f59e0b';
-                btn.style.boxShadow = '0 0 12px rgba(245, 158, 11, 0.4)';
+                btn.style.borderColor = '#ef4444';
+                btn.style.background = '#fef2f2';
+                btn.style.boxShadow = '0 0 12px rgba(239, 68, 68, 0.3)';
                 const prev = selected; 
                 selected = null;
                 setTimeout(() => { 
                     btn.style.borderColor = '';
+                    btn.style.background = '';
                     btn.style.boxShadow = '';
                     prev.style.borderColor = '';
+                    prev.style.background = '';
                     prev.style.boxShadow = '';
                     prev.style.transform = '';
                 }, 500);
@@ -298,7 +306,7 @@ function initS3() {
     let answered = 0;
     
     const gameWrapper = document.createElement('div');
-    gameWrapper.className = 'space-y-5';
+    gameWrapper.className = 'space-y-4';
     container.appendChild(gameWrapper);
     
     s3Data.forEach((item, index) => {
@@ -318,14 +326,14 @@ function initS3() {
 
         card.innerHTML = `
             <div class="s3-cause-box mb-4">
-                <p class="text-base font-bold text-[#f5c875] leading-relaxed">
+                <p class="text-base font-bold text-amber-950 leading-relaxed">
                     "${item.cause}" durumu hangi tarihsel sonuca yol açmıştır?
                 </p>
             </div>
 
-            <div class="grid gap-3">
+            <div class="grid gap-2.5">
                 ${options.map(opt => `
-                    <button type="button" class="s3-option-btn option-btn text-left p-3.5 rounded-xl text-sm text-amber-100/90 flex items-start gap-3 w-full" data-choice="${opt.type}">
+                    <button type="button" class="s3-option-btn option-btn text-left p-3.5 rounded-xl text-sm text-slate-800 flex items-start gap-3 w-full bg-white border border-slate-200 hover:border-amber-400 hover:bg-amber-50/60 shadow-sm" data-choice="${opt.type}">
                         <span class="leading-snug pt-0.5">${opt.text}</span>
                     </button>
                 `).join('')}
@@ -352,13 +360,13 @@ function initS3() {
             if (btn.dataset.choice === 'correct') { 
                 btn.classList.add('correct'); 
                 feedback.textContent = `✓ ${item.correctExplanation}`; 
-                feedback.className = 's3-feedback text-xs font-medium mt-3.5 p-3.5 rounded-xl bg-emerald-950/80 border border-emerald-500/40 text-emerald-200 leading-relaxed'; 
+                feedback.className = 's3-feedback text-xs font-semibold mt-3.5 p-3.5 rounded-xl bg-emerald-50 border border-emerald-300 text-emerald-900 leading-relaxed shadow-sm'; 
             } else { 
                 btn.classList.add('incorrect'); 
                 const correctBtn = card.querySelector('[data-choice="correct"]');
                 if (correctBtn) correctBtn.classList.add('correct');
                 feedback.textContent = `✕ ${item.wrongExplanation}`; 
-                feedback.className = 's3-feedback text-xs font-medium mt-3.5 p-3.5 rounded-xl bg-red-950/80 border border-red-500/40 text-red-200 leading-relaxed'; 
+                feedback.className = 's3-feedback text-xs font-semibold mt-3.5 p-3.5 rounded-xl bg-red-50 border border-red-300 text-red-900 leading-relaxed shadow-sm'; 
             }
             answered++;
             if (answered === s3Data.length) setTimeout(showNext, 800);
@@ -383,11 +391,11 @@ function initS4() {
     s4Data.forEach((item) => {
         const hotspot = document.createElement('button');
         hotspot.type = 'button';
-        hotspot.className = 'hotspot-target absolute w-7 h-7 rounded-full border-2 border-amber-400 bg-amber-950/90 text-amber-200 font-bold flex items-center justify-center shadow-xl focus:outline-none focus:ring-2 focus:ring-amber-300';
+        hotspot.className = 'hotspot-target absolute w-7 h-7 rounded-full font-bold flex items-center justify-center shadow-lg focus:outline-none focus:ring-2 focus:ring-amber-400';
         hotspot.style.top = `${item.top}%`;
         hotspot.style.left = `${item.left}%`;
         hotspot.setAttribute('title', item.hint);
-        hotspot.innerHTML = `<span class="text-amber-300 font-extrabold text-xs">?</span>`;
+        hotspot.innerHTML = `<span class="text-amber-800 font-extrabold text-xs">?</span>`;
 
         hotspot.addEventListener('click', (e) => {
             e.stopPropagation();
@@ -400,7 +408,7 @@ function initS4() {
 
             if (!hotspot.classList.contains('discovered')) {
                 hotspot.classList.add('discovered');
-                hotspot.innerHTML = `<span class="text-emerald-300 text-[11px] font-black">✓</span>`;
+                hotspot.innerHTML = `<span class="text-white text-[11px] font-black">✓</span>`;
                 discoveredCount++;
                 counter.textContent = `${discoveredCount} / ${s4Data.length}`;
 
@@ -430,36 +438,36 @@ function initS5() {
 
     container.innerHTML = `
         <!-- Active Draggable Item Panel (Above) -->
-        <div id="s5-active-panel" class="card-surface p-5 rounded-2xl border border-amber-500/40 shadow-xl mb-6 fade-in">
+        <div id="s5-active-panel" class="card-surface p-5 rounded-2xl border border-amber-200 shadow-md mb-6 fade-in">
             <!-- Draggable Item Card -->
-            <div id="s5-drag-card" draggable="true" class="p-4 rounded-xl bg-slate-900/90 border-2 border-amber-400/80 text-base font-bold text-amber-100 leading-snug shadow-lg text-center cursor-grab active:cursor-grabbing hover:border-amber-300 transition-all select-none">
+            <div id="s5-drag-card" draggable="true" class="p-4 rounded-xl bg-white border-2 border-amber-400 text-base font-bold text-slate-800 leading-snug shadow-sm text-center cursor-grab active:cursor-grabbing hover:border-amber-500 hover:shadow-md transition-all select-none">
                 <span id="s5-active-item"></span>
             </div>
 
-            <p id="s5-feedback" class="hidden text-xs font-semibold mt-3 p-2.5 rounded-lg leading-relaxed text-center transition-all"></p>
+            <p id="s5-feedback" class="hidden text-xs font-semibold mt-3 p-3 rounded-xl leading-relaxed text-left transition-all"></p>
         </div>
 
         <!-- 3 Columns Drop Zones (Below) -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
             <!-- Sütun 1: Sadece Geçmiş -->
-            <div class="s5-drop-zone p-4 rounded-2xl bg-slate-900/70 border-2 border-amber-500/30 flex flex-col min-h-[220px] transition-all" data-cat="past">
-                <div class="text-amber-300 font-extrabold text-sm mb-3 flex items-center justify-center gap-2 border-b border-amber-500/20 pb-2.5 pointer-events-none">
+            <div class="s5-drop-zone p-4 rounded-2xl bg-white border-2 border-dashed border-slate-300 flex flex-col min-h-[220px] transition-all" data-cat="past">
+                <div class="text-amber-800 font-extrabold text-sm mb-3 flex items-center justify-center gap-2 border-b border-amber-100 pb-2.5 pointer-events-none">
                     <span>Sadece Geçmiş</span>
                 </div>
                 <div id="s5-past-list" class="space-y-2 flex-1 pointer-events-none"></div>
             </div>
 
             <!-- Sütun 2: Sadece Günümüz -->
-            <div class="s5-drop-zone p-4 rounded-2xl bg-slate-900/70 border-2 border-amber-500/30 flex flex-col min-h-[220px] transition-all" data-cat="present">
-                <div class="text-amber-300 font-extrabold text-sm mb-3 flex items-center justify-center gap-2 border-b border-amber-500/20 pb-2.5 pointer-events-none">
+            <div class="s5-drop-zone p-4 rounded-2xl bg-white border-2 border-dashed border-slate-300 flex flex-col min-h-[220px] transition-all" data-cat="present">
+                <div class="text-amber-800 font-extrabold text-sm mb-3 flex items-center justify-center gap-2 border-b border-amber-100 pb-2.5 pointer-events-none">
                     <span>Sadece Günümüz</span>
                 </div>
                 <div id="s5-present-list" class="space-y-2 flex-1 pointer-events-none"></div>
             </div>
 
             <!-- Sütun 3: Her İki Dönem -->
-            <div class="s5-drop-zone p-4 rounded-2xl bg-slate-900/70 border-2 border-amber-500/30 flex flex-col min-h-[220px] transition-all" data-cat="both">
-                <div class="text-amber-300 font-extrabold text-sm mb-3 flex items-center justify-center gap-2 border-b border-amber-500/20 pb-2.5 pointer-events-none">
+            <div class="s5-drop-zone p-4 rounded-2xl bg-white border-2 border-dashed border-slate-300 flex flex-col min-h-[220px] transition-all" data-cat="both">
+                <div class="text-amber-800 font-extrabold text-sm mb-3 flex items-center justify-center gap-2 border-b border-amber-100 pb-2.5 pointer-events-none">
                     <span>Her İki Dönem</span>
                 </div>
                 <div id="s5-both-list" class="space-y-2 flex-1 pointer-events-none"></div>
@@ -476,8 +484,8 @@ function initS5() {
         if (currentStep >= s5Items.length) {
             activePanelEl.innerHTML = `
                 <div class="text-center py-4">
-                    <h3 class="font-bold text-emerald-400 text-base mb-1">Tebrikler!</h3>
-                    <p class="text-xs text-slate-300">Tüm kültürel ögeleri doğru sütunlara yerleştirdiniz.</p>
+                    <h3 class="font-bold text-emerald-700 text-base mb-1">Tebrikler!</h3>
+                    <p class="text-xs text-slate-600">Tüm kültürel ögeleri doğru sütunlara yerleştirdiniz.</p>
                 </div>
             `;
             setTimeout(showNext, 1200);
@@ -487,7 +495,7 @@ function initS5() {
         const item = s5Items[currentStep];
         activeItemEl.textContent = item.item;
         feedbackEl.classList.add('hidden');
-        dragCardEl.className = 'p-4 rounded-xl bg-slate-900/90 border-2 border-amber-400/80 text-base font-bold text-amber-100 leading-snug shadow-lg text-center cursor-grab active:cursor-grabbing hover:border-amber-300 transition-all select-none';
+        dragCardEl.className = 'p-4 rounded-xl bg-white border-2 border-amber-400 text-base font-bold text-slate-800 leading-snug shadow-sm text-center cursor-grab active:cursor-grabbing hover:border-amber-500 hover:shadow-md transition-all select-none';
     }
 
     function processDrop(chosenCat) {
@@ -498,22 +506,22 @@ function initS5() {
         if (chosenCat === item.category) {
             feedbackEl.classList.remove('hidden');
             feedbackEl.textContent = `Harika Tespit! ${item.hint}`;
-            feedbackEl.className = 'text-xs font-semibold mt-3 p-3 rounded-xl leading-relaxed text-left bg-emerald-950/90 text-emerald-200 border border-emerald-500/60 shadow-lg fade-in';
+            feedbackEl.className = 'text-xs font-semibold mt-3 p-3 rounded-xl leading-relaxed text-left bg-emerald-50 text-emerald-900 border border-emerald-300 shadow-sm fade-in';
 
             const targetList = document.getElementById(`s5-${item.category}-list`);
             const badge = document.createElement('div');
-            badge.className = 'p-2.5 rounded-xl bg-emerald-950/80 border border-emerald-500/50 text-emerald-200 font-semibold text-xs flex items-center gap-2 fade-in shadow-md';
-            badge.innerHTML = `<span class="shrink-0 text-emerald-400 font-bold">✓</span> <span>${item.item}</span>`;
+            badge.className = 'p-2.5 rounded-xl bg-emerald-50 border border-emerald-300 text-emerald-900 font-semibold text-xs flex items-center gap-2 fade-in shadow-sm';
+            badge.innerHTML = `<span class="shrink-0 text-emerald-600 font-bold">✓</span> <span>${item.item}</span>`;
             targetList.appendChild(badge);
 
             currentStep++;
-            setTimeout(renderStep, 4000);
+            setTimeout(renderStep, 3500);
         } else {
-            dragCardEl.className = 'p-4 rounded-xl bg-amber-950/90 border-2 border-amber-500 text-base font-bold text-amber-100 leading-snug shadow-lg text-center cursor-grab active:cursor-grabbing transition-all select-none';
+            dragCardEl.className = 'p-4 rounded-xl bg-amber-50 border-2 border-amber-500 text-base font-bold text-amber-900 leading-snug shadow-sm text-center cursor-grab active:cursor-grabbing transition-all select-none';
             
             feedbackEl.classList.remove('hidden');
             feedbackEl.textContent = `İpucu: ${item.hint}`;
-            feedbackEl.className = 'text-xs font-semibold mt-3 p-3 rounded-xl leading-relaxed text-left bg-amber-950/90 text-amber-200 border border-amber-500/60 shadow-lg fade-in';
+            feedbackEl.className = 'text-xs font-semibold mt-3 p-3 rounded-xl leading-relaxed text-left bg-amber-50 text-amber-900 border border-amber-300 shadow-sm fade-in';
         }
     }
 
@@ -531,16 +539,16 @@ function initS5() {
     document.querySelectorAll('.s5-drop-zone').forEach(zone => {
         zone.addEventListener('dragover', (e) => {
             e.preventDefault();
-            zone.classList.add('border-amber-400', 'bg-amber-500/20', 'scale-[1.02]');
+            zone.classList.add('border-amber-500', 'bg-amber-50', 'scale-[1.01]');
         });
 
         zone.addEventListener('dragleave', () => {
-            zone.classList.remove('border-amber-400', 'bg-amber-500/20', 'scale-[1.02]');
+            zone.classList.remove('border-amber-500', 'bg-amber-50', 'scale-[1.01]');
         });
 
         zone.addEventListener('drop', (e) => {
             e.preventDefault();
-            zone.classList.remove('border-amber-400', 'bg-amber-500/20', 'scale-[1.02]');
+            zone.classList.remove('border-amber-500', 'bg-amber-50', 'scale-[1.01]');
             const chosenCat = zone.dataset.cat;
             processDrop(chosenCat);
         });
@@ -557,13 +565,14 @@ function initS6() {
     
     s6Badges.forEach(badge => {
         const div = document.createElement('button');
-        div.className = 'option-btn p-2.5 rounded-lg border border-slate-600/80 hover:border-amber-400 bg-slate-900/80 text-xs font-bold text-slate-200 tracking-wide text-center transition-all shadow-sm';
+        div.className = 'option-btn p-3 rounded-xl border border-slate-200 hover:border-amber-400 hover:bg-amber-50 bg-white text-xs font-bold text-slate-700 tracking-wide text-center transition-all shadow-sm';
         div.innerHTML = `<span>${badge.label}</span>`;
         div.addEventListener('click', () => {
             if (div.classList.contains('chosen')) return;
             div.classList.add('chosen');
             div.style.borderColor = '#d97706';
-            div.style.background = 'rgba(217,119,6,0.25)';
+            div.style.background = '#fef3c7';
+            div.style.color = '#92400e';
             state.selectedValues.push(badge);
             selected++;
             if (selected >= 3) {
@@ -586,7 +595,7 @@ function showFinal() {
         if (state.selectedValues && state.selectedValues.length > 0) {
             state.selectedValues.forEach(v => {
                 const tag = document.createElement('span');
-                tag.className = 'px-3 py-1 rounded-lg bg-amber-500/20 border border-amber-500/40 text-amber-200 text-xs font-bold flex items-center gap-1.5';
+                tag.className = 'px-3 py-1 rounded-lg bg-amber-100 border border-amber-300 text-amber-900 text-xs font-bold flex items-center gap-1.5 shadow-sm';
                 tag.innerHTML = `<span>${v.label}</span>`;
                 valuesContainer.appendChild(tag);
             });
@@ -675,12 +684,12 @@ if (closeBtn) {
         } catch (e) {}
         
         document.body.innerHTML = `
-            <div class="min-h-screen bg-slate-950 text-slate-100 flex flex-col items-center justify-center p-6 text-center fade-in">
-                <div class="w-20 h-20 rounded-full bg-emerald-500/20 border-2 border-emerald-500/50 text-emerald-400 flex items-center justify-center text-4xl mb-4 shadow-2xl">
+            <div class="min-h-screen bg-slate-50 text-slate-800 flex flex-col items-center justify-center p-6 text-center fade-in">
+                <div class="w-20 h-20 rounded-full bg-emerald-100 border-2 border-emerald-400 text-emerald-700 flex items-center justify-center text-4xl mb-4 shadow-lg">
                     ✓
                 </div>
-                <h2 class="text-2xl font-black mb-2 text-slate-100">Etkinlik Başarıyla Sonlandırıldı</h2>
-                <p class="text-sm text-slate-400 max-w-md">Katılımınız için teşekkür ederiz. Bu sekmeyi veya pencereyi kapatabilirsiniz.</p>
+                <h2 class="text-2xl font-black mb-2 text-slate-800">Etkinlik Başarıyla Sonlandırıldı</h2>
+                <p class="text-sm text-slate-600 max-w-md">Katılımınız için teşekkür ederiz. Bu sekmeyi veya pencereyi kapatabilirsiniz.</p>
             </div>
         `;
     });
