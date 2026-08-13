@@ -557,32 +557,197 @@ function initS5() {
     renderStep();
 }
 
+function validateUserOpinion(rawText, selectedBadges) {
+    const text = (rawText || '').trim();
+    if (!text) {
+        return {
+            isValid: false,
+            message: 'Lütfen konargöçer yaşam tarzının tarihi ve kültürel önemi hakkındaki düşüncenizi yazınız.'
+        };
+    }
+
+    // 1. Kural: Minimum karakter uzunluğu kontrolü
+    if (text.length < 15) {
+        return {
+            isValid: false,
+            message: 'Düşünceniz çok kısa. Lütfen en az 1-2 cümlelik (en az 15 karakter) bir değerlendirme yazınız.'
+        };
+    }
+
+    // 1. Kural: Minimum kelime sayısı kontrolü
+    const words = text.split(/\s+/).filter(w => w.length > 0);
+    if (words.length < 3) {
+        return {
+            isValid: false,
+            message: 'Lütfen düşüncenizi en az 3-4 anlamlı kelime kullanarak açıklayınız.'
+        };
+    }
+
+    const lowerText = text.toLocaleLowerCase('tr-TR');
+
+    // 1. Kural: Peş peşe tekrarlayan harf kontrolü (örn. aaaaa, sssss)
+    if (/(.)\1{2,}/i.test(text)) {
+        return {
+            isValid: false,
+            message: 'Yazdığınız metinde tekrarlayan anlamsız harfler ("aaaa", "ssss" vb.) tespit edildi. Lütfen konuyla ilgili gerçek düşüncenizi yazınız.'
+        };
+    }
+
+    // 1. Kural: Klavye dizilimleri ve anlamsız tuşlama kontrolü
+    const keyboardSpamPatterns = [
+        'asdf', 'fdsa', 'qwerty', 'ytrewq', 'zxcv', 'vcxz', 'qwert', 'trewq',
+        'asdfg', 'gfdsa', 'zxcvb', 'bvcxz', '1234', '4321', 'jklm', 'mlkj',
+        'fghj', 'jhgf', 'hjkla', 'ghjkl', 'asdasd', 'qweqwe', 'zxczxc'
+    ];
+    for (const pattern of keyboardSpamPatterns) {
+        if (lowerText.includes(pattern)) {
+            return {
+                isValid: false,
+                message: 'Rastgele klavye tuşlaması tespit edildi. Lütfen konargöçer yaşamla ilgili anlamlı bir çıkarım yazınız.'
+            };
+        }
+    }
+
+    // 1. Kural: Sesli harf yoksunluğu kontrolü (4+ harfli kelimelerde hiç ünlü harf yoksa)
+    const vowels = /[aeıioöuü]/i;
+    for (const w of words) {
+        const cleanWord = w.replace(/[^a-zA-ZçğıöşüÇĞİÖŞÜ]/g, '');
+        if (cleanWord.length >= 4 && !vowels.test(cleanWord)) {
+            return {
+                isValid: false,
+                message: 'Yazdığınız metin anlaşılamadı. Lütfen Türkçe kurallarına uygun anlamlı ifadeler kullanınız.'
+            };
+        }
+    }
+
+    // 1. Kural: Benzersiz kelime çeşitliliği kontrolü
+    const uniqueWords = new Set(words.map(w => w.toLocaleLowerCase('tr-TR').replace(/[^a-zA-ZçğıöşüÇĞİÖŞÜ]/g, '')));
+    if (uniqueWords.size < 3) {
+        return {
+            isValid: false,
+            message: 'Lütfen aynı kelimeleri tekrarlamak yerine konargöçer yaşam hakkındaki bakış açınızı cümle kurarak ifade ediniz.'
+        };
+    }
+
+    // 2. Kural: Konuyla İlgili Anahtar Kelimeler Denetimi
+    const topicKeywords = [
+        'konar', 'göç', 'yörük', 'türk', 'bozkır', 'otlak', 'yaylak', 'kışlak',
+        'çadır', 'otağ', 'kurgan', 'töre', 'ordu', 'asker', 'at', 'hayvan',
+        'hayvancılık', 'savaş', 'bağımsız', 'özgür', 'hürriyet', 'dayanışma',
+        'birlik', 'kültür', 'tarih', 'miras', 'yaşam', 'hayat', 'doğa', 'iklim',
+        'coğrafya', 'disiplin', 'teşkilat', 'devlet', 'alp', 'cesaret', 'hükümdar',
+        'kağan', 'yazıt', 'kitabe', 'örf', 'adet', 'gelenek', 'toplum',
+        'yardımlaşma', 'kervan', 'sürü', 'orta asya', 'tariat', 'orhun', 'pazırık',
+        'boy', 'oba', 'çadırı', 'göçebe', 'vatan', 'millet', 'dayanıklı', 'güçlü',
+        'mücadele', 'kolay', 'zor', 'zorluk', 'çevre', 'yaşayış', 'yaşantı', 'bakış',
+        'önem', 'birlik', 'beraberlik', 'vatan', 'yurt', 'otlat'
+    ];
+
+    // Seçilen değerlerin etiketlerini de anahtar kelime havuzuna dahil et
+    if (Array.isArray(selectedBadges)) {
+        selectedBadges.forEach(b => {
+            if (b && b.label) {
+                topicKeywords.push(b.label.toLocaleLowerCase('tr-TR'));
+            }
+        });
+    }
+
+    const hasTopicKeyword = topicKeywords.some(keyword => lowerText.includes(keyword));
+
+    if (!hasTopicKeyword) {
+        return {
+            isValid: false,
+            message: 'Lütfen konargöçer yaşam tarzı, bozkır kültürü veya seçtiğiniz değerlerle ilgili anlamlı bir düşünce ifade ediniz (Örn: Bozkır koşulları Türklerin bağımsızlık ve dayanışma duygusunu geliştirmiştir).'
+        };
+    }
+
+    return {
+        isValid: true,
+        message: '✓ Görüşünüz başarıyla kaydedildi ve onaylandı! Sonraki aşamaya geçebilirsiniz.'
+    };
+}
+
 function initS6() {
     const container = document.getElementById('s6-badges');
+    const opinionTextarea = document.getElementById('user-opinion');
+    const feedbackEl = document.getElementById('s6-opinion-feedback');
+    const submitBtn = document.getElementById('s6-submit-opinion-btn');
+    
     container.innerHTML = '';
     let selected = 0;
     state.selectedValues = [];
     
+    if (feedbackEl) {
+        feedbackEl.classList.add('hidden');
+        feedbackEl.textContent = '';
+    }
+
     s6Badges.forEach(badge => {
         const div = document.createElement('button');
         div.className = 'option-btn p-3 border border-slate-300 hover:border-amber-500 hover:bg-amber-50 bg-white text-xs font-bold text-slate-700 tracking-wide text-center transition-all shadow-sm';
         div.innerHTML = `<span>${badge.label}</span>`;
         div.addEventListener('click', () => {
             if (div.classList.contains('chosen')) return;
+            if (selected >= 3) return;
+
             div.classList.add('chosen');
             div.style.borderColor = '#d97706';
             div.style.background = '#fef3c7';
             div.style.color = '#92400e';
             state.selectedValues.push(badge);
             selected++;
-            if (selected >= 3) {
+
+            if (selected === 3) {
                 const opinionBox = document.getElementById('s6-perspective-box');
-                if (opinionBox) opinionBox.scrollIntoView({ behavior: 'smooth' });
-                setTimeout(showNext, 600);
+                if (opinionBox) {
+                    opinionBox.scrollIntoView({ behavior: 'smooth' });
+                }
+                if (opinionTextarea) {
+                    opinionTextarea.focus();
+                }
+                if (feedbackEl) {
+                    feedbackEl.textContent = '3 değer seçtiniz. Lütfen aşağıdaki alana konargöçer yaşama ilişkin kişisel bakış açınızı yazıp "Görüşümü Kaydet & Değerlendir" butonuna basınız.';
+                    feedbackEl.className = 'text-xs font-semibold mt-3 p-3 text-left leading-relaxed bg-amber-50 border border-amber-300 text-amber-900 shadow-sm fade-in';
+                    feedbackEl.classList.remove('hidden');
+                }
             }
         });
         container.appendChild(div);
     });
+
+    if (submitBtn) {
+        submitBtn.onclick = () => {
+            if (state.selectedValues.length < 3) {
+                if (feedbackEl) {
+                    feedbackEl.textContent = 'Lütfen önce yukarıdaki alandan konargöçer yaşamı tanımlayan 3 değeri seçiniz.';
+                    feedbackEl.className = 'text-xs font-semibold mt-3 p-3 text-left leading-relaxed bg-amber-50 border border-amber-300 text-amber-900 shadow-sm fade-in';
+                    feedbackEl.classList.remove('hidden');
+                }
+                return;
+            }
+
+            const rawText = opinionTextarea ? opinionTextarea.value : '';
+            const validation = validateUserOpinion(rawText, state.selectedValues);
+
+            if (!validation.isValid) {
+                if (feedbackEl) {
+                    feedbackEl.textContent = validation.message;
+                    feedbackEl.className = 'text-xs font-semibold mt-3 p-3 text-left leading-relaxed bg-red-50 border border-red-300 text-red-900 shadow-sm fade-in';
+                    feedbackEl.classList.remove('hidden');
+                }
+                if (opinionTextarea) {
+                    opinionTextarea.focus();
+                }
+            } else {
+                if (feedbackEl) {
+                    feedbackEl.textContent = validation.message;
+                    feedbackEl.className = 'text-xs font-semibold mt-3 p-3 text-left leading-relaxed bg-emerald-50 border border-emerald-300 text-emerald-900 shadow-sm fade-in';
+                    feedbackEl.classList.remove('hidden');
+                }
+                showNext();
+            }
+        };
+    }
 }
 
 function showFinal() {
