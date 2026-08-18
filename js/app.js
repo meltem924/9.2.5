@@ -281,7 +281,7 @@ function initS2() {
         card.innerHTML = `
             <div class="s3-cause-box mb-4">
                 <p class="text-base font-bold text-amber-950 leading-relaxed">
-                    "${item.cause}" durumu hangi tarihsel sonuca yol açmıştır?
+                    "${item.cause}" durumu hangi sonuca yol açmıştır?
                 </p>
             </div>
 
