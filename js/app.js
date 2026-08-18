@@ -516,7 +516,7 @@ function validateUserOpinion(rawText, selectedBadges) {
     if (!text) {
         return {
             isValid: false,
-            message: 'Lütfen konargöçer yaşam tarzının tarihi ve kültürel önemi hakkındaki düşüncenizi yazınız.'
+            message: 'Lütfen konargöçer yaşamın Türk kültüründeki yeri ve önemine ilişkin düşüncelerinizi yazınız.'
         };
     }
 
