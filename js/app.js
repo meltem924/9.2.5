@@ -142,6 +142,11 @@ function initS1() {
 
         const data = s1FocusedData[index];
 
+        // Rastgele şık sıralaması
+        const isSwapped = Math.random() > 0.5;
+        const optA_idx = isSwapped ? 1 : 0;
+        const optB_idx = isSwapped ? 0 : 1;
+
         container.innerHTML = `
             <div id="active-card" class="relative bg-white rounded-2xl shadow-md border-2 border-slate-200 p-8 sm:p-10 pb-12 sm:pb-14 min-h-[240px] flex flex-col justify-center transition-all duration-300 fade-in" data-category="${data.category}">
                 <p class="text-[16px] leading-relaxed font-semibold text-slate-800 italic">
@@ -155,8 +160,8 @@ function initS1() {
             <div id="question-panel" class="hidden bg-emerald-50 rounded-2xl shadow-md border-2 border-emerald-400 p-5 mt-3 fade-in relative">
                 <h4 class="text-[13.5px] font-bold text-slate-800 mb-3 mt-2">${data.question}</h4>
                 <div class="space-y-2" id="options-container">
-                    <button class="opt-btn w-full text-left p-3 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 hover:border-slate-300 text-[13px] font-medium text-slate-700 transition-colors shadow-sm" data-idx="0">A) ${data.options[0]}</button>
-                    <button class="opt-btn w-full text-left p-3 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 hover:border-slate-300 text-[13px] font-medium text-slate-700 transition-colors shadow-sm" data-idx="1">B) ${data.options[1]}</button>
+                    <button class="opt-btn w-full text-left p-3 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 hover:border-slate-300 text-[13px] font-medium text-slate-700 transition-colors shadow-sm" data-idx="${optA_idx}">A) ${data.options[optA_idx]}</button>
+                    <button class="opt-btn w-full text-left p-3 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 hover:border-slate-300 text-[13px] font-medium text-slate-700 transition-colors shadow-sm" data-idx="${optB_idx}">B) ${data.options[optB_idx]}</button>
                 </div>
                 <div id="feedback-panel" class="hidden mt-4 p-3 rounded-lg text-xs font-semibold leading-relaxed"></div>
                 <button id="next-card-btn" class="hidden mt-4 w-full py-2.5 bg-emerald-600 text-white text-[13px] font-bold rounded-lg shadow-sm hover:bg-emerald-700 transition-colors">Sonraki Kaynağa Geç</button>
@@ -562,7 +567,7 @@ function validateUserOpinion(rawText, selectedBadges) {
     }
 
     // 1. Kural: Sesli harf yoksunluğu kontrolü (4+ harfli kelimelerde hiç ünlü harf yoksa)
-    const vowels = /[aeıioöuü]/i;
+    const vowels = /[aeıioöuüAEIİOÖUÜ]/i;
     for (const w of words) {
         const cleanWord = w.replace(/[^a-zA-ZçğıöşüÇĞİÖŞÜ]/g, '');
         if (cleanWord.length >= 4 && !vowels.test(cleanWord)) {

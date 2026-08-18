@@ -38,10 +38,10 @@
           data-nav-stage="3">3. Dönem Koşulları</button>
         <button type="button"
           class="nav-tab-btn px-2 py-2.5 text-[11px] sm:text-[12.5px] font-bold transition-all text-center truncate shadow-sm"
-          data-nav-stage="4">4. Karşılaştırma</button>
+          data-nav-stage="4">4. Dün ve Bugün</button>
         <button type="button"
           class="nav-tab-btn px-2 py-2.5 text-[11px] sm:text-[12.5px] font-bold transition-all text-center truncate shadow-sm"
-          data-nav-stage="5">5. Değerler</button>
+          data-nav-stage="5">5. Bakış Açısı</button>
       </div>
     </div>
 
@@ -132,7 +132,7 @@
         </div>
         <div
           class="shrink-0 px-4 py-2 bg-amber-100 border border-amber-300 text-amber-900 text-xs font-bold flex items-center gap-2 shadow-sm">
-          <span>🔍 Keşfedilen:</span>
+          <span>Keşfedilen:</span>
           <span id="s4-counter" class="text-sm font-extrabold text-amber-700">0 / 6</span>
         </div>
       </div>
@@ -170,8 +170,8 @@
 
     <!-- Stage 5 -->
     <div id="stage-5" class="stage fade-in">
-      <h2 data-template-id="s6-title" class="canva-text heading-font text-2xl mb-1 text-slate-800 font-bold">Değer Seçimi ve Bakış Açısı</h2>
-      <p data-template-id="s6-desc" class="canva-text text-sm mb-5 text-slate-600">Konargöçer yaşamı en iyi tanımlayan üç değeri seçiniz ve kendi bakış açınızı ifade ediniz.</p>
+      <h2 data-template-id="s6-title" class="canva-text heading-font text-2xl mb-1 text-slate-800 font-bold">Bakış Açısı</h2>
+      <p data-template-id="s6-desc" class="canva-text text-sm mb-5 text-slate-600">Size göre konargöçer yaşamı en iyi özetleyen kavramlardan <strong>üç tanesini seçiniz.</strong> Ardından, bu seçimlerinizden yola çıkarak konargöçer yaşamın tarihi önemi hakkındaki kendi bakış açınızı yazınız.</p>
       <img data-template-id="s6-img" class="canva-image w-full h-56 sm:h-72 object-contain bg-slate-100 p-2 mb-4 border border-slate-300 shadow-sm"
         loading="lazy" src="img/deger.png" alt="Konargöçer Türk Göç Kervanı">
       <div id="s6-badges" class="grid grid-cols-2 sm:grid-cols-3 gap-2.5 mb-4"></div>
@@ -200,16 +200,15 @@
 
     <!-- Final -->
     <div id="stage-final" class="stage fade-in text-center py-8">
-      <h2 data-template-id="final-title" class="canva-text heading-font text-3xl mb-4 text-slate-800 font-bold">Keşfinizi Tamamladınız!</h2>
+      <h2 data-template-id="final-title" class="canva-text heading-font text-3xl mb-4 text-slate-800 font-bold">Öğrenme Yolculuğunuzu Tamamladınız</h2>
 
       <div class="card-surface max-w-xl mx-auto mb-8 p-6 text-left border border-slate-200 space-y-4">
-        <p id="final-feedback" class="text-sm text-slate-700 leading-relaxed">Harika bir öğrenme yolculuğu
-          gerçekleştirdiniz! İlettiğiniz cevaplarla Tariat Kitabesi'nden Sarıkeçili Yörüklerine uzanan konargöçer
+        <p id="final-feedback" class="text-sm text-slate-700 leading-relaxed">İlettiğiniz cevaplarla Tariat Kitabesi'nden Sarıkeçili Yörüklerine uzanan konargöçer
           kültürün temel öğelerini pekiştirdiniz.</p>
 
         <div>
           <span class="text-xs text-amber-900 font-bold uppercase tracking-wide block mb-2">Öne Çıkardığınız
-            Değerler:</span>
+            Kavramlar:</span>
           <div id="final-selected-values" class="flex flex-wrap gap-2"></div>
         </div>
 
