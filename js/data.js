@@ -1,4 +1,4 @@
-const state = { stage: 0, maxStage: 5, unlockedStage: 5 }; // Geliştirme aşaması için tüm kilitler açık
+const state = { stage: 0, maxStage: 4, unlockedStage: 4 }; // Geliştirme aşaması için tüm kilitler açık
 
 const s1FocusedData = [
     {
@@ -94,37 +94,6 @@ const s1FocusedData = [
 ];
 
 const s2Data = [
-    { 
-        cause: "Yaz aylarında otlakların kuruması ve aşırı sıcaklar", 
-        effect: "Serin ve otlağı bol olan yaylaklara göç edilmesi", 
-        wrong: "Kalıcı taş binalarla büyük şehirler inşa edilmesi",
-        correctExplanation: "Çıkarım: Konargöçer Türkler hayvanlarını korumak ve otlatmak için yazın serin yaylaklara göç etmişlerdir.",
-        wrongExplanation: "Gözden Geçirelim: Konargöçer yaşam tarzında mevsime ve otlaklara bağımlılık nedeniyle sabit taş yapılardan oluşan şehirler inşa edilmezdi."
-    },
-    { 
-        cause: "Konargöçer yaşamın getirdiği sürekli hareket ve hafiflik ihtiyacı", 
-        effect: "Hapis cezalarının en fazla 10 gün ile sınırlandırılması", 
-        wrong: "Devasa hapishane binaları ve mahkeme kompleksleri kurulması",
-        correctExplanation: "Çıkarım: Hareketli konargöçer yaşam nedeniyle sabit hapishaneler yapılmamış, hapis cezası en fazla 10 gün ile sınırlandırılmıştır.",
-        wrongExplanation: "Gözden Geçirelim: Konargöçer yapıda sürekli hareket halinde olunduğu için sabit ve yüksek kapasiteli hapishaneler kurulması istenmemiştir."
-    },
-    { 
-        cause: "Askeri seferlerde et yiyeceğinin uzun süre bozulmadan saklanması gereksinimi", 
-        effect: "At eğeri altında etin tuzlanıp sıkıştırılmasıyla pastırma üretilmesi", 
-        wrong: "Etlerin cam kavanozlarda konserve yapılarak saklanması",
-        correctExplanation: "Çıkarım: Türkler 'bastırmaktan' türeyen pastırma yöntemiyle eti eğere bağlayıp kurutarak uzun süre saklamışlardır.",
-        wrongExplanation: "Gözden Geçirelim: O dönemde cam kavanoz ve modern konserve teknolojisi bulunmuyordu; etler eğer altında tuzlanıp kurutulurdu."
-    },
-    { 
-        cause: "Bozkırın çetin coğrafi koşulları ve sürekli savunma ihtiyacı", 
-        effect: "Eli silah tutan herkesin savaşçı sayıldığı Ordu-Millet anlayışı", 
-        wrong: "Sadece soylulardan oluşan maaşlı profesyonel ordu kurulması",
-        correctExplanation: "Çıkarım: Türklerde sınıfsal ayrım yapılmamış, kadın ve erkek herkes küçük yaştan itibaren savaşçı yetişmiştir.",
-        wrongExplanation: "Gözden Geçirelim: Konargöçer Türk toplumunda sınıfsal ayrım yoktur; eli silah tutan herkesin asker sayıldığı ordu-millet anlayışı esastır."
-    }
-];
-
-const s3Data = [
     {
         id: "ocak",
         name: "Merkez Ateşi (Korluk)",
@@ -187,7 +156,7 @@ const s3Data = [
     }
 ];
 
-const s4Data = [
+const s3Data = [
     { 
         item: "Kımız (kısrak sütü) ve tutmaç yemeğinin tüketilmesi", 
         category: "past",
@@ -230,7 +199,7 @@ const s4Data = [
     }
 ];
 
-const s5Badges = [
+const s4Badges = [
     { emoji: "🦅", label: "Bağımsızlık & Hürriyet" },
     { emoji: "🌿", label: "Doğayla Uyum" },
     { emoji: "👥", label: "Dayanışma & İmece" },

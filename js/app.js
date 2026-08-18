@@ -106,7 +106,6 @@ function initStageContent(n) {
     else if (target === 2) initS2();
     else if (target === 3) initS3();
     else if (target === 4) initS4();
-    else if (target === 5) initS5();
     else if (target === 'final') showFinal();
 }
 
@@ -255,94 +254,20 @@ function initS1() {
 }
 
 function initS2() {
-    const container = document.getElementById('s3-game');
-    container.innerHTML = '';
-    let answered = 0;
-    
-    const gameWrapper = document.createElement('div');
-    gameWrapper.className = 'space-y-4';
-    container.appendChild(gameWrapper);
-    
-    s2Data.forEach((item, index) => {
-        const card = document.createElement('div');
-        card.className = 's3-card p-5 fade-in';
-        card.style.animationDelay = `${index * 100}ms`;
-        
-        // Randomize option order
-        const isCorrectFirst = Math.random() < 0.5;
-        const options = isCorrectFirst ? [
-            { type: 'correct', text: item.effect },
-            { type: 'wrong', text: item.wrong }
-        ] : [
-            { type: 'wrong', text: item.wrong },
-            { type: 'correct', text: item.effect }
-        ];
-
-        card.innerHTML = `
-            <div class="s3-cause-box mb-4">
-                <p class="text-base font-bold text-amber-950 leading-relaxed">
-                    "${item.cause}" durumu hangi sonuca yol açmıştır?
-                </p>
-            </div>
-
-            <div class="grid gap-2.5">
-                ${options.map(opt => `
-                    <button type="button" class="s3-option-btn option-btn text-left p-3.5 text-sm text-slate-800 flex items-start gap-3 w-full bg-white border border-slate-300 hover:border-amber-500 hover:bg-amber-50 shadow-sm" data-choice="${opt.type}">
-                        <span class="leading-snug pt-0.5">${opt.text}</span>
-                    </button>
-                `).join('')}
-            </div>
-
-            <div class="s3-feedback hidden text-xs font-medium mt-3.5 p-3.5 leading-relaxed"></div>
-        `;
-        
-        gameWrapper.appendChild(card);
-        
-        card.querySelectorAll('[data-choice]').forEach(btn => btn.addEventListener('click', () => {
-            if (card.dataset.done) return;
-            card.dataset.done = 'true';
-            card.classList.add('is-done');
-            
-            card.querySelectorAll('[data-choice]').forEach(b => { 
-                b.disabled = true; 
-                b.classList.add('selected'); 
-            });
-            
-            const feedback = card.querySelector('.s3-feedback');
-            feedback.classList.remove('hidden');
-            
-            if (btn.dataset.choice === 'correct') { 
-                btn.classList.add('correct'); 
-                feedback.textContent = `✓ ${item.correctExplanation}`; 
-                feedback.className = 's3-feedback text-xs font-semibold mt-3.5 p-3.5 bg-emerald-50 border border-emerald-300 text-emerald-900 leading-relaxed shadow-sm'; 
-            } else { 
-                btn.classList.add('incorrect'); 
-                const correctBtn = card.querySelector('[data-choice="correct"]');
-                if (correctBtn) correctBtn.classList.add('correct');
-                feedback.textContent = `✕ ${item.wrongExplanation}`; 
-                feedback.className = 's3-feedback text-xs font-semibold mt-3.5 p-3.5 bg-red-50 border border-red-300 text-red-900 leading-relaxed shadow-sm'; 
-            }
-            answered++;
-            if (answered === s2Data.length) setTimeout(showNext, 800);
-        }));
-    });
-}
-
-function initS3() {
-    const layer = document.getElementById('s4-hotspots-layer');
-    const counter = document.getElementById('s4-counter');
-    const modal = document.getElementById('s4-info-modal');
-    const modalTitle = document.getElementById('s4-modal-title');
-    const modalDetail = document.getElementById('s4-modal-detail');
-    const modalClose = document.getElementById('s4-modal-close');
+    const layer = document.getElementById('s2-hotspots-layer');
+    const counter = document.getElementById('s2-counter');
+    const modal = document.getElementById('s2-info-modal');
+    const modalTitle = document.getElementById('s2-modal-title');
+    const modalDetail = document.getElementById('s2-modal-detail');
+    const modalClose = document.getElementById('s2-modal-close');
     
     if (!layer) return;
     layer.innerHTML = '';
     let discoveredCount = 0;
-    counter.textContent = `0 / ${s3Data.length}`;
+    counter.textContent = `0 / ${s2Data.length}`;
     modal.classList.add('hidden');
 
-    s3Data.forEach((item) => {
+    s2Data.forEach((item) => {
         const hotspot = document.createElement('button');
         hotspot.type = 'button';
         hotspot.className = 'hotspot-target absolute w-7 h-7 font-bold flex items-center justify-center shadow-md focus:outline-none focus:ring-2 focus:ring-amber-400';
@@ -364,9 +289,9 @@ function initS3() {
                 hotspot.classList.add('discovered');
                 hotspot.innerHTML = `<span class="text-white text-[11px] font-black">✓</span>`;
                 discoveredCount++;
-                counter.textContent = `${discoveredCount} / ${s3Data.length}`;
+                counter.textContent = `${discoveredCount} / ${s2Data.length}`;
 
-                if (discoveredCount === s3Data.length) {
+                if (discoveredCount === s2Data.length) {
                     setTimeout(showNext, 1200);
                 }
             }
@@ -382,60 +307,60 @@ function initS3() {
     }
 }
 
-function initS4() {
-    const container = document.getElementById('s5-game');
+function initS3() {
+    const container = document.getElementById('s3-game');
     container.innerHTML = '';
     let currentStep = 0;
 
     // Soruları her başlangıçta rastgele karıştır
-    const s4Items = [...s4Data].sort(() => Math.random() - 0.5);
+    const s3Items = [...s3Data].sort(() => Math.random() - 0.5);
 
     container.innerHTML = `
         <!-- Active Draggable Item Panel (Above) -->
-        <div id="s5-active-panel" class="card-surface p-5 border border-slate-300 shadow-sm mb-6 fade-in">
+        <div id="s3-active-panel" class="card-surface p-5 border border-slate-300 shadow-sm mb-6 fade-in">
             <!-- Draggable Item Card -->
-            <div id="s5-drag-card" draggable="true" class="p-4 bg-white border-2 border-amber-500 text-base font-bold text-slate-800 leading-snug shadow-sm text-center cursor-grab active:cursor-grabbing hover:border-amber-600 transition-all select-none">
-                <span id="s5-active-item"></span>
+            <div id="s3-drag-card" draggable="true" class="p-4 bg-white border-2 border-amber-500 text-base font-bold text-slate-800 leading-snug shadow-sm text-center cursor-grab active:cursor-grabbing hover:border-amber-600 transition-all select-none">
+                <span id="s3-active-item"></span>
             </div>
 
-            <p id="s5-feedback" class="hidden text-xs font-semibold mt-3 p-3 leading-relaxed text-left transition-all"></p>
+            <p id="s3-feedback" class="hidden text-xs font-semibold mt-3 p-3 leading-relaxed text-left transition-all"></p>
         </div>
 
         <!-- 3 Columns Drop Zones (Below) -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
             <!-- Sütun 1: Sadece Geçmiş -->
-            <div class="s5-drop-zone p-4 bg-white border-2 border-dashed border-slate-300 flex flex-col min-h-[220px] transition-all" data-cat="past">
+            <div class="s3-drop-zone p-4 bg-white border-2 border-dashed border-slate-300 flex flex-col min-h-[220px] transition-all" data-cat="past">
                 <div class="text-amber-900 font-extrabold text-sm mb-3 flex items-center justify-center gap-2 border-b border-amber-200 pb-2.5 pointer-events-none">
                     <span>Sadece Geçmiş</span>
                 </div>
-                <div id="s5-past-list" class="space-y-2 flex-1 pointer-events-none"></div>
+                <div id="s3-past-list" class="space-y-2 flex-1 pointer-events-none"></div>
             </div>
 
             <!-- Sütun 2: Sadece Günümüz -->
-            <div class="s5-drop-zone p-4 bg-white border-2 border-dashed border-slate-300 flex flex-col min-h-[220px] transition-all" data-cat="present">
+            <div class="s3-drop-zone p-4 bg-white border-2 border-dashed border-slate-300 flex flex-col min-h-[220px] transition-all" data-cat="present">
                 <div class="text-amber-900 font-extrabold text-sm mb-3 flex items-center justify-center gap-2 border-b border-amber-200 pb-2.5 pointer-events-none">
                     <span>Sadece Günümüz</span>
                 </div>
-                <div id="s5-present-list" class="space-y-2 flex-1 pointer-events-none"></div>
+                <div id="s3-present-list" class="space-y-2 flex-1 pointer-events-none"></div>
             </div>
 
             <!-- Sütun 3: Her İki Dönem -->
-            <div class="s5-drop-zone p-4 bg-white border-2 border-dashed border-slate-300 flex flex-col min-h-[220px] transition-all" data-cat="both">
+            <div class="s3-drop-zone p-4 bg-white border-2 border-dashed border-slate-300 flex flex-col min-h-[220px] transition-all" data-cat="both">
                 <div class="text-amber-900 font-extrabold text-sm mb-3 flex items-center justify-center gap-2 border-b border-amber-200 pb-2.5 pointer-events-none">
                     <span>Her İki Dönem</span>
                 </div>
-                <div id="s5-both-list" class="space-y-2 flex-1 pointer-events-none"></div>
+                <div id="s3-both-list" class="space-y-2 flex-1 pointer-events-none"></div>
             </div>
         </div>
     `;
 
-    const activeItemEl = document.getElementById('s5-active-item');
-    const dragCardEl = document.getElementById('s5-drag-card');
-    const feedbackEl = document.getElementById('s5-feedback');
-    const activePanelEl = document.getElementById('s5-active-panel');
+    const activeItemEl = document.getElementById('s3-active-item');
+    const dragCardEl = document.getElementById('s3-drag-card');
+    const feedbackEl = document.getElementById('s3-feedback');
+    const activePanelEl = document.getElementById('s3-active-panel');
 
     function renderStep() {
-        if (currentStep >= s4Items.length) {
+        if (currentStep >= s3Items.length) {
             activePanelEl.innerHTML = `
                 <div class="text-center py-4">
                     <h3 class="font-bold text-emerald-700 text-base mb-1">Tebrikler!</h3>
@@ -446,23 +371,23 @@ function initS4() {
             return;
         }
 
-        const item = s4Items[currentStep];
+        const item = s3Items[currentStep];
         activeItemEl.textContent = item.item;
         feedbackEl.classList.add('hidden');
         dragCardEl.className = 'p-4 bg-white border-2 border-amber-500 text-base font-bold text-slate-800 leading-snug shadow-sm text-center cursor-grab active:cursor-grabbing hover:border-amber-600 transition-all select-none';
     }
 
     function processDrop(chosenCat) {
-        if (currentStep >= s4Items.length) return;
+        if (currentStep >= s3Items.length) return;
 
-        const item = s4Items[currentStep];
+        const item = s3Items[currentStep];
 
         if (chosenCat === item.category) {
             feedbackEl.classList.remove('hidden');
             feedbackEl.textContent = `Harika Tespit! ${item.hint}`;
             feedbackEl.className = 'text-xs font-semibold mt-3 p-3 leading-relaxed text-left bg-emerald-50 text-emerald-900 border border-emerald-300 shadow-sm fade-in';
 
-            const targetList = document.getElementById(`s5-${item.category}-list`);
+            const targetList = document.getElementById(`s3-${item.category}-list`);
             const badge = document.createElement('div');
             badge.className = 'p-2.5 bg-emerald-50 border border-emerald-300 text-emerald-900 font-semibold text-xs flex items-center gap-2 fade-in shadow-sm';
             badge.innerHTML = `<span class="shrink-0 text-emerald-600 font-bold">✓</span> <span>${item.item}</span>`;
@@ -481,7 +406,7 @@ function initS4() {
 
     // Drag events (Desktop)
     dragCardEl.addEventListener('dragstart', (e) => {
-        e.dataTransfer.setData('text/plain', s4Items[currentStep].category);
+        e.dataTransfer.setData('text/plain', s3Items[currentStep].category);
         dragCardEl.classList.add('opacity-50');
     });
 
@@ -490,7 +415,7 @@ function initS4() {
     });
 
     // Drop Zone events
-    document.querySelectorAll('.s5-drop-zone').forEach(zone => {
+    document.querySelectorAll('.s3-drop-zone').forEach(zone => {
         zone.addEventListener('dragover', (e) => {
             e.preventDefault();
             zone.classList.add('border-amber-600', 'bg-amber-50');
@@ -579,7 +504,7 @@ function validateUserOpinion(rawText, selectedBadges) {
     if (uniqueWords.size < 3) {
         return {
             isValid: false,
-            message: 'Lütfen aynı kelimeleri tekrarlamak yerine konargöçer yaşam hakkındaki bakış açınızı cümle kurarak ifade ediniz.'
+            message: 'Lütfen aynı kelimeleri tekrarlamak yerine konargöçer yaşam hakkındaki düşüncelerinizi cümle kurarak ifade ediniz.'
         };
     }
 
@@ -648,11 +573,11 @@ function validateUserOpinion(rawText, selectedBadges) {
     };
 }
 
-function initS5() {
-    const container = document.getElementById('s6-badges');
+function initS4() {
+    const container = document.getElementById('s4-badges');
     const opinionTextarea = document.getElementById('user-opinion');
-    const feedbackEl = document.getElementById('s6-opinion-feedback');
-    const submitBtn = document.getElementById('s6-submit-opinion-btn');
+    const feedbackEl = document.getElementById('s4-opinion-feedback');
+    const submitBtn = document.getElementById('s4-submit-opinion-btn');
     
     container.innerHTML = '';
     let selected = 0;
@@ -663,7 +588,7 @@ function initS5() {
         feedbackEl.textContent = '';
     }
 
-    s5Badges.forEach(badge => {
+    s4Badges.forEach(badge => {
         const div = document.createElement('button');
         div.className = 'option-btn p-3 border border-slate-300 hover:border-amber-500 hover:bg-amber-50 bg-white text-xs font-bold text-slate-700 tracking-wide text-center transition-all shadow-sm';
         div.innerHTML = `<span>${badge.label}</span>`;
@@ -679,7 +604,7 @@ function initS5() {
             selected++;
 
             if (selected === 3) {
-                const opinionBox = document.getElementById('s6-perspective-box');
+                const opinionBox = document.getElementById('s4-perspective-box');
                 if (opinionBox) {
                     opinionBox.scrollIntoView({ behavior: 'smooth' });
                 }
@@ -687,7 +612,7 @@ function initS5() {
                     opinionTextarea.focus();
                 }
                 if (feedbackEl) {
-                    feedbackEl.textContent = '3 değer seçtiniz. Lütfen aşağıdaki alana konargöçer yaşama ilişkin kişisel bakış açınızı yazıp "Görüşümü Kaydet & Değerlendir" butonuna basınız.';
+                    feedbackEl.textContent = '3 kavram seçtiniz. Lütfen aşağıdaki alana konargöçer yaşama ilişkin değerlendirmelerinizi yazıp "Görüşümü Kaydet & Değerlendir" butonuna basınız.';
                     feedbackEl.className = 'text-xs font-semibold mt-3 p-3 text-left leading-relaxed bg-amber-50 border border-amber-300 text-amber-900 shadow-sm fade-in';
                     feedbackEl.classList.remove('hidden');
                 }
@@ -700,7 +625,7 @@ function initS5() {
         submitBtn.onclick = () => {
             if (state.selectedValues.length < 3) {
                 if (feedbackEl) {
-                    feedbackEl.textContent = 'Lütfen önce yukarıdaki alandan konargöçer yaşamı tanımlayan 3 değeri seçiniz.';
+                    feedbackEl.textContent = 'Lütfen önce yukarıdaki alandan konargöçer yaşamı tanımlayan 3 kavramı seçiniz.';
                     feedbackEl.className = 'text-xs font-semibold mt-3 p-3 text-left leading-relaxed bg-amber-50 border border-amber-300 text-amber-900 shadow-sm fade-in';
                     feedbackEl.classList.remove('hidden');
                 }

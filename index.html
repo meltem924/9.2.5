@@ -26,22 +26,19 @@
 
     <!-- Stage Navigation Bar (Responsive Grid, No Scrollbar) -->
     <div id="stage-nav" class="hidden mb-6 no-scrollbar">
-      <div class="grid grid-cols-2 sm:grid-cols-5 gap-2 w-full">
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 w-full">
         <button type="button"
           class="nav-tab-btn px-2 py-2.5 text-[11px] sm:text-[12.5px] font-bold transition-all text-center truncate shadow-sm"
           data-nav-stage="1">1. Kaynak Analizi</button>
         <button type="button"
           class="nav-tab-btn px-2 py-2.5 text-[11px] sm:text-[12.5px] font-bold transition-all text-center truncate shadow-sm"
-          data-nav-stage="2">2. Neden-Sonuç</button>
+          data-nav-stage="2">2. Dönem Koşulları</button>
         <button type="button"
           class="nav-tab-btn px-2 py-2.5 text-[11px] sm:text-[12.5px] font-bold transition-all text-center truncate shadow-sm"
-          data-nav-stage="3">3. Dönem Koşulları</button>
+          data-nav-stage="3">3. Dün ve Bugün</button>
         <button type="button"
           class="nav-tab-btn px-2 py-2.5 text-[11px] sm:text-[12.5px] font-bold transition-all text-center truncate shadow-sm"
-          data-nav-stage="4">4. Dün ve Bugün</button>
-        <button type="button"
-          class="nav-tab-btn px-2 py-2.5 text-[11px] sm:text-[12.5px] font-bold transition-all text-center truncate shadow-sm"
-          data-nav-stage="5">5. Sıra Sizde</button>
+          data-nav-stage="4">4. Sıra Sizde</button>
       </div>
     </div>
 
@@ -125,88 +122,75 @@
       </div>
     </div>
 
-    <!-- Stage 2 -->
+    <!-- Stage 2: Dönem Koşulları (Türk Otağında Keşif) -->
     <div id="stage-2" class="stage fade-in">
-      <div class="mb-5">
-        <h2 data-template-id="s3-title" class="canva-text heading-font text-2xl sm:text-3xl mb-2 text-slate-900 font-bold tracking-tight">Neden-Sonuç İlişkisi</h2>
-        <div class="bg-gradient-to-r from-amber-50/95 via-orange-50/50 to-amber-50/30 border-l-4 border-amber-600 border-y border-r border-amber-200/90 p-3.5 sm:p-4 shadow-sm">
-          <p data-template-id="s3-desc" class="canva-text text-sm sm:text-[15px] text-slate-800 font-bold leading-relaxed">
-            Konargöçer yaşamın nedenlerini inceleyiniz ve ortaya çıkan sonuçları değerlendiriniz.
-          </p>
-        </div>
-      </div>
-      <div id="s3-game" class="space-y-4"></div>
-    </div>
-
-    <!-- Stage 3 -->
-    <div id="stage-3" class="stage fade-in">
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
         <div>
-          <h2 data-template-id="s4-title" class="canva-text heading-font text-2xl sm:text-3xl mb-1.5 text-slate-900 font-bold tracking-tight">Türk Otağında Keşif</h2>
-          <p data-template-id="s4-desc" class="canva-text text-sm sm:text-[15px] text-slate-800 font-bold leading-snug">
+          <h2 data-template-id="s2-title" class="canva-text heading-font text-2xl sm:text-3xl mb-1.5 text-slate-900 font-bold tracking-tight">Türk Otağında Keşif</h2>
+          <p data-template-id="s2-desc" class="canva-text text-sm sm:text-[15px] text-slate-800 font-bold leading-snug">
             Görseldeki parlayan simgelere tıklayarak konargöçer yaşam koşullarını keşfediniz.
           </p>
         </div>
         <div
           class="shrink-0 px-4 py-2 bg-amber-100 border border-amber-400 text-amber-950 text-xs font-bold flex items-center gap-2 shadow-sm">
           <span>Keşfedilen:</span>
-          <span id="s4-counter" class="text-sm font-black text-amber-800">0 / 6</span>
+          <span id="s2-counter" class="text-sm font-black text-amber-800">0 / 6</span>
         </div>
       </div>
 
       <!-- Hidden Object Image Container -->
-      <div id="s4-canvas-container"
+      <div id="s2-canvas-container"
         class="relative overflow-hidden shadow-md border-2 border-slate-300 mb-4 bg-slate-100">
-        <img data-template-id="s4-img" id="s4-discovery-img" class="w-full h-auto max-h-[480px] object-cover block"
+        <img data-template-id="s2-img" id="s2-discovery-img" class="w-full h-auto max-h-[480px] object-cover block"
           loading="lazy" src="img/nomad_yurt_discovery.png" alt="Türkistan Konargöçer Çadır İçi Keşif">
-        <div id="s4-hotspots-layer" class="absolute inset-0"></div>
+        <div id="s2-hotspots-layer" class="absolute inset-0"></div>
       </div>
 
       <!-- Info Card Modal / Drawer -->
-      <div id="s4-info-modal"
+      <div id="s2-info-modal"
         class="hidden p-5 bg-white border-2 border-amber-400 shadow-md transition-all fade-in">
         <div>
           <div class="flex items-center justify-between mb-1.5">
-            <h3 id="s4-modal-title" class="text-base font-bold text-amber-900">Obje Başlığı</h3>
-            <span id="s4-modal-badge"
+            <h3 id="s2-modal-title" class="text-base font-bold text-amber-900">Obje Başlığı</h3>
+            <span id="s2-modal-badge"
               class="px-2.5 py-0.5 bg-emerald-100 border border-emerald-400 text-emerald-900 text-[11px] font-bold">✓
               Keşfedildi</span>
           </div>
-          <p id="s4-modal-detail" class="text-sm text-slate-700 leading-relaxed">Obje açıklaması burada görünecektir.
+          <p id="s2-modal-detail" class="text-sm text-slate-700 leading-relaxed">Obje açıklaması burada görünecektir.
           </p>
         </div>
       </div>
     </div>
 
-    <!-- Stage 4 -->
-    <div id="stage-4" class="stage fade-in">
+    <!-- Stage 3: Dün ve Bugün (Geçmiş ve Günümüz) -->
+    <div id="stage-3" class="stage fade-in">
       <div class="mb-5">
-        <h2 data-template-id="s5-title" class="canva-text heading-font text-2xl sm:text-3xl mb-2 text-slate-900 font-bold tracking-tight">Geçmiş ve Günümüz</h2>
+        <h2 data-template-id="s3-title" class="canva-text heading-font text-2xl sm:text-3xl mb-2 text-slate-900 font-bold tracking-tight">Geçmiş ve Günümüz</h2>
         <div class="bg-gradient-to-r from-amber-50/95 via-orange-50/50 to-amber-50/30 border-l-4 border-amber-600 border-y border-r border-amber-200/90 p-3.5 sm:p-4 shadow-sm">
-          <p data-template-id="s5-desc" class="canva-text text-sm sm:text-[15px] text-slate-800 font-bold leading-relaxed">
+          <p data-template-id="s3-desc" class="canva-text text-sm sm:text-[15px] text-slate-800 font-bold leading-relaxed">
             Kültürel öge kartını basılı tutarak ait olduğu zaman sütununa (Sadece Geçmiş, Sadece Günümüz veya Her İki Dönem) sürükleyip bırakınız.
           </p>
         </div>
       </div>
-      <div id="s5-game" class="space-y-4"></div>
+      <div id="s3-game" class="space-y-4"></div>
     </div>
 
-    <!-- Stage 5 -->
-    <div id="stage-5" class="stage fade-in">
+    <!-- Stage 4: Sıra Sizde -->
+    <div id="stage-4" class="stage fade-in">
       <div class="mb-5">
-        <h2 data-template-id="s6-title" class="canva-text heading-font text-2xl sm:text-3xl mb-2 text-slate-900 font-bold tracking-tight">Sıra Sizde</h2>
+        <h2 data-template-id="s4-title" class="canva-text heading-font text-2xl sm:text-3xl mb-2 text-slate-900 font-bold tracking-tight">Sıra Sizde</h2>
         <div class="bg-gradient-to-r from-amber-50/95 via-orange-50/50 to-amber-50/30 border-l-4 border-amber-600 border-y border-r border-amber-200/90 p-3.5 sm:p-4 shadow-sm">
-          <p data-template-id="s6-desc" class="canva-text text-sm sm:text-[15px] text-slate-800 font-bold leading-relaxed">
+          <p data-template-id="s4-desc" class="canva-text text-sm sm:text-[15px] text-slate-800 font-bold leading-relaxed">
             Size göre konargöçer yaşamı en iyi özetleyen kavramlardan <strong class="text-amber-950 font-black">üç tanesini seçiniz.</strong> Ardından, bu seçimlerinizden yola çıkarak konargöçer yaşamın önemi hakkında kısa bir metin yazınız.
           </p>
         </div>
       </div>
-      <img data-template-id="s6-img" class="canva-image w-full h-56 sm:h-72 object-contain bg-slate-100 p-2 mb-4 border border-slate-300 shadow-sm"
+      <img data-template-id="s4-img" class="canva-image w-full h-56 sm:h-72 object-contain bg-slate-100 p-2 mb-4 border border-slate-300 shadow-sm"
         loading="lazy" src="img/deger.png" alt="Konargöçer Türk Göç Kervanı">
-      <div id="s6-badges" class="grid grid-cols-2 sm:grid-cols-3 gap-2.5 mb-4"></div>
+      <div id="s4-badges" class="grid grid-cols-2 sm:grid-cols-3 gap-2.5 mb-4"></div>
 
-      <!-- Personal Perspective Expression Box (Kazanım f) -->
-      <div id="s6-perspective-box" class="card-surface p-5 border border-slate-200">
+      <!-- Personal Perspective Expression Box -->
+      <div id="s4-perspective-box" class="card-surface p-5 border border-slate-200">
         <label for="user-opinion"
           class="block text-xs uppercase tracking-widest text-amber-900 font-bold mb-2 flex items-center gap-1.5">
           Yorumunuz
@@ -217,9 +201,9 @@
         <textarea id="user-opinion" rows="3"
           class="w-full p-3.5 bg-slate-50 border border-slate-300 text-sm text-slate-800 focus:outline-none focus:border-amber-600 focus:bg-white leading-relaxed"></textarea>
         
-        <div id="s6-opinion-feedback" class="hidden text-xs font-semibold mt-3 p-3 text-left leading-relaxed"></div>
+        <div id="s4-opinion-feedback" class="hidden text-xs font-semibold mt-3 p-3 text-left leading-relaxed"></div>
 
-        <button id="s6-submit-opinion-btn" type="button"
+        <button id="s4-submit-opinion-btn" type="button"
           class="mt-3.5 w-full sm:w-auto px-6 py-3 bg-amber-600 hover:bg-amber-700 text-white font-bold text-sm shadow-sm transition-all flex items-center justify-center gap-2 uppercase tracking-wide">
           <span>Görüşümü Kaydet & Değerlendir</span>
           <span>✓</span>
