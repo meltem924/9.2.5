@@ -32,4 +32,7 @@ for (const dir of dirsToCopy) {
   }
 }
 
+// GitHub Pages için Jekyll işlemesini devre dışı bırak
+fs.writeFileSync(path.join(dist, '.nojekyll'), '');
+
 console.log('Build successfully completed for dist/.');
