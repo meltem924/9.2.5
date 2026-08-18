@@ -380,26 +380,46 @@ function initS3() {
         const item = s3Items[currentStep];
 
         if (chosenCat === item.category) {
-            feedbackEl.classList.remove('hidden');
-            feedbackEl.textContent = `Harika Tespit! ${item.hint}`;
-            feedbackEl.className = 'text-xs font-semibold mt-3 p-3 leading-relaxed text-left bg-emerald-50 text-emerald-900 border border-emerald-300 shadow-sm fade-in';
+            if (window._s3HintTimer) clearTimeout(window._s3HintTimer);
+            feedbackEl.classList.add('hidden');
+            feedbackEl.textContent = '';
 
             const targetList = document.getElementById(`s3-${item.category}-list`);
-            const badge = document.createElement('div');
-            badge.className = 'p-2.5 bg-emerald-50 border border-emerald-300 text-emerald-900 font-semibold text-xs flex items-center gap-2 fade-in shadow-sm';
-            badge.innerHTML = `<span class="shrink-0 text-emerald-600 font-bold">✓</span> <span>${item.item}</span>`;
-            targetList.appendChild(badge);
+            if (targetList) {
+                const badge = document.createElement('div');
+                badge.className = 'p-2.5 bg-emerald-50 border border-emerald-300 text-emerald-900 font-semibold text-xs flex items-center gap-2 fade-in shadow-sm';
+                badge.innerHTML = `<span class="shrink-0 text-emerald-600 font-bold">✓</span> <span>${item.item}</span>`;
+                targetList.appendChild(badge);
+            }
 
             currentStep++;
-            setTimeout(renderStep, 3500);
+            renderStep();
         } else {
             dragCardEl.className = 'p-4 bg-amber-50 border-2 border-amber-500 text-base font-bold text-amber-900 leading-snug shadow-sm text-center cursor-grab active:cursor-grabbing transition-all select-none';
             
             feedbackEl.classList.remove('hidden');
             feedbackEl.textContent = `İpucu: ${item.hint}`;
             feedbackEl.className = 'text-xs font-semibold mt-3 p-3 leading-relaxed text-left bg-amber-50 text-amber-900 border border-amber-300 shadow-sm fade-in';
+
+            if (window._s3HintTimer) clearTimeout(window._s3HintTimer);
+            window._s3HintTimer = setTimeout(() => {
+                feedbackEl.classList.add('hidden');
+                dragCardEl.className = 'p-4 bg-white border-2 border-amber-500 text-base font-bold text-slate-800 leading-snug shadow-sm text-center cursor-grab active:cursor-grabbing hover:border-amber-600 transition-all select-none';
+            }, 4000);
         }
     }
+
+    // Click / Touch selection for mobile and smart boards
+    let isCardSelected = false;
+
+    dragCardEl.addEventListener('click', () => {
+        isCardSelected = !isCardSelected;
+        if (isCardSelected) {
+            dragCardEl.classList.add('ring-2', 'ring-amber-500', 'bg-amber-50');
+        } else {
+            dragCardEl.classList.remove('ring-2', 'ring-amber-500', 'bg-amber-50');
+        }
+    });
 
     // Drag events (Desktop)
     dragCardEl.addEventListener('dragstart', (e) => {
@@ -427,6 +447,16 @@ function initS3() {
             zone.classList.remove('border-amber-600', 'bg-amber-50');
             const chosenCat = zone.dataset.cat;
             processDrop(chosenCat);
+        });
+
+        // Click / Touch to drop
+        zone.addEventListener('click', () => {
+            if (isCardSelected) {
+                isCardSelected = false;
+                dragCardEl.classList.remove('ring-2', 'ring-amber-500', 'bg-amber-50');
+                const chosenCat = zone.dataset.cat;
+                processDrop(chosenCat);
+            }
         });
     });
 
@@ -607,11 +637,6 @@ function initS4() {
                 }
                 if (opinionTextarea) {
                     opinionTextarea.focus();
-                }
-                if (feedbackEl) {
-                    feedbackEl.textContent = '3 kavram seçtiniz. Lütfen aşağıdaki alana konargöçer yaşama ilişkin değerlendirmelerinizi yazıp "Görüşümü Kaydet & Değerlendir" butonuna basınız.';
-                    feedbackEl.className = 'text-xs font-semibold mt-3 p-3 text-left leading-relaxed bg-amber-50 border border-amber-300 text-amber-900 shadow-sm fade-in';
-                    feedbackEl.classList.remove('hidden');
                 }
             }
         });

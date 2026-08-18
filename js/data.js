@@ -185,12 +185,12 @@ const s3Data = [
     { 
         item: "Kara çadır ve konak adı verilen evlerin kullanılması", 
         category: "both",
-        hint: "Keçe/kara çadırlar ilk Türklerden beri kullanılmış olup günümüzde Toroslarda Yörükler tarafından hâlâ kullanılmaktadır."
+        hint: "Keçe/kara çadırlar Eski Türklerden beri kullanılmış olup günümüzde Toroslarda Yörükler tarafından hâlâ kullanılmaktadır."
     },
     { 
         item: "Mevsimsel otlak göçlerine dayalı hayvancılık yaşam biçimi", 
         category: "both",
-        hint: "Yaylacılık ve mevsimlik hayvancılık göçleri hem İlk Türklerde hem de günümüz Türkiye'sinde (Yörüklerde) varlığını korumaktadır."
+        hint: "Yaylacılık ve mevsimlik hayvancılık göçleri hem Eski Türklerde hem de günümüz Türkiye'sinde (Yörüklerde) varlığını korumaktadır."
     },
     { 
         item: "Töre kurallarına ve toplumsal dayanışmaya dayalı sosyal yapı", 
