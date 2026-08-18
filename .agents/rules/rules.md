@@ -31,6 +31,7 @@
 - **Paketleme (Build & Zip Kesin Kuralı):** 
   - Ara kod düzenlemelerinde, tasarım değişikliklerinde veya hata düzeltmelerinde **KESİNLİKLE zip dosyası oluşturmayınız / güncellemeyiniz**.
   - Zip dosyası **YALNIZCA ve SADECE** kullanıcı açıkça **"build al"** veya **"zip oluştur"** talimatı verdiğinde oluşturulmalıdır. Bunun dışındaki hiçbir durumda otomatik zip işlemi yapılmamalıdır.
+- **Gitignore ve Dosya Güvenliği:** Projelerde her zaman `.gitignore` dosyası bulunmalı; büyük boyutlu PDF dosyaları (`*.pdf`), `node_modules/`, `dist/` ve IDE dosyaları her zaman Git takibi dışında tutulmalıdır.
 
 ## 📦 6. SCORM Entegrasyon Standartları
 - **Tetikleyici Komut:** "SCORM entegrasyonu yap" veya SCORM ile ilgili bir talep geldiğinde entegrasyon adımlarını otomatik olarak başlatınız.
@@ -45,13 +46,15 @@
 
 ## 🚀 7. GitHub ve Canlı Yayın (Deployment) Standartları
 - **Tetikleyici Komut:** "GitHub'da canlıya al", "canlıya al" veya "projeyi yayınla" talebi geldiğinde yayınlama adımlarını kullanıcı müdahalesi gerektirmeden tam otomatik yürütünüz.
-- **Otomatik Konfigürasyon:**
-  - Vite projelerinde `vite.config.ts` dosyasına `base: './'` mülkünü otomatik ekleyiniz.
-  - Projeye `gh-pages` paketini kurunuz (`pnpm add -D gh-pages`).
-  - `package.json` dosyasına `"predeploy": "pnpm build"` ve `"deploy": "gh-pages -d dist"` komutlarını ekleyiniz.
-  - Otomatik yayın için `.github/workflows/deploy.yml` dosyasını oluşturunuz.
-- **Tam Otomatik Yayınlama:**
-  - Değişiklikleri otomatik commit ediniz (`git add .` ve `git commit`).
-  - `pnpm deploy` komutunu çalıştırarak derlenmiş çıktıyı `gh-pages` dalına aktarınız.
-  - `git push -u origin main` ile kaynak kodları varsayılan depoya gönderiniz.
-  - **Son Çıktı:** Kullanıcıya ek hiçbir işlem yaptırmadan tüm süreci arka planda tamamlayınız ve doğrudan canlı yayın bağlantısını (`https://<kullanici-adi>.github.io/<depo-adi>/`) sununuz.
+- **Proje Tipine Göre Canlıya Alma:**
+  - **A) Vanilla (Saf HTML / CSS / JS) Projeler:**
+    - Derleme adımına veya `node_modules`, `gh-pages` gibi ek paketlere **kesinlikle ihtiyaç duyulmaz**.
+    - Proje doğrudan **`main` dalının kök dizini (`/`)** üzerinden GitHub Pages'e sunulur.
+    - Değişiklikler otomatik commit edilip `main` dalına push edilir (`git add .`, `git commit`, `git push -u origin main`).
+  - **B) Framework / Derleme Gerektiren (Vite, React vb.) Projeler:**
+    - `vite.config.ts` dosyasına `base: './'` mülkünü otomatik ekleyiniz.
+    - Projeye `gh-pages` paketini kurunuz (`pnpm add -D gh-pages`).
+    - `package.json` dosyasına `"predeploy": "pnpm build"` ve `"deploy": "gh-pages -d dist"` komutlarını ekleyiniz.
+    - Otomatik yayın için `.github/workflows/deploy.yml` dosyasını oluşturunuz.
+    - `pnpm deploy` komutunu çalıştırarak derlenmiş çıktıyı `gh-pages` dalına aktarınız ve `git push -u origin main` ile kaynak kodları gönderiniz.
+- **Son Çıktı:** Kullanıcıya ek hiçbir işlem yaptırmadan tüm süreci arka planda tamamlayınız ve doğrudan canlı yayın bağlantısını (`https://<kullanici-adi>.github.io/<depo-adi>/`) sununuz.
