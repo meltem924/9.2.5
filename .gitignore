@@ -1,15 +1,7 @@
-# Dependencies
-node_modules/
-.pnpm-store/
-
-# Build outputs
-dist/
-build/
-
-# Documents & Large Media
+# Documents & Large Files
 *.pdf
 
-# IDE & OS files
+# System & IDE files
 .vscode/
 .idea/
 .DS_Store
