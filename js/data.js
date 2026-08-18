@@ -79,7 +79,7 @@ const s1FocusedData = [
     {
         id: "src-6",
         title: "Pastırma ve Saklama",
-        text: "“[Konargöçer] bir toplum olan eski Türklerde yiyecek olarak kullanılan en önemli besin maddesi hayvansal ürünlerdir. Pastırma, etin uzun süre dayanabilmesi amacıyla kullanılan bir saklama yöntemidir... İlk kez Türkistan Türkleri tarafından üretilen pastırma, göçebeliğin bir gereği olarak ortaya çıkmıştır... Özellikle akınlara giden askerlerin, beslenme ihtiyaçlarını karşılamaktaydı. Atın eğeri altında saklanan et yol boyunca eğer ve diğer düzeneklerle sıkışmakta ve terleyen atın tuzu ile de birleşerek pastırma halini almaktadır.”",
+        text: "“Konargöçer bir toplum olan eski Türklerde yiyecek olarak kullanılan en önemli besin maddesi hayvansal ürünlerdir. Pastırma, etin uzun süre dayanabilmesi amacıyla kullanılan bir saklama yöntemidir... İlk kez Türkistan Türkleri tarafından üretilen pastırma, göçebeliğin bir gereği olarak ortaya çıkmıştır... Özellikle akınlara giden askerlerin, beslenme ihtiyaçlarını karşılamaktaydı. Atın eğeri altında saklanan et yol boyunca eğer ve diğer düzeneklerle sıkışmakta ve terleyen atın tuzu ile de birleşerek pastırma halini almaktadır.”",
         category: "sosyal",
         sourceRef: "Türker vd., 2019",
         hint: "İpucu: Metin beslenme kültürü, yiyecekleri muhafaza etme ve gündelik hayatta ortaya çıkan yaşam pratikleriyle ilgilidir.",
