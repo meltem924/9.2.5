@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "mkdir dist & copy *.* dist\\ & xcopy /E /I img dist\\img & xcopy /E /I js dist\\js",
+    "build": "node build.js",
     "predeploy": "pnpm build",
     "deploy": "gh-pages -d dist"
   },
