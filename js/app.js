@@ -119,12 +119,8 @@ function initS1() {
     function renderCard(index) {
         if (index >= s1FocusedData.length) {
             if (catButtonsContainer) catButtonsContainer.classList.add('hidden');
-            container.innerHTML = `<div class="text-center p-8 bg-white rounded-xl shadow-sm border border-emerald-200 fade-in">
-                <div class="text-4xl mb-4">🏆</div>
-                <h3 class="text-lg font-bold text-emerald-800 mb-2">Tüm Kaynakları İncelediniz!</h3>
-                <p class="text-slate-600 text-sm">Konargöçer yaşamın temel özelliklerini başarıyla çözümlediniz.</p>
-            </div>`;
-            setTimeout(showNext, 1500);
+            container.innerHTML = '';
+            showNext();
             return;
         }
 
