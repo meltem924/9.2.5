@@ -1,24 +1,99 @@
-const state = { stage: 0, maxStage: 6, unlockedStage: 1 };
+const state = { stage: 0, maxStage: 5, unlockedStage: 5 }; // Geliştirme aşaması için tüm kilitler açık
 
-const s1Data = [
-    { text: "Tariat (Terhin) Kitabesi", answer: "primary", image: "s1-image-1", explanation: "Uygur Kağanlığı döneminden (753) kalma doğrudan yazılı anıt olduğu için 1. el kaynaktır." },
-    { text: "Tarih Ders Kitabı Konu Anlatımı", answer: "secondary", image: "s1-image-5", explanation: "Olayların yaşandığı dönemden çok sonra, birincil kaynaklar incelenerek kaleme alındığı için 2. el kaynaktır." },
-    { text: "Pazırık Kurganı Tören Arabası", answer: "primary", image: "s1-image-2", explanation: "Asya Hunları döneminden günümüze ulaşan doğrudan orijinal bir arkeolojik buluntu olduğu için 1. el kaynaktır." },
-    { text: "Tarih Araştırma Makaleleri", answer: "secondary", image: "s1-image-6", explanation: "Tarihçilerin 1. el kaynakları inceleyip yorumlayarak günümüzde yazdığı bilimsel eserler olduğu için 2. el kaynaktır." },
-    { text: "Orhun Yazıtları", answer: "primary", image: "s1-image-3", explanation: "Göktürkler çağında Bilge Kağan ve Kül Tigin adına dikilmiş doğrudan dönem belgesi olduğu için 1. el kaynaktır." },
-    { text: "Çin Yıllıkları", answer: "primary", image: "s1-image-4", explanation: "Olayların gerçekleştiği dönemde komşu Çinli elçiler ve tarihçiler tarafından tutulan çağdaş kayıtlar olduğu için 1. el kaynaktır." }
+const s1FocusedData = [
+    {
+        id: "src-1",
+        title: "Tariat Kitabesi",
+        text: "“Dört taraftaki halklar (benim) işimi gücümü görürler. Düşmanım bölünüp yok oldu. Ötüken ülkesi (ve) çevresi, ikisi arasında tarlalarım; Sekiz Selenge, Orkun, Togla, Sebintürdü, Kargu (ve) Burgu yerlerimde (ve) sularımda konar-göçerim.“",
+        category: "kultur",
+        sourceRef: "Tariat Kitabesi",
+        hint: "İpucu: Yazıtlar (kitabeler) bir milletin dilini, yazısını ve tarihi belleğini gelecek nesillere aktaran en önemli miraslardır.",
+        question: "Yukarıdaki kitabe metninde 'konar-göçerim' ifadesinin taşlara kazınmış olması, Türklerin hangi alandaki gelişmişlik düzeyini gösterir?",
+        options: [
+            "Yazılı dili kullanarak tarihi kayıtları taşlara işleyip gelecek nesillere aktarma bilincini",
+            "Göçebe oldukları için kalıcı sanat eseri bırakmadıklarını ve sadece sözlü kültüre sahip olduklarını"
+        ],
+        correctOptionIndex: 0,
+        explanation: "Kitabeler (Orhun ve Tariat yazıtları) Türklerin edebi, tarihi ve yazılı kültürlerinin en açık kanıtıdır. Taşların üzerine yazılan bu metinler kültürel bir mirastır."
+    },
+    {
+        id: "src-2",
+        title: "İktisadi Hayat ve Üretim",
+        text: "“Konar-göçer yaşam biçiminde iktisadi hayat büyük oranda hayvancılığa dayanmaktadır. Bu durum eski Türklerin hayvansal ürünler geliştirmesine katkı sağlamıştır. Nitekim küçükbaş hayvanların kürklerinden üretilen keçeler, eski Türklerin kıyafetlerinden atlarının eyerlerine, yattıkları yastıklarından üzerlerini örttükleri yorganlarına, çadırların örtülerinden çadırların içerisindeki döşemelere ve yer yaygılarına kadar çeşitli yerlerde türlü amaçlar için kullanılmıştır.”",
+        category: "ekonomi",
+        sourceRef: "Göner ve Gönen, 2022",
+        hint: "İpucu: Metin hayvansal ürünlerin üretimi ve bunların günlük eşyalara dönüştürülmesiyle ilgilidir.",
+        question: "Metne göre hayvancılığın konargöçer Türklerin yaşamındaki yeri hakkında nasıl bir çıkarım yapılabilir?",
+        options: [
+            "Hayvancılık yalnızca et ve süt ihtiyacını karşılamakla kalmamış; giyim, barınma ve eşya üretiminin de temel hammaddesi olmuştur.",
+            "Hayvansal ürünler sadece ticari amaçla üretilmiş, günlük yaşamda genellikle tarım ürünleri kullanılmıştır."
+        ],
+        correctOptionIndex: 0,
+        explanation: "Keçe, kıyafet, yorgan, çadır örtüsü gibi eşyaların tamamı hayvancılığın bir sonucudur; yani ekonomi tüm maddi kültürü şekillendirmiştir."
+    },
+    {
+        id: "src-3",
+        title: "Oğuzname'de Birlik",
+        text: "“Oğuz Kağan yaşlanınca vasiyetini açıklamak için tüm çocuklarının katıldığı bir toy toplamış ve oğullarına ‘biriniz bir ok verin’ dedi ve aldı eliyle kırdı. Sonra ikisine döndü ‘iki ok verin’ dedi ve aldı kırdı ve üçünden birer ok istedi ve dizine vurup kırdı; ve altısından birer ok istedi dizine vurup kıramadı... Hepsini iple ortadan bağladı, ellerine verdi ve şöyle söyledi: ‘kıramazsınız’ Şöyle devam etti: ‘işbu örnek gereğince birlik olun birbirinize uyun...’”",
+        category: "siyasi",
+        sourceRef: "Oğuzname",
+        hint: "İpucu: Metin bir yöneticinin (kağanın) halkını/çocuklarını bir arada tutması, devleti yönetmesi ve birliği sağlamasıyla ilgilidir.",
+        question: "Oğuz Kağan'ın çocuklarına oklarla verdiği bu vasiyet, konargöçer Türklerde hangi unsurun hayati önem taşıdığını vurgulamaktadır?",
+        options: [
+            "Ordu içinde sadece yetenekli okçuların komuta kademesine getirilmesi gerektiğini",
+            "Boylar arasında siyasi birliğin ve dayanışmanın devleti ayakta tutan en temel güç olduğunu"
+        ],
+        correctOptionIndex: 1,
+        explanation: "Oğuz Kağan, parçalanmanın zayıflık getireceğini, siyasi birliğin (tek ok yerine bağlı oklar) ise devleti yıkılamaz kılacağını somut bir şekilde göstermiştir."
+    },
+    {
+        id: "src-4",
+        title: "Hapishanelerin Olmayışı",
+        text: "“Hapis cezası yalnız 10 güne kadar verilir; böylece devletin sınırları içindeki hükümlülerin sayısı çok azdır. Devlet göçebe olduğu için sürekli hapishaneler kurulması istenmemiştir”",
+        category: "hukuk",
+        sourceRef: "Altunbaş, 2022",
+        hint: "İpucu: Metin suçlulara uygulanan yaptırımlar ve adalet sisteminin (hapishane) işleyişi ile ilgilidir.",
+        question: "Bu metinden hareketle, konargöçer yaşam tarzının Türklerdeki ceza sistemini nasıl etkilediği söylenebilir?",
+        options: [
+            "Hareketli yaşam tarzı, uzun süreli hapis cezasını ve kalıcı hapishaneleri imkânsız kıldığı için cezaların kısa süreli ve pratik olmasına yol açmıştır.",
+            "Göçebe toplumlarda suç oranı çok yüksek olduğu için hapishaneler yetersiz kalmış ve bu yüzden cezalar kısaltılmıştır."
+        ],
+        correctOptionIndex: 0,
+        explanation: "Sürekli yer değiştiren bir toplumda mahkumları aylarca bir binaya kapatmak fiziksel olarak mümkün değildir. Bu nedenle adalet ve töre hızlıca uygulanmıştır."
+    },
+    {
+        id: "src-5",
+        title: "Göçebelik ve Bağımsızlık",
+        text: "“Şehirde veya köyde yaşamak bizim işimize gelmez. Şimdiye kadar hür ve bağımsız kalabilmemiz göçebelik sayesindedir. Göçebe olduğumuz için, istediğimiz dakikada Çin’e akın ve yağma yapabiliriz. Çinliler durumu öğrenip, savaş hazırlıklarına başlayıncaya kadar, biz işimizi bitirir, aile çadırlarımızla birlikte Çinlilerin yetişemeyeceği uzak bölgelere çekilmiş oluruz. Böylece Çinliler... bize hiçbir şey yapamazlar.”",
+        category: "askeri",
+        sourceRef: "Orhun Yazıtları (Bilge Kağan)",
+        hint: "İpucu: Metin düşmana akın yapma, savaş hazırlığı ve hızlı manevra kabiliyeti ile ilgilidir.",
+        question: "Bilge Kağan'ın bu sözlerine göre, konargöçer yaşamın Türklere sağladığı en büyük askerî stratejik avantaj nedir?",
+        options: [
+            "Düşman karşısında hızlı hareket ederek (vur-kaç taktiği) sürpriz saldırılar yapabilme ve kolayca geri çekilebilme imkânı",
+            "Geniş ve sağlam surlarla çevrili şehirler kurarak savunma savaşlarında üstünlük kurabilme becerisi"
+        ],
+        correctOptionIndex: 0,
+        explanation: "Yerleşik ordular ağır hareket ederken, atlı göçebeler çok hızlı manevra yaparak düşmanı şaşırtır ve anında ulaşılmaz bölgelere çekilerek güvende kalır."
+    },
+    {
+        id: "src-6",
+        title: "Pastırma ve Saklama",
+        text: "“[Konargöçer] bir toplum olan eski Türklerde yiyecek olarak kullanılan en önemli besin maddesi hayvansal ürünlerdir. Pastırma, etin uzun süre dayanabilmesi amacıyla kullanılan bir saklama yöntemidir... İlk kez Türkistan Türkleri tarafından üretilen pastırma, göçebeliğin bir gereği olarak ortaya çıkmıştır... Özellikle akınlara giden askerlerin, beslenme ihtiyaçlarını karşılamaktaydı. Atın eğeri altında saklanan et yol boyunca eğer ve diğer düzeneklerle sıkışmakta ve terleyen atın tuzu ile de birleşerek pastırma halini almaktadır.”",
+        category: "sosyal",
+        sourceRef: "Türker vd., 2019",
+        hint: "İpucu: Metin beslenme kültürü, yiyecekleri muhafaza etme ve gündelik hayatta ortaya çıkan yaşam pratikleriyle ilgilidir.",
+        question: "Pastırmanın ortaya çıkış hikayesi dikkate alındığında, konargöçer Türklerin gündelik pratikleri hakkında ne söylenebilir?",
+        options: [
+            "Zorlu doğa şartları ve hareketli yaşam (göç ve akınlar), yiyeceklerin bozulmadan uzun süre saklanabileceği pratik yöntemleri zorunlu kılmıştır.",
+            "Pastırma sadece yerleşik hayata geçtikten sonra bol baharat bulunmasıyla icat edilen özel bir tören yemeğidir."
+        ],
+        correctOptionIndex: 0,
+        explanation: "Konargöçerlikte gıdayı saklayacak soğutucu sistemler yoktur; hareket halindeki atın teri ve eyerin basıncı kullanılarak bozkıra has pratik bir çözüm bulunmuştur."
+    }
 ];
 
 const s2Data = [
-    { front: "Barınak", back: "Keçe Çadır (Yurt/Otağ) — Korluk (ocak) ve Kerevet (sedir)" },
-    { front: "Ulaşım & Taşıma", back: "At, deve ve 4 tekerlekli ev-arabalar" },
-    { front: "Giyim & Kuşam", back: "Ton (elbise), Börk (başlık) ve deri çizmeler" },
-    { front: "Beslenme & Saklama", back: "Pastırma (eğer altı et), Kımız, Tutmaç ve Yahni" },
-    { front: "Hukuk & Töre", back: "Töre kuralları ve en fazla 10 günlük hapis cezası" },
-    { front: "Anıt & İnanç", back: "Balbal mezar taşları ve hayvan üslubu motifler" }
-];
-
-const s3Data = [
     { 
         cause: "Yaz aylarında otlakların kuruması ve aşırı sıcaklar", 
         effect: "Serin ve otlağı bol olan yaylaklara göç edilmesi", 
@@ -49,7 +124,7 @@ const s3Data = [
     }
 ];
 
-const s4Data = [
+const s3Data = [
     {
         id: "ocak",
         name: "Merkez Ateşi (Korluk)",
@@ -112,7 +187,7 @@ const s4Data = [
     }
 ];
 
-const s5Data = [
+const s4Data = [
     { 
         item: "Kımız (kısrak sütü) ve tutmaç yemeğinin tüketilmesi", 
         category: "past",
@@ -155,7 +230,7 @@ const s5Data = [
     }
 ];
 
-const s6Badges = [
+const s5Badges = [
     { emoji: "🦅", label: "Bağımsızlık & Hürriyet" },
     { emoji: "🌿", label: "Doğayla Uyum" },
     { emoji: "👥", label: "Dayanışma & İmece" },

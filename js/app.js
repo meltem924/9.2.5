@@ -107,200 +107,153 @@ function initStageContent(n) {
     else if (target === 3) initS3();
     else if (target === 4) initS4();
     else if (target === 5) initS5();
-    else if (target === 6) initS6();
     else if (target === 'final') showFinal();
 }
 
 function initS1() {
-    let answered = 0;
-    const name = document.getElementById('s1-source-name');
-    const primary = document.getElementById('s1-primary-btn');
-    const secondary = document.getElementById('s1-secondary-btn');
-    const feedbackContainer = document.getElementById('s1-feedback-container');
-    const feedbackEl = document.getElementById('s1-feedback');
-    const nextBtn = document.getElementById('s1-next-btn');
-    const nextBtnText = document.getElementById('s1-next-btn-text');
-    
-    function showSource() {
-        const item = s1Data[answered];
-        document.querySelectorAll('.s1-source-image').forEach(img => 
-            img.classList.toggle('hidden', img.dataset.templateId !== item.image)
-        );
-        name.textContent = item.text;
-        
-        primary.disabled = false; 
-        secondary.disabled = false;
-        
-        primary.style.background = '#ecfdf5';
-        primary.style.borderColor = '#10b981';
-        primary.style.color = '#065f46';
-        primary.style.boxShadow = 'none';
+    const container = document.getElementById('s1-card-container');
+    const catButtonsContainer = document.getElementById('category-selection');
+    const catButtons = document.querySelectorAll('.cat-btn');
+    let currentIndex = 0;
 
-        secondary.style.background = '#f0f9ff';
-        secondary.style.borderColor = '#0ea5e9';
-        secondary.style.color = '#0369a1';
-        secondary.style.boxShadow = 'none';
-
-        if (feedbackContainer) feedbackContainer.classList.add('hidden');
-    }
-    
-    function choose(choice) {
-        if (answered >= s1Data.length || primary.disabled) return;
-        const item = s1Data[answered];
-        const isCorrect = choice === item.answer;
-        const clickedBtn = choice === 'primary' ? primary : secondary;
-        const correctBtn = item.answer === 'primary' ? primary : secondary;
-
-        primary.disabled = true; 
-        secondary.disabled = true;
-
-        if (feedbackContainer) feedbackContainer.classList.remove('hidden');
-
-        if (isCorrect) {
-            clickedBtn.style.background = '#059669';
-            clickedBtn.style.borderColor = '#047857';
-            clickedBtn.style.color = '#ffffff';
-            clickedBtn.style.boxShadow = '0 0 10px rgba(16, 185, 129, 0.4)';
-
-            const label = item.answer === 'primary' ? 'Birinci El' : 'İkinci El';
-            if (feedbackEl) {
-                feedbackEl.innerHTML = `
-                    <div class="text-sm font-extrabold mb-1">İnceleme Notu</div>
-                    <div class="font-normal opacity-95">${item.explanation || `"${item.text}" ${label} kaynak örneğidir.`}</div>
-                `;
-                feedbackEl.className = 'text-xs font-semibold p-4 text-left leading-relaxed bg-emerald-50 border border-emerald-300 text-emerald-900 shadow-sm fade-in';
-            }
-        } else {
-            clickedBtn.style.background = '#dc2626';
-            clickedBtn.style.borderColor = '#b91c1c';
-            clickedBtn.style.color = '#ffffff';
-            clickedBtn.style.boxShadow = '0 0 10px rgba(220, 38, 38, 0.4)';
-
-            correctBtn.style.background = '#059669';
-            correctBtn.style.borderColor = '#047857';
-            correctBtn.style.color = '#ffffff';
-
-            const correctLabel = item.answer === 'primary' ? 'Birinci El' : 'İkinci El';
-            if (feedbackEl) {
-                feedbackEl.innerHTML = `
-                    <div class="text-sm font-extrabold mb-1">Değerlendirme & Bilgi Notu</div>
-                    <div class="font-normal opacity-95">${item.explanation || `"${item.text}" aslında ${correctLabel} kaynak örneğidir.`}</div>
-                `;
-                feedbackEl.className = 'text-xs font-semibold p-4 text-left leading-relaxed bg-amber-50 border border-amber-300 text-amber-900 shadow-sm fade-in';
-            }
+    function renderCard(index) {
+        if (index >= s1FocusedData.length) {
+            if (catButtonsContainer) catButtonsContainer.classList.add('hidden');
+            container.innerHTML = `<div class="text-center p-8 bg-white rounded-xl shadow-sm border border-emerald-200 fade-in">
+                <div class="text-4xl mb-4">🏆</div>
+                <h3 class="text-lg font-bold text-emerald-800 mb-2">Tüm Kaynakları İncelediniz!</h3>
+                <p class="text-slate-600 text-sm">Konargöçer yaşamın temel özelliklerini başarıyla çözümlediniz.</p>
+            </div>`;
+            setTimeout(showNext, 1500);
+            return;
         }
 
-        const isLastItem = (answered + 1 >= s1Data.length);
-        if (isLastItem) {
-            if (nextBtn) nextBtn.classList.add('hidden');
-            showNext();
-        } else {
-            if (nextBtn) nextBtn.classList.remove('hidden');
-            if (nextBtnText) nextBtnText.textContent = 'Sonraki Kaynağa Geç';
-        }
-    }
-    
-    if (nextBtn) {
-        nextBtn.onclick = () => {
-            answered++;
-            if (answered < s1Data.length) {
-                showSource();
-            }
-        };
+        if (catButtonsContainer) catButtonsContainer.classList.remove('hidden');
+        
+        const categoryHint = document.getElementById('category-hint');
+        if (categoryHint) categoryHint.classList.add('hidden');
+        
+        // Reset category buttons
+        catButtons.forEach(btn => {
+            btn.disabled = false;
+            btn.classList.remove('opacity-50', 'border-red-400', 'bg-red-50');
+            btn.classList.add('bg-white', 'hover:border-amber-400', 'hover:bg-amber-50');
+        });
+
+        const data = s1FocusedData[index];
+
+        container.innerHTML = `
+            <div id="active-card" class="relative bg-white rounded-2xl shadow-md border-2 border-slate-200 p-8 sm:p-10 pb-12 sm:pb-14 min-h-[240px] flex flex-col justify-center transition-all duration-300 fade-in" data-category="${data.category}">
+                <p class="text-[16px] leading-relaxed font-semibold text-slate-800 italic">
+                    ${data.text}
+                </p>
+                <div class="absolute bottom-5 right-6 sm:right-8 text-[11px] font-black text-slate-500 uppercase tracking-widest">
+                    ${data.sourceRef}
+                </div>
+            </div>
+            
+            <div id="question-panel" class="hidden bg-emerald-50 rounded-2xl shadow-md border-2 border-emerald-400 p-5 mt-3 fade-in relative">
+                <h4 class="text-[13.5px] font-bold text-slate-800 mb-3 mt-2">${data.question}</h4>
+                <div class="space-y-2" id="options-container">
+                    <button class="opt-btn w-full text-left p-3 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 hover:border-slate-300 text-[13px] font-medium text-slate-700 transition-colors shadow-sm" data-idx="0">A) ${data.options[0]}</button>
+                    <button class="opt-btn w-full text-left p-3 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 hover:border-slate-300 text-[13px] font-medium text-slate-700 transition-colors shadow-sm" data-idx="1">B) ${data.options[1]}</button>
+                </div>
+                <div id="feedback-panel" class="hidden mt-4 p-3 rounded-lg text-xs font-semibold leading-relaxed"></div>
+                <button id="next-card-btn" class="hidden mt-4 w-full py-2.5 bg-emerald-600 text-white text-[13px] font-bold rounded-lg shadow-sm hover:bg-emerald-700 transition-colors">Sonraki Kaynağa Geç</button>
+            </div>
+        `;
     }
 
-    primary.onclick = () => choose('primary');
-    secondary.onclick = () => choose('secondary');
-    showSource();
-}
+    // Clone and replace buttons to prevent multiple event listeners on re-init
+    const newCatButtons = [];
+    catButtons.forEach(btn => {
+        const newBtn = btn.cloneNode(true);
+        btn.parentNode.replaceChild(newBtn, btn);
+        newCatButtons.push(newBtn);
+    });
 
-function initS2() {
-    const featuresCol = document.getElementById('s2-features');
-    const meaningsCol = document.getElementById('s2-meanings');
-    featuresCol.innerHTML = '';
-    meaningsCol.innerHTML = '';
-    let selected = null, matched = 0;
-    
-    const features = s2Data.map((card, i) => ({ pair: i, label: card.front, kind: 'feature' })).sort(() => Math.random() - 0.5);
-    const meanings = s2Data.map((card, i) => ({ pair: i, label: card.back, kind: 'meaning' })).sort(() => Math.random() - 0.5);
-    
-    // Doğru cevapların doğrudan karşılıklı gelmesini önle
-    for (let i = 0; i < features.length; i++) {
-        if (features[i].pair === meanings[i].pair) {
-            const swapIdx = (i + 1) % meanings.length;
-            const temp = meanings[i];
-            meanings[i] = meanings[swapIdx];
-            meanings[swapIdx] = temp;
-        }
-    }
-    
-    function createBtn(card) {
-        const btn = document.createElement('button');
-        btn.type = 'button';
-        btn.dataset.pair = card.pair;
-        btn.dataset.kind = card.kind;
-        
-        if (card.kind === 'feature') {
-            btn.className = 'option-btn w-full p-3.5 text-sm font-bold border-2 border-amber-300 bg-amber-50 text-amber-950 shadow-sm hover:border-amber-500 hover:bg-amber-100 transition-all focus:outline-none focus:ring-2 focus:ring-amber-400';
-        } else {
-            btn.className = 'option-btn w-full p-3.5 text-sm font-medium border-2 border-sky-300 bg-sky-50 text-sky-950 shadow-sm hover:border-sky-500 hover:bg-sky-100 transition-all focus:outline-none focus:ring-2 focus:ring-sky-400';
-        }
-        btn.textContent = card.label;
-        
+    newCatButtons.forEach(btn => {
         btn.addEventListener('click', () => {
-            if (btn.disabled || btn.classList.contains('matched')) return;
-            if (!selected) { 
-                selected = btn; 
-                btn.style.transform = 'scale(1.02)';
-                btn.style.boxShadow = '0 0 10px rgba(217, 119, 6, 0.35)';
-                btn.style.borderColor = '#d97706';
-                btn.style.background = '#fef3c7';
-                return; 
-            }
-            if (selected === btn) return;
-            if (selected.dataset.pair === btn.dataset.pair && selected.dataset.kind !== btn.dataset.kind) {
-                selected.style.transform = '';
-                selected.style.boxShadow = '';
-                
-                [selected, btn].forEach(b => {
-                    b.classList.add('matched');
-                    b.disabled = true;
-                    b.style.background = '#ecfdf5';
-                    b.style.borderColor = '#10b981';
-                    b.style.color = '#065f46';
-                    b.style.boxShadow = 'none';
-                    b.style.transform = '';
-                    b.style.opacity = '0.9';
-                });
-                
-                matched++; 
-                selected = null;
-                if (matched === s2Data.length) setTimeout(showNext, 700);
+            const card = document.getElementById('active-card');
+            if (!card) return;
+            
+            const cardCategory = card.dataset.category;
+            const selectedCategory = btn.dataset.category;
+            
+            if (cardCategory === selectedCategory) {
+                // Correct Selection
+                card.classList.add('border-emerald-400', 'bg-emerald-50/20');
+
+                if (catButtonsContainer) catButtonsContainer.classList.add('hidden');
+
+                showQuestionPanel();
             } else {
-                btn.style.borderColor = '#ef4444';
-                btn.style.background = '#fef2f2';
-                btn.style.boxShadow = '0 0 8px rgba(239, 68, 68, 0.3)';
-                const prev = selected; 
-                selected = null;
-                setTimeout(() => { 
-                    btn.style.borderColor = '';
-                    btn.style.background = '';
-                    btn.style.boxShadow = '';
-                    prev.style.borderColor = '';
-                    prev.style.background = '';
-                    prev.style.boxShadow = '';
-                    prev.style.transform = '';
+                // Wrong Selection
+                btn.classList.add('border-red-400', 'bg-red-50');
+                btn.classList.remove('bg-white', 'hover:border-amber-400', 'hover:bg-amber-50');
+                
+                const hintPanel = document.getElementById('category-hint');
+                if (hintPanel) {
+                    hintPanel.textContent = s1FocusedData[currentIndex].hint;
+                    hintPanel.classList.remove('hidden');
+                    hintPanel.classList.add('fade-in');
+                }
+
+                setTimeout(() => {
+                    btn.classList.remove('border-red-400', 'bg-red-50');
+                    btn.classList.add('bg-white', 'hover:border-amber-400', 'hover:bg-amber-50');
                 }, 500);
             }
         });
-        return btn;
+    });
+
+    function showQuestionPanel() {
+        const panel = document.getElementById('question-panel');
+        const feedback = document.getElementById('feedback-panel');
+        const nextBtn = document.getElementById('next-card-btn');
+        const options = document.querySelectorAll('.opt-btn');
+        const data = s1FocusedData[currentIndex];
+
+        panel.classList.remove('hidden');
+
+        options.forEach(btn => {
+            btn.addEventListener('click', () => {
+                if (btn.disabled) return;
+                options.forEach(b => b.disabled = true);
+                
+                const selectedIdx = parseInt(btn.dataset.idx);
+                if (selectedIdx === data.correctOptionIndex) {
+                    btn.classList.remove('bg-white');
+                    btn.classList.add('bg-emerald-100', 'border-emerald-500', 'text-emerald-900');
+                    feedback.className = 'mt-4 p-3 rounded-lg text-xs font-semibold leading-relaxed bg-white border border-emerald-200 text-emerald-900 shadow-sm fade-in';
+                    feedback.innerHTML = `<strong class="text-emerald-700">✓ Doğru!</strong> ${data.explanation}`;
+                    feedback.classList.remove('hidden');
+                    nextBtn.classList.remove('hidden');
+                } else {
+                    btn.classList.remove('bg-white');
+                    btn.classList.add('bg-red-50', 'border-red-400', 'text-red-800');
+                    const correctBtn = document.querySelector(`.opt-btn[data-idx="${data.correctOptionIndex}"]`);
+                    correctBtn.classList.remove('bg-white');
+                    correctBtn.classList.add('bg-emerald-100', 'border-emerald-500', 'text-emerald-900');
+                    
+                    feedback.className = 'mt-4 p-3 rounded-lg text-xs font-semibold leading-relaxed bg-white border border-amber-200 text-amber-900 shadow-sm fade-in';
+                    feedback.innerHTML = `<strong class="text-amber-700">Daha Dikkatli İnceleyelim:</strong> ${data.explanation}`;
+                    feedback.classList.remove('hidden');
+                    nextBtn.classList.remove('hidden');
+                }
+            });
+        });
+
+        nextBtn.addEventListener('click', () => {
+            currentIndex++;
+            renderCard(currentIndex);
+        });
     }
-    
-    features.forEach(card => featuresCol.appendChild(createBtn(card)));
-    meanings.forEach(card => meaningsCol.appendChild(createBtn(card)));
+
+    renderCard(0);
 }
 
-function initS3() {
+function initS2() {
     const container = document.getElementById('s3-game');
     container.innerHTML = '';
     let answered = 0;
@@ -309,7 +262,7 @@ function initS3() {
     gameWrapper.className = 'space-y-4';
     container.appendChild(gameWrapper);
     
-    s3Data.forEach((item, index) => {
+    s2Data.forEach((item, index) => {
         const card = document.createElement('div');
         card.className = 's3-card p-5 fade-in';
         card.style.animationDelay = `${index * 100}ms`;
@@ -369,12 +322,12 @@ function initS3() {
                 feedback.className = 's3-feedback text-xs font-semibold mt-3.5 p-3.5 bg-red-50 border border-red-300 text-red-900 leading-relaxed shadow-sm'; 
             }
             answered++;
-            if (answered === s3Data.length) setTimeout(showNext, 800);
+            if (answered === s2Data.length) setTimeout(showNext, 800);
         }));
     });
 }
 
-function initS4() {
+function initS3() {
     const layer = document.getElementById('s4-hotspots-layer');
     const counter = document.getElementById('s4-counter');
     const modal = document.getElementById('s4-info-modal');
@@ -385,10 +338,10 @@ function initS4() {
     if (!layer) return;
     layer.innerHTML = '';
     let discoveredCount = 0;
-    counter.textContent = `0 / ${s4Data.length}`;
+    counter.textContent = `0 / ${s3Data.length}`;
     modal.classList.add('hidden');
 
-    s4Data.forEach((item) => {
+    s3Data.forEach((item) => {
         const hotspot = document.createElement('button');
         hotspot.type = 'button';
         hotspot.className = 'hotspot-target absolute w-7 h-7 font-bold flex items-center justify-center shadow-md focus:outline-none focus:ring-2 focus:ring-amber-400';
@@ -410,9 +363,9 @@ function initS4() {
                 hotspot.classList.add('discovered');
                 hotspot.innerHTML = `<span class="text-white text-[11px] font-black">✓</span>`;
                 discoveredCount++;
-                counter.textContent = `${discoveredCount} / ${s4Data.length}`;
+                counter.textContent = `${discoveredCount} / ${s3Data.length}`;
 
-                if (discoveredCount === s4Data.length) {
+                if (discoveredCount === s3Data.length) {
                     setTimeout(showNext, 1200);
                 }
             }
@@ -428,13 +381,13 @@ function initS4() {
     }
 }
 
-function initS5() {
+function initS4() {
     const container = document.getElementById('s5-game');
     container.innerHTML = '';
     let currentStep = 0;
 
     // Soruları her başlangıçta rastgele karıştır
-    const s5Items = [...s5Data].sort(() => Math.random() - 0.5);
+    const s4Items = [...s4Data].sort(() => Math.random() - 0.5);
 
     container.innerHTML = `
         <!-- Active Draggable Item Panel (Above) -->
@@ -481,7 +434,7 @@ function initS5() {
     const activePanelEl = document.getElementById('s5-active-panel');
 
     function renderStep() {
-        if (currentStep >= s5Items.length) {
+        if (currentStep >= s4Items.length) {
             activePanelEl.innerHTML = `
                 <div class="text-center py-4">
                     <h3 class="font-bold text-emerald-700 text-base mb-1">Tebrikler!</h3>
@@ -492,16 +445,16 @@ function initS5() {
             return;
         }
 
-        const item = s5Items[currentStep];
+        const item = s4Items[currentStep];
         activeItemEl.textContent = item.item;
         feedbackEl.classList.add('hidden');
         dragCardEl.className = 'p-4 bg-white border-2 border-amber-500 text-base font-bold text-slate-800 leading-snug shadow-sm text-center cursor-grab active:cursor-grabbing hover:border-amber-600 transition-all select-none';
     }
 
     function processDrop(chosenCat) {
-        if (currentStep >= s5Items.length) return;
+        if (currentStep >= s4Items.length) return;
 
-        const item = s5Items[currentStep];
+        const item = s4Items[currentStep];
 
         if (chosenCat === item.category) {
             feedbackEl.classList.remove('hidden');
@@ -527,7 +480,7 @@ function initS5() {
 
     // Drag events (Desktop)
     dragCardEl.addEventListener('dragstart', (e) => {
-        e.dataTransfer.setData('text/plain', s5Items[currentStep].category);
+        e.dataTransfer.setData('text/plain', s4Items[currentStep].category);
         dragCardEl.classList.add('opacity-50');
     });
 
@@ -694,7 +647,7 @@ function validateUserOpinion(rawText, selectedBadges) {
     };
 }
 
-function initS6() {
+function initS5() {
     const container = document.getElementById('s6-badges');
     const opinionTextarea = document.getElementById('user-opinion');
     const feedbackEl = document.getElementById('s6-opinion-feedback');
@@ -709,7 +662,7 @@ function initS6() {
         feedbackEl.textContent = '';
     }
 
-    s6Badges.forEach(badge => {
+    s5Badges.forEach(badge => {
         const div = document.createElement('button');
         div.className = 'option-btn p-3 border border-slate-300 hover:border-amber-500 hover:bg-amber-50 bg-white text-xs font-bold text-slate-700 tracking-wide text-center transition-all shadow-sm';
         div.innerHTML = `<span>${badge.label}</span>`;
