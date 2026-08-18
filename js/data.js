@@ -5,16 +5,16 @@ const s1FocusedData = [
         id: "src-1",
         title: "Tariat Kitabesi",
         text: "“Dört taraftaki halklar (benim) işimi gücümü görürler. Düşmanım bölünüp yok oldu. Ötüken ülkesi (ve) çevresi, ikisi arasında tarlalarım; Sekiz Selenge, Orkun, Togla, Sebintürdü, Kargu (ve) Burgu yerlerimde (ve) sularımda konar-göçerim.“",
-        category: "kultur",
+        category: "siyasi",
         sourceRef: "Tariat Kitabesi",
-        hint: "İpucu: Yazıtlar (kitabeler) bir milletin dilini, yazısını ve tarihi belleğini gelecek nesillere aktaran en önemli miraslardır.",
-        question: "Yukarıdaki kitabe metninde 'konar-göçerim' ifadesinin taşlara kazınmış olması, Türklerin hangi alandaki gelişmişlik düzeyini gösterir?",
+        hint: "İpucu: Metin kağanın otoritesi, boyların devlete bağlılığı, düşmanların etkisiz hale getirilmesi ve ülke sınırları ile ilgilidir.",
+        question: "Bu metinden hareketle konargöçer Türklerin siyasi yapısı ve devlet yönetimi hakkında nasıl bir çıkarım yapılabilir?",
         options: [
-            "Yazılı dili kullanarak tarihi kayıtları taşlara işleyip gelecek nesillere aktarma bilincini",
-            "Göçebe oldukları için kalıcı sanat eseri bırakmadıklarını ve sadece sözlü kültüre sahip olduklarını"
+            "Kağanın geniş bir coğrafyada farklı boylar ve halklar üzerinde merkezi otorite ve siyasi hâkimiyet kurduğu",
+            "Devlet yönetiminde boyların tamamen bağımsız hareket ettiği ve kağanın yetkilerinin sadece kendi ailesiyle sınırlı kaldığı"
         ],
         correctOptionIndex: 0,
-        explanation: "Kitabeler (Orhun ve Tariat yazıtları) Türklerin edebi, tarihi ve yazılı kültürlerinin en açık kanıtıdır. Taşların üzerine yazılan bu metinler kültürel bir mirastır."
+        explanation: "Metinde kağanın dört bir yandaki halkları yönetmesi, düşmanları bertaraf etmesi ve belirli bir coğrafyada (Ötüken ve çevresi) hâkimiyet kurması güçlü bir siyasi teşkilatlanmanın ve devlet otoritesinin göstergesidir."
     },
     {
         id: "src-2",
@@ -33,18 +33,18 @@ const s1FocusedData = [
     },
     {
         id: "src-3",
-        title: "Oğuzname'de Birlik",
-        text: "“Oğuz Kağan yaşlanınca vasiyetini açıklamak için tüm çocuklarının katıldığı bir toy toplamış ve oğullarına ‘biriniz bir ok verin’ dedi ve aldı eliyle kırdı. Sonra ikisine döndü ‘iki ok verin’ dedi ve aldı kırdı ve üçünden birer ok istedi ve dizine vurup kırdı; ve altısından birer ok istedi dizine vurup kıramadı... Hepsini iple ortadan bağladı, ellerine verdi ve şöyle söyledi: ‘kıramazsınız’ Şöyle devam etti: ‘işbu örnek gereğince birlik olun birbirinize uyun...’”",
-        category: "siyasi",
-        sourceRef: "Oğuzname",
-        hint: "İpucu: Metin bir yöneticinin (kağanın) halkını/çocuklarını bir arada tutması, devleti yönetmesi ve birliği sağlamasıyla ilgilidir.",
-        question: "Oğuz Kağan'ın çocuklarına oklarla verdiği bu vasiyet, konargöçer Türklerde hangi unsurun hayati önem taşıdığını vurgulamaktadır?",
+        title: "Pazırık Kurganı ve Sanat Mirası",
+        text: "“Altaylar'daki Pazırık Kurganı'nda buz tabakası sayesinde günümüze kadar korunan MÖ 5-3. yüzyıllara ait Pazırık Halısı, dünyanın en eski düğümlü halısı olarak kabul edilmektedir. İnce yün ipliklerle ve Gördes (Türk) düğümüyle dokunan bu halının üzerinde geyik, atlı süvari ve grifon gibi hayvan üslubu motifleri büyük bir ustalıkla işlenmiştir.”",
+        category: "kultur",
+        sourceRef: "Rudenko, Pazırık Kurganı Kazıları",
+        hint: "İpucu: Metin el sanatları, dokuma teknikleri, estetik süslemeler ve bozkır sanat üslubu ile ilgilidir.",
+        question: "Pazırık Kurganı'ndan çıkarılan bu eserler, konargöçer Türklerin kültür ve sanat hayatı hakkında neyi kesin olarak kanıtlar?",
         options: [
-            "Ordu içinde sadece yetenekli okçuların komuta kademesine getirilmesi gerektiğini",
-            "Boylar arasında siyasi birliğin ve dayanışmanın devleti ayakta tutan en temel güç olduğunu"
+            "Konargöçer yaşam tarzına rağmen ileri düzeyde dokuma, süsleme ve hayvan üslubuna dayalı özgün bir sanat anlayışına sahip olduklarını",
+            "Sanat ve zanaat ürünlerinin tamamını komşu yerleşik toplumlardan hazır olarak satın aldıklarını"
         ],
-        correctOptionIndex: 1,
-        explanation: "Oğuz Kağan, parçalanmanın zayıflık getireceğini, siyasi birliğin (tek ok yerine bağlı oklar) ise devleti yıkılamaz kılacağını somut bir şekilde göstermiştir."
+        correctOptionIndex: 0,
+        explanation: "Pazırık Halısı ve kurgan buluntuları, Türklerin hayvansal hammaddeleri (yün, keçe, deri) estetik bir biçimde işleyerek dünya çapında ileri düzey bir dokuma ve bozkır sanatı geliştirdiklerini gösterir."
     },
     {
         id: "src-4",
