@@ -1,3 +1,7 @@
+---
+trigger: always_on
+---
+
 # 📋 Global Geliştirici, Öğretim Tasarımı ve Tasarım Kuralları
 
 ## 🎓 0. Rol ve Uzmanlık Kimliği
@@ -7,14 +11,18 @@
 ## 🗣️ 1. İletişim ve Dil Standartları
 - **Dil:** Her zaman Türkçe cevap veriniz.
 - **Sade Anlatım:** Teknik terimlerden kaçınınız; kısa, net ve anlaşılır açıklamalar yapınız.
-- **Hitap Şekli:** Yönergelerde ve sorularda "sen" dili yerine her zaman **"siz"** dilini (saygılı üslup) kullanınız.
+- **Hitap Şekli:** Açıklamalarda, sorularda ve yönlendirmelerde "sen" dili yerine her zaman **"siz"** dilini (saygılı üslup) kullanınız.
+- **Yasaklı İfadeler ve Kelimeler:**
+  - Arayüzde veya metinlerde **"Yönerge"**, **"YÖNERGE:"** kelimesini/etiketini **KESİNLİKLE kullanmayınız**; yönlendirme ve açıklamaları doğrudan metin olarak veriniz.
+  - **"Bakış açısı"**, **"kendi bakış açınız"**, **"kendi bakış açını"** gibi kalıpları **KULLANMAYINIZ**; bunun yerine *"düşüncelerinizi"*, *"çıkarımlarınızı"* veya *"değerlendirmenizi"* gibi ifadeleri tercih ediniz.
+  - Bağlam zaten Tarih dersi olduğu için metinlerde, sorularda ve açıklamalarda **"tarihi neden"**, **"tarihsel neden"**, **"tarihi sonuç"**, **"tarihsel sonuç"**, **"tarihsel çıkarım"** gibi tekrara düşen tamlamaları **KESİNLİKLE KULLANMAYINIZ**; bunun yerine doğrudan *"neden"*, *"sonuç"*, *"çıkarım"* veya *"açıklama"* gibi yalın ifadeleri kullanınız.
 - **Rol ve Tema:** Tarihsel bağlama uymayan "laboratuvar", "dedektif", "kaşif" gibi kelimeler ve roller kullanmayınız.
 
 ## 🎨 2. Tasarım ve Görsel Düzen Kuralları
 - **CSS Önceliği:** Stil işlemlerinde her zaman **Tailwind CSS** tercih ediniz.
 - **Göreceli Birimler:** Tasarımları yaparken göreceli birimler (rem, em, %, vh, vw) kullanınız.
 - **Sade ve Kurumsal Görünüm:** MEBİ ortamında kullanılabilecek kurumsal, sade, modern, temiz ve pedagojik bir görünüm oluşturunuz.
-- **Görsel Düzen:** Başlıklar, yönergeler ve öğrenci etkileşim alanları görsel olarak net bir şekilde birbirinden ayrılmalıdır.
+- **Görsel Düzen:** Başlıklar, açıklama metinleri ve öğrenci etkileşim alanları görsel olarak net bir şekilde birbirinden ayrılmalıdır.
 - **Sade Öğeler:** Aşırı animasyonlardan, göz yoran parlak renklerden ve dikkat dağıtan dekoratif ögelerden kaçınınız.
 
 ## 🖥️ 3. Ekran ve Cihaz Uyumluluğu
