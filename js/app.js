@@ -255,7 +255,6 @@ function initS1() {
 
 function initS2() {
     const layer = document.getElementById('s2-hotspots-layer');
-    const counter = document.getElementById('s2-counter');
     const modal = document.getElementById('s2-info-modal');
     const modalTitle = document.getElementById('s2-modal-title');
     const modalDetail = document.getElementById('s2-modal-detail');
@@ -263,8 +262,7 @@ function initS2() {
     
     if (!layer) return;
     layer.innerHTML = '';
-    let discoveredCount = 0;
-    counter.textContent = `0 / ${s2Data.length}`;
+    let visitedCount = 0;
     modal.classList.add('hidden');
 
     s2Data.forEach((item) => {
@@ -288,10 +286,9 @@ function initS2() {
             if (!hotspot.classList.contains('discovered')) {
                 hotspot.classList.add('discovered');
                 hotspot.innerHTML = `<span class="text-white text-[11px] font-black">✓</span>`;
-                discoveredCount++;
-                counter.textContent = `${discoveredCount} / ${s2Data.length}`;
+                visitedCount++;
 
-                if (discoveredCount === s2Data.length) {
+                if (visitedCount === s2Data.length) {
                     setTimeout(showNext, 1200);
                 }
             }
