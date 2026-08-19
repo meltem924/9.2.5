@@ -144,7 +144,7 @@ function initS1() {
 
         container.innerHTML = `
             <div id="active-card" class="relative bg-white rounded-2xl shadow-md border-2 border-slate-200 p-6 sm:p-7 pb-10 sm:pb-11 min-h-[140px] flex flex-col justify-center transition-all duration-300 fade-in" data-category="${data.category}">
-                <p class="text-[15px] sm:text-[16px] leading-relaxed font-semibold text-slate-800 italic">
+                <p class="text-[15px] sm:text-[16px] leading-relaxed font-semibold text-slate-800">
                     ${data.text}
                 </p>
                 <div class="absolute bottom-3.5 right-5 sm:right-6 text-[11px] font-black text-slate-500 uppercase tracking-widest">

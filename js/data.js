@@ -1,4 +1,4 @@
-const state = { stage: 0, maxStage: 4, unlockedStage: 4 }; // Geliştirme aşaması için tüm kilitler açık
+const state = { stage: 0, maxStage: 4, unlockedStage: 1 }; // Kilit mekanizması aktif: Aşamalar sırayla tamamlandıkça açılır
 
 const s1FocusedData = [
     {
@@ -19,7 +19,7 @@ const s1FocusedData = [
     {
         id: "src-2",
         title: "İktisadi Hayat ve Üretim",
-        text: "“Konar-göçer yaşam biçiminde iktisadi hayat büyük oranda hayvancılığa dayanmaktadır. Bu durum eski Türklerin hayvansal ürünler geliştirmesine katkı sağlamıştır. Nitekim küçükbaş hayvanların kürklerinden üretilen keçeler, eski Türklerin kıyafetlerinden atlarının eyerlerine, yattıkları yastıklarından üzerlerini örttükleri yorganlarına, çadırların örtülerinden çadırların içerisindeki döşemelere ve yer yaygılarına kadar çeşitli yerlerde türlü amaçlar için kullanılmıştır.”",
+        text: "“Konargöçer yaşam biçiminde iktisadi hayat büyük oranda hayvancılığa dayanmaktadır. Bu durum eski Türklerin hayvansal ürünler geliştirmesine katkı sağlamıştır. Nitekim küçükbaş hayvanların kürklerinden üretilen keçeler, eski Türklerin kıyafetlerinden atlarının eyerlerine, yattıkları yastıklarından üzerlerini örttükleri yorganlarına, çadırların örtülerinden çadırların içerisindeki döşemelere ve yer yaygılarına kadar çeşitli yerlerde türlü amaçlar için kullanılmıştır.”",
         category: "ekonomi",
         sourceRef: "Göner ve Gönen, 2022",
         hint: "İpucu: Metin hayvansal ürünlerin üretimi ve bunların günlük eşyalara dönüştürülmesiyle ilgilidir.",
@@ -157,43 +157,43 @@ const s2Data = [
 ];
 
 const s3Data = [
-    { 
-        item: "Kımız (kısrak sütü) ve tutmaç yemeğinin tüketilmesi", 
+    {
+        item: "Kımız (kısrak sütü) ve tutmaç yemeğinin tüketilmesi",
         category: "past",
         hint: "Kısrak sütünden elde edilen kımız ve besleyici tutmaç çorbası Eski Türk bozkır kültürüne ait geleneksel gıdalardır."
     },
-    { 
-        item: "At eğeri altında pastırma imal edilmesi", 
+    {
+        item: "At eğeri altında pastırma imal edilmesi",
         category: "past",
         hint: "Savaşa giden Türk süvarilerinin eti at eğeri altında tuzlayıp sıkıştırarak kurutması eski bozkır savaşçılık geleneğidir."
     },
-    { 
-        item: "Kök Börü ve Çevgen atlı oyunlarının oynanması", 
+    {
+        item: "Kök Börü ve Çevgen atlı oyunlarının oynanması",
         category: "past",
         hint: "Kök börü ve çevgen (cirit benzeri) atlı oyunları eski Türklerin çeviklik ve savaş hazırlığı antrenmanı oyunlarıdır."
     },
-    { 
-        item: "Tarhana, erişte, gözleme ve keşkek gibi yöresel yemeklerin tüketilmesi", 
+    {
+        item: "Tarhana, erişte, gözleme ve keşkek gibi yöresel yemeklerin tüketilmesi",
         category: "present",
         hint: "Tarhana, keşkek ve erişte yerleşik hayata geçişle birlikte Anadolu kültürümüzde günümüzde yaygınlaşan yemeklerimizdir."
     },
-    { 
-        item: "Sebze yetiştiriciliği, ev yapımı ürünler ve turizmden geçim sağlanması", 
+    {
+        item: "Sebze yetiştiriciliği, ev yapımı ürünler ve turizmden geçim sağlanması",
         category: "present",
         hint: "Tarım, turizm ve ev yapımı ürün üretimi modern zamanlarda ve günümüzde önemli geçim kaynaklarımızdandır."
     },
-    { 
-        item: "Kara çadır ve konak adı verilen evlerin kullanılması", 
+    {
+        item: "Kara çadır ve konak adı verilen evlerin kullanılması",
         category: "both",
         hint: "Keçe/kara çadırlar Eski Türklerden beri kullanılmış olup günümüzde Toroslarda Yörükler tarafından hâlâ kullanılmaktadır."
     },
-    { 
-        item: "Mevsimsel otlak göçlerine dayalı hayvancılık yaşam biçimi", 
+    {
+        item: "Mevsimsel otlak göçlerine dayalı hayvancılık yaşam biçimi",
         category: "both",
         hint: "Yaylacılık ve mevsimlik hayvancılık göçleri hem Eski Türklerde hem de günümüz Türkiye'sinde (Yörüklerde) varlığını korumaktadır."
     },
-    { 
-        item: "Töre kurallarına ve toplumsal dayanışmaya dayalı sosyal yapı", 
+    {
+        item: "Töre kurallarına ve toplumsal dayanışmaya dayalı sosyal yapı",
         category: "both",
         hint: "Yardımlaşma, imece ve töre anlayışı geçmişten günümüze Türk toplum yapısının en temel değeridir."
     }
